@@ -7,6 +7,7 @@ import { AllowanceOtManagement } from './features/salary-management/allowance-ot
 import { ExportSalary } from './features/salary-management/salary-export/salary-export';
 
 import { AuthGuard } from './gaurds/auth.guard';
+import { Reporting } from './features/reporting/reporting';
 
 export const routes: Routes = [
 
@@ -35,6 +36,7 @@ export const routes: Routes = [
       { path: 'salary-overview', component: SalaryDashboard },
       { path: 'allowances', component: AllowanceOtManagement },
       { path: 'salary-report', component: ExportSalary },
+      { path: 'reports', component: Reporting },
     ]
   },
 
