@@ -1,0 +1,37 @@
+<div class="stats-row">
+
+  <div class="stat-card">
+    <div class="info">
+      <div class="label">Tổng ca trong tháng</div>
+      <div class="value">{{ stats.total }}</div>
+    </div>
+    <div class="icon">
+      <i class="fa-solid fa-calendar"></i>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="info">
+      <div class="label">Nhân viên có lịch</div>
+      <div class="value">{{ stats.withShifts }}</div>
+    </div>
+    <span class="icon material-icons">groups</span>
+  </div>
+
+  <div class="stat-card">
+    <div class="info">
+      <div class="label">Ca thiếu người</div>
+      <div class="value danger">{{ stats.missing }}</div>
+    </div>
+    <span class="icon material-icons danger">warning</span>
+  </div>
+
+  <div class="stat-card">
+    <div class="info">
+      <div class="label">Ca xung đột</div>
+      <div class="value warning">{{ stats.conflicts }}</div>
+    </div>
+    <span class="icon material-icons warning">report_problem</span>
+  </div>
+
+</div>

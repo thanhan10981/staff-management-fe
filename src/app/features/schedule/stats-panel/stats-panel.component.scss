@@ -1,0 +1,57 @@
+.stats-row {
+  display: flex;
+  gap: 10px;
+}
+
+.stat-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;  /* 🔥 icon bên phải */
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.stat-card .info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-card .label {
+  font-size: 13px;
+  color: #666;
+}
+
+.stat-card .value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.stat-card .value.danger { color: #e53935; }
+.stat-card .value.warning { color: #fb8c00; }
+
+/* 🔥 ICON STYLE */
+.stat-card .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(37,99,235,0.12);
+  color: #2563eb;
+  font-size: 24px;
+}
+
+.stat-card .icon.danger {
+  background: rgba(239,68,68,0.12);
+  color: #ef4444;
+}
+
+.stat-card .icon.warning {
+  background: rgba(249,115,22,0.12);
+  color: #f97316;
+}

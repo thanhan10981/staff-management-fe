@@ -1,47 +1,119 @@
-<!-- HEADER -->
 <app-header></app-header>
 
 <div class="layout-wrapper">
-
-  <!-- SIDEBAR -->
   <app-sidebar></app-sidebar>
 
-  <!-- MAIN CONTENT -->
   <div class="main-content">
-
     <div class="schedule-container">
 
-      <!-- TITLE + ACTION -->
+      <!-- HEADER -->
       <div class="schedule-header">
-        <div>
+        <div class="left">
           <h2 class="title">Quản lý lịch trực</h2>
           <p class="subtitle">Quản lý lịch làm việc và ca trực của nhân viên</p>
         </div>
-
-        <div class="actions">
-          <button mat-raised-button color="primary" (click)="openAssignDialog()">
-            <mat-icon>assignment</mat-icon>
-            Phân công ca
-          </button>
-
-          <button mat-raised-button color="accent" (click)="dateClick({ dateStr: today })">
-            <mat-icon>add</mat-icon>
-            Thêm lịch trực
-          </button>
-        </div>
       </div>
 
-      <!-- CALENDAR -->
-      <div class="calendar-wrapper">
-        <full-calendar #calendarRef [options]="calendarOptions"></full-calendar>
+      <!-- STATS -->
+      <app-stats-panel 
+        [maKhoa]="selectedKhoaId" 
+        [from]="fromDate" 
+        [to]="toDate">
+      </app-stats-panel>
+
+      <!-- CONTENT -->
+      <div class="content-area">
+
+        <!-- LEFT COLUMN -->
+        <div class="calendar-column">
+
+          <!-- ACTION BAR -->
+          <div class="action-bar clean">
+
+            <div class="left-group">
+              <button class="btn-switch">Tuần</button>
+              <button class="btn-switch active">Tháng</button>
+            </div>
+
+            <div class="month-center">
+              <button class="btn-normal" (click)="goToday()">Hôm nay</button>
+
+              <button class="btn-month-nav" (click)="prevMonth()">&lt;</button>
+
+              <span class="month-label">
+                {{ currentDate | date:'MMMM yyyy' }}
+              </span>
+
+              <button class="btn-month-nav" (click)="nextMonth()">&gt;</button>
+            </div>
+
+            <div class="right-group">
+              <button class="btn-primary" (click)="dateClick({ dateStr: today })">
+                Thêm lịch trực
+              </button>
+
+              <button class="btn-primary-alt" (click)="openAssignDialog()">
+                Phân công ca
+              </button>
+
+              <button class="btn-outline">Xuất lịch</button>
+              <button class="btn-outline">In lịch</button>
+            </div>
+
+          </div>
+
+          <!-- CALENDAR -->
+          <div class="calendar-wrapper clean">
+            <full-calendar #calendarRef [options]="calendarOptions"></full-calendar>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <aside class="right-column">
+
+          <app-filter-panel 
+            [selectedKhoaId]="selectedKhoaId"
+            [khoas]="khoas"
+            (filterApply)="onFilterApply($event)">
+          </app-filter-panel>
+
+
+          <div class="ca-list card">
+            <h4>Quản lý ca làm việc</h4>
+
+            <div class="ca-item ca-sang">
+              <div class="label">Ca sáng</div>
+              <div class="time">06:00 - 14:00</div>
+              <div class="meta">24 nhân viên được phân công</div>
+            </div>
+
+            <div class="ca-item ca-chieu">
+              <div class="label">Ca chiều</div>
+              <div class="time">14:00 - 22:00</div>
+              <div class="meta">18 nhân viên được phân công</div>
+            </div>
+
+            <div class="ca-item ca-toi">
+              <div class="label">Ca tối</div>
+              <div class="time">18:00 - 02:00</div>
+              <div class="meta">12 nhân viên được phân công</div>
+            </div>
+
+            <div class="ca-item ca-dem">
+              <div class="label">Ca đêm</div>
+              <div class="time">22:00 - 06:00</div>
+              <div class="meta">8 nhân viên được phân công</div>
+            </div>
+
+          </div>
+
+        </aside>
 
       </div>
 
     </div>
-
   </div>
-
 </div>
 
-<!-- FOOTER -->
 <app-footer></app-footer>
