@@ -1,0 +1,168 @@
+/* CONTAINER */
+.dashboard-container {
+    padding: 24px;
+    font-family: "Inter", sans-serif;
+    color: #1e293b;
+}
+
+.dashboard-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+/* --- QUICK STATS GRID --- */
+.quick-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.stat-card {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 18px 20px;
+}
+
+.stat-value {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.stat-value.orange { color: #f97316; }
+.stat-value.green { color: #16a34a; }
+.stat-value.red { color: #dc2626; }
+
+.stat-label {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.stat-sub {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.stat-sub.orange { color: #ea580c; }
+.stat-sub.green { color: #16a34a; }
+.stat-sub.red { color: #dc2626; }
+
+/* ICON */
+.stat-icon {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.violet { background: #eef2ff; color: #5b21b6; }
+.orange-bg { background: #ffedd5; color: #c2410c; }
+.green-bg { background: #dcfce7; color: #15803d; }
+.red-bg { background: #fee2e2; color: #b91c1c; }
+
+/* --- BIỂU ĐỒ --- */
+.chart-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.chart-box {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.box-title {
+    margin-bottom: 14px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chart-placeholder {
+    width: 100%;
+    height: 220px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #64748b;
+}
+
+/* --- GRID 3 BOX DƯỚI --- */
+.bottom-grid {
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.info-box {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+/* DANH SÁCH TOP 5 */
+.list-text {
+    list-style: none;
+    padding: 0;
+    margin-top: 14px;
+    line-height: 1.8;
+}
+
+.num.red {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+/* NHÂN VIÊN MỚI */
+.employee-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 14px;
+    line-height: 1.8;
+}
+
+.employee-list i {
+    margin-right: 8px;
+    color: #475569;
+}
+
+/* THÔNG BÁO */
+.notice {
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.notice-yellow {
+    background: #fef9c3;
+    color: #92400e;
+}
+
+.notice-blue {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.notice-green {
+    background: #dcfce7;
+    color: #166534;
+}

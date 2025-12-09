@@ -1,94 +1,204 @@
-/* Layout */
-.page-report {
+/* ---------- PAGE ---------- */
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f8fafc;
+    margin: 0;
     padding: 24px;
-    font-family: Arial, sans-serif;
-    color: #333;
 }
 
-/* Breadcrumb */
-.breadcrumb {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 10px;
-}
-.breadcrumb span {
-    font-weight: bold;
-    color: #222;
-}
-
-/* Page Title */
 .title {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 4px;
-}
-.subtitle {
-    color: #666;
-    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 700;
 }
 
-/* Grid Cards */
+.subtitle {
+    margin-top: 4px;
+    margin-bottom: 26px;
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* ---------- GRID 3 CARD ---------- */
+
 .report-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px; /* tăng khoảng cách giữa các card */
 }
+
+/* ---------- CARD ---------- */
 
 .card {
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    transition: 0.2s;
-}
-.card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.card h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-.card p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 14px;
-}
-.card button {
-    padding: 8px 16px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-}
-.card button:hover {
-    background: #1e4ecb;
+    background: #fff;
+    padding: 30px; /* tăng padding cho thân thiện */
+    border-radius: 20px; /* bo góc mềm hơn */
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transition: .25s ease;
+    min-height: 220px; /* tăng chiều cao card */
 }
 
-/* Summary Boxes */
-.summary-grid {
-    margin-top: 28px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+/* ---------- ICON HEADER ---------- */
+
+.card-header {
+    display: flex;
+    align-items: center;
     gap: 16px;
+    margin-bottom: 14px; /* khoảng cách dưới icon lớn hơn */
+}
+
+.icon-wrapper {
+    width: 56px;         /* icon lớn hơn */
+    height: 56px;
+    border-radius: 16px; /* bo cong mềm */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-stroke {
+    width: 30px;
+    height: 30px;
+    stroke: #0F172A;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Pastel icon backgrounds */
+.blue-bg { background: #e8f1ff; }
+.green-bg { background: #eaf9ef; }
+.yellow-bg { background: #fff6d9; }
+.purple-bg { background: #f3e8ff; }
+.red-bg { background: #ffe5e5; }
+.gray-bg { background: #eceff3; }
+
+/* ---------- TITLE GROUP ---------- */
+
+.title-group h3 {
+    margin: 0;
+    font-size: 19px; /* lớn hơn dễ nhìn */
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.title-group .sub {
+    margin-top: 4px;
+    color: #94A3B8;
+    font-size: 14px;
+}
+
+/* ---------- DESCRIPTION ---------- */
+
+.desc {
+    color: #475569;
+    margin: 16px 0 26px; /* tăng khoảng cách trên & dưới */
+    line-height: 1.55;
+    font-size: 15px;
+}
+
+/* ---------- FOOTER ---------- */
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px; /* khoảng cách với mô tả lớn hơn */
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #374151;
+    font-size: 15px;
+}
+
+.footer-icon {
+    width: 20px;
+    height: 20px;
+    stroke: #374151;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* ---------- BUTTON ---------- */
+
+.btn {
+    background: #2563EB;
+    padding: 10px 22px; /* nút to, thân thiện hơn */
+    border-radius: 10px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .25s ease;
+}
+
+.btn:hover {
+    background: #1e4ecb;
+    transform: translateY(-2px);
+}
+
+/* =========================================================== */
+/* ---------- SUMMARY GRID (DƯỚI CÙNG) ---------- */
+/* =========================================================== */
+
+.summary-grid {
+    margin-top: 34px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
 }
 
 .summary-box {
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    text-align: left;
+    background: #fff;
+    padding: 26px 26px;  /* tăng padding */
+    border-radius: 20px; /* bo góc mềm */
+    border: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 110px; /* cao hơn nhìn sang trọng */
 }
 
-.summary-box .label {
-    font-size: 14px;
-    color: #666;
+/* TEXT */
+.summary-label {
+    font-size: 15px;
+    color: #64748b;
+    margin: 0;
 }
-.summary-box .value {
-    margin-top: 6px;
-    font-size: 26px;
-    font-weight: bold;
+.summary-value {
+    margin-top: 8px;
+    font-size: 30px;
+    font-weight: 700;
     color: #111;
 }
+
+/* ICON */
+.summary-icon {
+    width: 52px; 
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-icon-svg {
+    width: 26px;
+    height: 26px;
+    stroke: #111;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Pastel colors */
+.blue-bg { background: #E8F1FF; }
+.green-bg { background: #E7FAF0; }
+.yellow-bg { background: #FFF6D7; }
+.red-bg { background: #FFE8E8; }
