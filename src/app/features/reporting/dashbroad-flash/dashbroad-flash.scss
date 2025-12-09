@@ -1,66 +1,129 @@
-/* CONTAINER */
+/* =============================== */
+/*             POPUP              */
+/* =============================== */
+
+/* NỀN MỜ */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(3px);
+  z-index: 999998 !important;
+}
+
+/* POPUP WRAPPER */
+.popup-dashboard {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 92%;
+  max-width: 1250px;
+  max-height: 90vh;
+
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // Không cho popup tràn ra ngoài
+  z-index: 999999 !important;
+}
+
+/* HEADER POPUP */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.popup-close {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* VÙNG CUỘN */
+.popup-scroll {
+  overflow-y: auto;
+  margin-top: 16px;
+  max-height: calc(90vh - 80px);
+  padding-right: 6px;
+}
+
+/* ẨN SCROLLBAR */
+.popup-scroll::-webkit-scrollbar {
+  width: 0;
+}
+.popup-scroll {
+  scrollbar-width: none;
+}
+/* =============================== */
+/*           DASHBOARD             */
+/* =============================== */
+
 .dashboard-container {
-    padding: 24px;
-    font-family: "Inter", sans-serif;
-    color: #1e293b;
+  font-family: "Inter", sans-serif;
+  color: #1e293b;
 }
 
-.dashboard-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 18px;
-}
-
-/* --- QUICK STATS GRID --- */
+/* TOP QUICK GRID */
 .quick-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .stat-card {
-    position: relative;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 18px 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 110px;
+  position: relative;
 }
 
 .stat-value {
-    font-size: 30px;
-    font-weight: 700;
+  font-size: 30px;
+  font-weight: 700;
 }
 
-.stat-value.orange { color: #f97316; }
-.stat-value.green { color: #16a34a; }
-.stat-value.red { color: #dc2626; }
-
 .stat-label {
-    margin-top: 4px;
-    font-size: 14px;
-    color: #64748b;
+  font-size: 14px;
+  color: #64748b;
 }
 
 .stat-sub {
-    font-size: 13px;
-    color: #64748b;
+  font-size: 13px;
+  color: #64748b;
 }
 
-.stat-sub.orange { color: #ea580c; }
-.stat-sub.green { color: #16a34a; }
-.stat-sub.red { color: #dc2626; }
+.orange { color: #f97316; }
+.green { color: #16a34a; }
+.red { color: #dc2626; }
 
-/* ICON */
+/* ICON BADGE */
 .stat-icon {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .violet { background: #eef2ff; color: #5b21b6; }
@@ -68,101 +131,89 @@
 .green-bg { background: #dcfce7; color: #15803d; }
 .red-bg { background: #fee2e2; color: #b91c1c; }
 
-/* --- BIỂU ĐỒ --- */
+/* CHART GRID */
 .chart-grid {
-    margin-top: 28px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
 .chart-box {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
 }
 
 .box-title {
-    margin-bottom: 14px;
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 .chart-placeholder {
-    width: 100%;
-    height: 220px;
-    border-radius: 12px;
-    background: #f1f5f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #64748b;
+  height: 260px;
+  background: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
 }
 
-/* --- GRID 3 BOX DƯỚI --- */
+/* 3 GRID BOTTOM */
 .bottom-grid {
-    margin-top: 26px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
 .info-box {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
 }
 
-/* DANH SÁCH TOP 5 */
 .list-text {
-    list-style: none;
-    padding: 0;
-    margin-top: 14px;
-    line-height: 1.8;
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+  line-height: 1.8;
 }
 
 .num.red {
-    color: #dc2626;
-    font-weight: 600;
+  color: #dc2626;
+  font-weight: 600;
 }
 
-/* NHÂN VIÊN MỚI */
+/* NEW EMPLOYEE */
 .employee-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 14px;
-    line-height: 1.8;
+  list-style: none;
+  padding: 0;
+  line-height: 1.9;
 }
 
 .employee-list i {
-    margin-right: 8px;
-    color: #475569;
+  margin-right: 8px;
 }
 
-/* THÔNG BÁO */
+/* NOTICE */
 .notice {
-    padding: 14px 16px;
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 14px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  padding: 14px;
+  border-radius: 12px;
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-.notice-yellow {
-    background: #fef9c3;
-    color: #92400e;
-}
-
-.notice-blue {
-    background: #e0f2fe;
-    color: #0369a1;
-}
-
-.notice-green {
-    background: #dcfce7;
-    color: #166534;
+.notice-yellow { background: #fef9c3; color: #92400e; }
+.notice-blue { background: #dbeafe; color: #1e3a8a; }
+.notice-green { background: #dcfce7; color: #166534; }
+.donut-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
 }

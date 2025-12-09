@@ -170,7 +170,7 @@
             <span>Thời gian thực</span>
         </div>
 
-        <button class="btn">Xem báo cáo</button>
+        <button class="btn"(click)="openDashbroadPopup()">Xem báo cáo</button>
     </div>
 </div>
 
@@ -205,7 +205,7 @@
             <span>In/Tải PDF</span>
         </div>
 
-        <button class="btn">Xem báo cáo</button>
+        <button class="btn" >Xem báo cáo</button>
     </div>
 </div>
 </div> <!-- END GRID -->
@@ -213,7 +213,8 @@
     *ngIf="showDepartmentPopup"
     (close)="closeDepartmentPopup()">
 </app-depart-ment-employee-popup>
-
+<app-dashbroad-flash *ngIf="showDashbroadPopup"
+    (close)="closeDashbroadPopup()"></app-dashbroad-flash>
 <div class="summary-grid">
 
     <!-- Tổng số báo cáo -->
