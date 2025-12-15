@@ -20,7 +20,7 @@ export const routes: Routes = [
 
   // LOGIN (lazy load)
   {
-    path: 'login',
+    path: 'login', title: 'Đăng nhập hệ thống',
     loadComponent: () =>
       import('./features/login/login.component').then(m => m.LoginComponent)
   },
@@ -31,12 +31,12 @@ export const routes: Routes = [
     component: Layout,
     canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'employees', component: Employee },
-      { path: 'salary-overview', component: SalaryDashboard },
-      { path: 'allowances', component: AllowanceOtManagement },
-      { path: 'salary-report', component: ExportSalary },
-      { path: 'reports', component: ReportingComponent },
+      { path: 'dashboard', title: 'Tổng quan',component: DashboardComponent },
+      { path: 'employees',  title: 'Quản lý nhân viên',component: Employee },
+      { path: 'salary-overview',  title: 'Tổng quan lương', component: SalaryDashboard },
+      { path: 'allowances',  title: 'thêm title',component: AllowanceOtManagement },
+      { path: 'salary-report', title: 'Thống kê lương',component: ExportSalary },
+      { path: 'reports', title: 'Thống kê',component: ReportingComponent },
     ]
   },
 

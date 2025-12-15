@@ -7,11 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIcon],
   templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
     if (this.form.invalid) return;
 
     this.auth.login(this.form.value).subscribe({
@@ -56,4 +58,10 @@ export class LoginComponent implements OnInit {
     console.log("Sending login request:", this.form.value);
 
   }
+  hidePassword = true;
+
+togglePassword() {
+  this.hidePassword = !this.hidePassword;
+}
+
 }

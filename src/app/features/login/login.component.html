@@ -1,23 +1,63 @@
-<div class="login-container">
-  <div class="login-box">
+
+  
+
+<div class="login-wrapper">
+  <div class="background-overlay"></div>
+
+  <div class="login-card">
+    <div class="logo">
+      <mat-icon>lock</mat-icon>
+    </div>
+
     <h2>Đăng nhập hệ thống</h2>
+    <p class="subtitle">Vui lòng đăng nhập để tiếp tục</p>
 
     <form [formGroup]="form">
       <mat-form-field appearance="outline" class="full">
         <mat-label>Tài khoản</mat-label>
-        <input matInput formControlName="username" />
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput formControlName="username" placeholder="Nhập tài khoản" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full">
         <mat-label>Mật khẩu</mat-label>
-        <input matInput type="password" formControlName="password" />
+
+        <mat-icon matPrefix>lock</mat-icon>
+
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          placeholder="Nhập mật khẩu"
+          formControlName="password"
+        />
+
+        <!-- Icon xem mật khẩu -->
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePassword()"
+          aria-label="Xem mật khẩu"
+        >
+          <mat-icon>
+            {{ hidePassword ? 'visibility' : 'visibility_off' }}
+          </mat-icon>
+        </button>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" class="full" (click)="login()">
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full login-btn"
+        (click)="login()"
+      >
         Đăng nhập
       </button>
 
-      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
     </form>
   </div>
 </div>
