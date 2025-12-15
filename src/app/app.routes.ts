@@ -34,15 +34,15 @@ export const routes: Routes = [
       { path: 'dashboard', title: 'Tổng quan',component: DashboardComponent },
       { path: 'employees',  title: 'Quản lý nhân viên',component: Employee },
       { path: 'salary-overview',  title: 'Tổng quan lương', component: SalaryDashboard },
-      { path: 'allowances',  title: 'thêm title',component: AllowanceOtManagement },
-      { path: 'salary-report', title: 'Thống kê lương',component: ExportSalary },
-      { path: 'reports', title: 'Thống kê',component: ReportingComponent },
+      { path: 'allowances',  title: 'Quản lý Phụ cấp và OT',component: AllowanceOtManagement },
+      { path: 'salary-report', title: 'Xuất bảng lương',component: ExportSalary },
+      { path: 'reports', title: 'Báo cáo',component: ReportingComponent },
     ]
   },
 
   // SCHEDULE (lazy loading + guard + roles)
   {
-    path: 'schedule',
+    path: 'schedule',title: 'thêm title trong routes',
     loadComponent: () =>
       import('./features/schedule/calendar/schedule-calendar.component')
         .then(m => m.ScheduleCalendarComponent),
