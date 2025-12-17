@@ -1,0 +1,30 @@
+<div class="filter-card">
+  <h4>Bộ lọc</h4>
+  <div class="field">
+    <label>Khoa</label>
+    <select [formControl]="khoaControl">
+      <option [ngValue]="null">Tất cả</option>
+      <option *ngFor="let k of khoas" [ngValue]="k.id">
+        {{ k.tenKhoa }}
+        </option>
+
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Phòng</label>
+    <input type="text" [formControl]="phongControl" placeholder="Phòng..." />
+  </div>
+
+  <div class="field">
+    <label>Chức vụ</label>
+    <input type="text" [formControl]="chucVuControl" placeholder="chức vụ..." />
+  </div>
+
+  <div class="field">
+    <label>Nhân viên</label>
+    <input type="text" [formControl]="nhanVienControl" placeholder="Tên nhân viên" />
+  </div>
+
+  <button class="apply-btn" (click)="onApply()">Áp dụng bộ lọc</button>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportingComponent } from './reporting';
+import { DashbroadFlash } from './dashbroad-flash';
 
-describe('Reporting', () => {
-  let component: ReportingComponent;
-  let fixture: ComponentFixture<ReportingComponent>;
+describe('DashbroadFlash', () => {
+  let component: DashbroadFlash;
+  let fixture: ComponentFixture<DashbroadFlash>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReportingComponent]
+      imports: [DashbroadFlash]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReportingComponent);
+    fixture = TestBed.createComponent(DashbroadFlash);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

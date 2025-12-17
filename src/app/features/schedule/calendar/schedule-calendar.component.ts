@@ -1,54 +1,70 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
+import { format } from 'date-fns';
+import { Router } from '@angular/router';
 
 import { AddScheduleComponent } from '../dialogs/add-schedule/add-schedule.component';
 import { AssignShiftComponent } from '../dialogs/assign-shift/assign-shift.component';
-import { Router } from '@angular/router';
-
 import { Header } from '../../../core/layout/header/header';
 import { Footer } from '../../../core/layout/footer/footer';
 import { Sidebar } from '../../../core/layout/sidebar/sidebar';
-import { ScheduleService } from '../../../service/schedule.service';
+
+import { ScheduleService, KhoaDTO } from '../../../service/schedule.service';
+import { StatsPanelComponent } from '../stats-panel/stats-panel.component';
+import { FilterPanelComponent } from '../filter-panel/filter-panel.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-schedule-calendar',
   standalone: true,
   imports: [
     CommonModule,
-    Header, Footer, Sidebar,
     FullCalendarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule
+    MatDialogModule, MatButtonModule, MatIconModule,
+    Header, Footer, Sidebar,
+    StatsPanelComponent, FilterPanelComponent,
+      MatDatepickerModule,
+    MatNativeDateModule,
   ],
   templateUrl: './schedule-calendar.component.html',
-  styleUrls: ['./schedule-calendar.component.scss']
+  styleUrls: ['./schedule-calendar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ScheduleCalendarComponent implements OnInit {
 
-  @ViewChild('calendarRef') calendarRef: any;
+  @ViewChild('calendarRef') calendarRef!: FullCalendarComponent;
 
-  currentDate: Date = new Date();
-  days: any[] = [];
+  currentDate = new Date();
+  days: { date: string, shifts: { maCa: number, count: number }[] }[] = [];
+  khoas: KhoaDTO[] = [];
+  selectedKhoaId = 0;
 
+  fromDate!: Date;
+  toDate!: Date;
+  today = new Date().toISOString().split('T')[0];
+
+  // FULLCALENDAR OPTIONS
   calendarOptions: any = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-    dayCellDidMount: (arg: any) => this.renderDayCell(arg),
+    headerToolbar: false,
+    // FullCalendar v6: dayCellContent returns { html }
+    dayCellContent: (arg: any) => this.renderDayCell(arg),
     dateClick: (info: any) => this.dateClick(info),
     eventClick: (info: any) => this.eventClick(info),
-    events: []
+    firstDay: 1,
+    locale: 'vi',
+    events: [] // start empty
   };
-
-  today = new Date().toISOString().split('T')[0];
 
   constructor(
     private scheduleService: ScheduleService,
@@ -57,125 +73,230 @@ export class ScheduleCalendarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadMonth(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1);
+    // load list of khoa -> default selected = first one (if any)
+    this.scheduleService.getKhoaList().subscribe({
+      next: (list) => {
+        this.khoas = list ?? [];
+        // default to khoa 1 if you want explicitly, otherwise first in list
+        this.selectedKhoaId = this.khoas[0]?.id ?? 1;
+        console.log('Init khoas:', this.khoas);
+        this.loadMonth(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1);
+      },
+      error: () => {
+        this.selectedKhoaId = 1;
+        this.loadMonth(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1);
+      }
+    });
   }
 
   // =============================
-  // LOAD LỊCH
+  // LOAD MONTH DATA
   // =============================
   loadMonth(year: number, month: number): void {
     this.currentDate = new Date(year, month - 1, 1);
 
-    this.scheduleService.getSchedules(year, month).subscribe({
-      next: (res: any[]) => {
+    const from = format(new Date(year, month - 1, 1), 'yyyy-MM-dd');
+    const to   = format(new Date(year, month, 0), 'yyyy-MM-dd');
 
-        this.days = res;
+    this.fromDate = new Date(from);
+    this.toDate   = new Date(to);
 
-        const events = res.flatMap(day =>
-          (day.shifts ?? []).map((e: any) => ({
-            title: `${e.tenNhanVien} - ${e.tenCa}`,
-            date: day.date,
-            display: 'block',
-            classNames: [this.getShiftCssClass(e.maCa)],
-            extendedProps: e
-          }))
-        );
+    const maKhoa = this.selectedKhoaId ?? 0;
+    console.log("📅 Load tháng với maKhoa =", maKhoa, 'from', from, 'to', to);
 
-        // --- FULLCALENDAR UPDATE ---
-        const api = this.calendarRef?.getApi?.();
-        if (api) {
-          api.removeAllEvents();
-          api.addEventSource(events);
-        }
+    this.scheduleService.getShiftsByKhoa(maKhoa, from, to).subscribe({
+      next: (rows) => {
+        console.log("Shifts RAW BE:", rows);
+
+        // build day counts for rendering in cells
+        this.days = this.groupByDate(rows);
+        console.log("Group days:", this.days);
+
+        // update events shown in calendar
+        this.updateCalendarEvents(rows);
+
+        // make sure calendar re-renders cells with updated days[]
+        // call render on next tick so FullCalendar picks up dayCellContent
+        setTimeout(() => {
+          const api = this.calendarRef?.getApi?.();
+          api?.render();
+        }, 0);
       },
-      error: err => console.error(err)
+      error: err => {
+        console.error("Load error:", err);
+        this.days = [];
+        this.updateCalendarEvents([]);
+      }
     });
   }
 
-
-  getShiftCssClass(maCa: number): string {
-    switch (maCa) {
-      case 1: return 'ca-sang';
-      case 2: return 'ca-chieu';
-      case 3: return 'ca-toi';
-      case 4: return 'ca-dem';
-      default: return '';
+  private updateCalendarEvents(raw: any[]) {
+    const api = this.calendarRef?.getApi();
+    if (!api) {
+      // initial render path: set events in options so FC will pick them up
+      this.calendarOptions = {
+        ...this.calendarOptions,
+        events: raw.map(e => ({
+          id: e.maLichTruc,
+          title: `${e.hoTen ?? ""} - Ca ${e.maCa}`,
+          start: e.ngayTruc,
+          allDay: true,
+          classNames: [this.getShiftCssClass(e.maCa)],
+          extendedProps: e
+        }))
+      };
+      return;
     }
+
+    // remove previous events and add new ones
+    api.removeAllEvents();
+    raw.forEach(e => {
+      api.addEvent({
+        id: e.maLichTruc,
+        title: `${e.hoTen ?? ""} - Ca ${e.maCa}`,
+        start: e.ngayTruc,
+        allDay: true,
+        classNames: [this.getShiftCssClass(e.maCa)],
+        extendedProps: e
+      });
+    });
+
+    // re-render to trigger dayCellContent again
+    api.render();
+  }
+
+  // GROUP SHIFT BY DATE + COUNT PER SHIFT
+  groupByDate(shifts: any[]) {
+    const map: Record<string, any> = {};
+
+    shifts.forEach((s: any) => {
+      const date = s.ngayTruc;
+      if (!map[date]) {
+        map[date] = { date, shifts: [] as { maCa: number, count: number }[] };
+      }
+
+      let ca = map[date].shifts.find((x: any) => x.maCa === s.maCa);
+      if (!ca) {
+        ca = { maCa: s.maCa, count: 0 };
+        map[date].shifts.push(ca);
+      }
+      ca.count++;
+    });
+
+    // keep stable sorted order by date (optional)
+    return Object.values(map).sort((a: any, b: any) => a.date.localeCompare(b.date));
   }
 
   // =============================
-  // RENDER Ô LỊCH
+  // RENDER CUSTOM CELL (FullCalendar v6)
+  // dayCellContent should return { html }
   // =============================
   renderDayCell(arg: any) {
-  const dateStr = arg.date.toISOString().split('T')[0];
-  const day = this.days.find(d => d.date === dateStr);
-  if (!day) return;
+    // arg.date is a Date
+    const dateStr = arg.date.toISOString().split("T")[0];
+    const day = this.days.find(d => d.date === dateStr);
 
-  // Xóa cell cũ
-  arg.el.querySelectorAll(".cell-ca").forEach((e: any) => e.remove());
+    // always include day number text so default number still shows
+    let html = `<div class="fc-daygrid-day-number">${arg.dayNumberText}</div>`;
 
-  type ShiftKey = 1 | 2 | 3 | 4;
+    if (day && Array.isArray(day.shifts) && day.shifts.length > 0) {
+      for (const shift of day.shifts) {
+        const css = this.getShiftCssClass(shift.maCa);
+        const label =
+          shift.maCa === 1 ? "Sáng" :
+          shift.maCa === 2 ? "Chiều" :
+          shift.maCa === 3 ? "Tối"   : "Đêm";
 
-  const counts: Record<ShiftKey, number> = {
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0
-  };
+        html += `
+          <div class="cell-ca ${css}">
+            ${label}: ${shift.count} nhân viên
+          </div>
+        `;
+      }
+    }
 
-  (day.shifts ?? []).forEach((e: any) => {
-    const key = e.maCa as ShiftKey;   // ⭐ FIX LỖI TS
-    counts[key]++;
-  });
-
-  const html = `
-    ${counts[1] ? `<div class="cell-ca ca-sang">Sáng: ${counts[1]} nhân viên</div>` : ''}
-    ${counts[2] ? `<div class="cell-ca ca-chieu">Chiều: ${counts[2]} nhân viên</div>` : ''}
-    ${counts[3] ? `<div class="cell-ca ca-toi">Tối: ${counts[3]} nhân viên</div>` : ''}
-    ${counts[4] ? `<div class="cell-ca ca-dem">Đêm: ${counts[4]} nhân viên</div>` : ''}
-  `;
-
-  const frame = arg.el.querySelector(".fc-daygrid-day-frame");
-  if (frame) frame.insertAdjacentHTML("beforeend", html);
-}
-
+    return { html };
+  }
 
   // =============================
-  // CLICK NGÀY
+  // EVENTS
   // =============================
   dateClick(info: any) {
-    const dialogRef = this.dialog.open(AddScheduleComponent, {
+    const dlg = this.dialog.open(AddScheduleComponent, {
       width: '720px',
-      data: { date: info.dateStr }
+      data: { date: info.dateStr, maKhoa: this.selectedKhoaId }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') {
+    dlg.afterClosed().subscribe(r => {
+      if (r === 'refresh') {
         const d = new Date(info.dateStr);
         this.loadMonth(d.getFullYear(), d.getMonth() + 1);
       }
     });
   }
 
-  // =============================
-  // CLICK EVENT
-  // =============================
   eventClick(info: any) {
     this.router.navigate(['/schedule/day', info.event.startStr]);
   }
 
-  // =============================
-  // PHÂN CA
-  // =============================
   openAssignDialog() {
-    const dialogRef = this.dialog.open(AssignShiftComponent, {
-      width: '900px'
+    const dlg = this.dialog.open(AssignShiftComponent, {
+      width: '900px',
+      data: { maKhoa: this.selectedKhoaId }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') {
+    dlg.afterClosed().subscribe(r => {
+      if (r === 'refresh') {
         this.loadMonth(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1);
       }
     });
+  }
+
+  // =============================
+  // NAVIGATION
+  // =============================
+  prevMonth() {
+    const api = this.calendarRef?.getApi?.();
+    if (!api) return;
+
+    api.prev();
+    const d = api.getDate();
+    this.loadMonth(d.getFullYear(), d.getMonth() + 1);
+  }
+
+  nextMonth() {
+    const api = this.calendarRef?.getApi?.();
+    if (!api) return;
+
+    api.next();
+    const d = api.getDate();
+    this.loadMonth(d.getFullYear(), d.getMonth() + 1);
+  }
+
+  goToday() {
+    const t = new Date();
+    this.loadMonth(t.getFullYear(), t.getMonth() + 1);
+  }
+
+  // Called when FilterPanel emits filterApply
+  onFilterApply(payload: any) {
+    console.log("🔥 Filter payload:", payload);
+
+    if (payload && payload.khoaId !== undefined && payload.khoaId !== null) {
+      // update selectedKhoaId immediately
+      this.selectedKhoaId = payload.khoaId;
+    }
+
+    console.log("👉 selectedKhoaId =", this.selectedKhoaId);
+
+    // reload calendar for current month with new khoa
+    this.loadMonth(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1);
+  }
+
+  getShiftCssClass(maCa: number) {
+    return maCa === 1 ? 'ca-sang'
+         : maCa === 2 ? 'ca-chieu'
+         : maCa === 3 ? 'ca-toi'
+         : 'ca-dem';
   }
 }

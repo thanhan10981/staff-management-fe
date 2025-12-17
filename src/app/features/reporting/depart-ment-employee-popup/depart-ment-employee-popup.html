@@ -1,0 +1,144 @@
+<div class="popup-overlay" (click)="closePopup()"></div>
+
+<div class="popup-panel">
+  <div class="popup-report">
+
+    <!-- HEADER -->
+    <div class="popup-title-row">
+      <h2 class="popup-title">Báo cáo nhân sự theo khoa</h2>
+      <button class="popup-close" (click)="closePopup()">✕</button>
+    </div>
+
+    <div class="popup-scroll">
+
+      <!-- FILTER -->
+      <div class="filter-section">
+        <div class="filter-grid">
+
+          <div class="filter-item">
+            <label>Khoa</label>
+            <select [(ngModel)]="filterKhoa" (change)="onKhoaChange()">
+                <option value="">Tất cả khoa</option>
+                <option *ngFor="let k of listKhoa" [value]="k.maKhoa">
+                    {{ k.tenKhoa }}
+                </option>
+            </select>
+          </div>
+
+
+           <div class="filter-item">
+            <label>Chức vụ</label>
+                <select [(ngModel)]="filterViTri">
+                    <option value="">Tất cả chức vụ</option>
+                    <option *ngFor="let v of listViTri" [value]="v.maViTri">
+                    {{ v.tenViTri }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label>Phòng ban</label>
+                <select [(ngModel)]="filterPhongBan">
+                    <option value="">Tất cả phòng ban</option>
+                    <option *ngFor="let p of listPhongBan" [value]="p.id">
+                        {{ p.tenPhongBan }}
+                    </option>
+                </select>
+            </div>
+
+          <div class="filter-item">
+            <label>Ngày vào làm</label>
+            <input type="date" [(ngModel)]="filterNgayVaoLam">
+            </div>
+
+          <button class="btn-search" (click)="applyFilters()">
+            Lọc dữ liệu
+            </button>
+        </div>
+      </div>
+      <div class="table-info">
+  Hiển thị
+  <strong>{{ paginatedEmployees.length }}</strong>
+  /
+  <strong>{{ employees.length }}</strong>
+  nhân viên
+</div>
+
+      <!-- TABLE -->
+      <div class="employee-table" id="print-area">
+
+  <!-- TABLE HEADER -->
+  <table class="table-fixed">
+  <colgroup>
+    <col style="width: 60px">
+    <col style="width: 260px">
+    <col style="width: 180px">
+    <col style="width: 180px">
+    <col style="width: 180px">
+    <col style="width: 140px">
+    <col style="width: 140px">
+  </colgroup>
+
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Nhân viên</th>
+      <th>Khoa</th>
+      <th>Chức vụ</th>
+      <th>Phòng ban</th>
+      <th>Ngày vào làm</th>
+      <th>Trạng thái</th>
+    </tr>
+  </thead>
+</table>
+
+
+  <!-- TABLE BODY SCROLL -->
+  <div class="table-body-scroll" >
+    <table>
+      <tbody>
+        <tr *ngFor="let emp of paginatedEmployees; let i = index">
+
+          <td>{{ i + 1 }}</td>
+
+          <td class="emp-cell">
+            <img
+              [src]="emp.anhDaiDien || 'https://i.pravatar.cc/40?u=' + emp.maNhanVien"
+              class="avatar"
+            />
+            <div class="emp-info">
+              <p class="emp-name">{{ emp.tenNhanVien }}</p>
+              <p class="emp-role">{{ emp.email }}</p>
+            </div>
+          </td>
+
+          <td>{{ emp.tenKhoa }}</td>
+          <td>{{ emp.tenViTri }}</td>
+          <td>{{ emp.tenPhongBan }}</td>
+          <td>{{ emp.ngayVaoLam | date:'dd/MM/yyyy' }}</td>
+
+          <td>
+            <span
+              class="badge badge-blue"
+            >
+              {{ emp.trangThai }}
+            </span>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+      <!-- FOOTER -->
+      <div class="popup-actions">
+        <button class="btn-download" (click)="exportExcel()">Xuất Excel</button>
+        <button class="btn-pdf" (click)="printPDF()">Tải PDF</button>
+      </div>
+
+    </div>
+  </div>
+</div>

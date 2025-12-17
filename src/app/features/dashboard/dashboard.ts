@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, NgZone } from '@angular/core';
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
+
 
 @Component({
   selector: 'app-dashboard',

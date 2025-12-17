@@ -1,0 +1,250 @@
+/* ================= OVERLAY ================= */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 99998;
+}
+
+/* ================= POPUP ================= */
+.popup-report {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1100px;
+    height: 88vh;
+
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    z-index: 99999;
+}
+
+/* ================= HEADER ================= */
+.popup-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+/* ================= CONTENT WRAPPER ================= */
+.popup-scroll {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;          /* ⭐ BẮT BUỘC */
+    margin-top: 20px;
+}
+
+/* ================= FILTER ================= */
+.filter-section {
+    background: #f4f6fb;
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    gap: 20px;
+    align-items: end;
+}
+
+
+.filter-item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-item label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #4b5563;
+}
+
+.filter-item select,
+.filter-item input {
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 14px;
+}
+
+/* ================= FILTER BUTTON ================= */
+.btn-search {
+    height: 44px;
+    padding: 0 22px;
+    background: #6d28d9;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* ================= TABLE INFO ================= */
+.table-info {
+    margin: 16px 0 8px;
+    font-size: 14px;
+    color: #475569;
+}
+
+.table-info strong {
+    color: #1e293b;
+}
+
+/* ================= TABLE ================= */
+.employee-table {
+    flex: 1;
+    min-height: 0;              /* ⭐ BẮT BUỘC */
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== TABLE HEADER ===== */
+.employee-table > table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-table thead {
+    background: #f8fafc;
+}
+
+.employee-table thead th {
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===== TABLE BODY SCROLL ===== */
+.table-body-scroll {
+    flex: 1;
+    min-height: 0;              /* ⭐ BẮT BUỘC */
+    overflow-y: auto;
+}
+
+.table-body-scroll table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-body-scroll td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Hover row */
+.table-body-scroll tr:hover {
+    background: #f1f5f9;
+}
+
+/* Scrollbar */
+.table-body-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-body-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5f5;
+    border-radius: 4px;
+}
+
+/* ================= EMPLOYEE CELL ================= */
+.emp-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.emp-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.emp-name {
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.emp-role {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 2px 0 0;
+}
+
+/* ================= BADGE ================= */
+.badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.badge-blue {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* ================= FOOTER ================= */
+.popup-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-download {
+    background: #0ea5e9;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+}
+
+.btn-pdf {
+    background: #ef4444;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+}

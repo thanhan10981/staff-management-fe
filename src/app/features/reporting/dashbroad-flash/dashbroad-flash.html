@@ -1,0 +1,123 @@
+<!-- OVERLAY -->
+<div class="popup-overlay"  (click)="closePopup()"></div>
+
+<!-- POPUP -->
+<div class="popup-dashboard" >
+
+    <div class="popup-header">
+        <h2>Dashboard tổng hợp nhanh</h2>
+        <button class="popup-close" (click)="closePopup()">✕</button>
+    </div>
+
+    <!-- SCROLL AREA -->
+    <div class="popup-scroll">
+
+        <!-- DASHBOARD BẮT ĐẦU -->
+        <div class="dashboard-container">
+
+            <!-- 4 BOX THỐNG KÊ -->
+            <div class="quick-stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-value">248</div>
+                    <p class="stat-label">Tổng số nhân viên</p>
+                    <span class="stat-sub">+12 so với tháng trước</span>
+                    <div class="stat-icon violet">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value orange">8.5%</div>
+                    <p class="stat-label">Tỷ lệ nghỉ phép</p>
+                    <span class="stat-sub orange">+1.2% so với tháng trước</span>
+                    <div class="stat-icon orange-bg">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value green">2.8 tỷ</div>
+                    <p class="stat-label">Quỹ lương tháng</p>
+                    <span class="stat-sub green">+5.2% so với tháng trước</span>
+                    <div class="stat-icon green-bg">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value red">7.2%</div>
+                    <p class="stat-label">Tỷ lệ đi trễ</p>
+                    <span class="stat-sub red">-0.8% so với tháng trước</span>
+                    <div class="stat-icon red-bg">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 BOX BIỂU ĐỒ -->
+            <div class="chart-grid">
+                <div class="chart-box">
+                    <h3 class="box-title">Xu hướng nhân sự 6 tháng gần đây</h3>
+                    <canvas id="lineChart"></canvas>
+                </div>
+
+
+                <div class="chart-box">
+                    <h3 class="box-title">Cơ cấu lương</h3>
+
+                    <div class="donut-container">
+                        <canvas id="salaryDonut"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 3 BOX DƯỚI -->
+            <div class="bottom-grid">
+
+                <div class="info-box">
+                    <h3 class="box-title">Top 5 phòng ban có tỷ lệ đi trễ cao nhất</h3>
+                    <ul class="list-text">
+                        <li>Phòng Marketing <span class="num red">12.5%</span></li>
+                        <li>Phòng IT <span class="num red">9.8%</span></li>
+                        <li>Phòng Kế toán <span class="num red">7.2%</span></li>
+                        <li>Phòng Nhân sự <span class="num red">5.1%</span></li>
+                        <li>Phòng Hành chính <span class="num red">3.9%</span></li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3 class="box-title">Nhân viên mới trong tháng</h3>
+                    <ul class="employee-list">
+                        <li><i class="fa-regular fa-circle-user"></i>Nguyễn Văn Tùng — Phòng IT — 15/01/2024</li>
+                        <li><i class="fa-regular fa-circle-user"></i>Lê Thị Hương — Phòng Marketing — 18/01/2024</li>
+                        <li><i class="fa-regular fa-circle-user"></i>Trần Văn Đạt — Phòng Kế toán — 22/01/2024</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3 class="box-title">Thông báo quan trọng</h3>
+
+                    <div class="notice notice-yellow">
+                        <i class="fa-solid fa-bell"></i>
+                        Cập nhật chính sách nghỉ phép — hiệu lực 01/02/2024
+                    </div>
+
+                    <div class="notice notice-blue">
+                        <i class="fa-solid fa-check"></i>
+                        Đánh giá hiệu suất Q1 — Deadline 31/03/2024
+                    </div>
+
+                    <div class="notice notice-green">
+                        <i class="fa-solid fa-flag"></i>
+                        Hoàn thành báo cáo tháng 12 — Đã gửi lên Ban Giám đốc
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- DASHBOARD KẾT -->
+    </div>
+</div>
