@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { LichTrucTuanDTO } from '../model/model';
 
 export interface KhoaDTO {
   id: number;
@@ -113,11 +114,16 @@ export class ScheduleService {
     return this.http.get<Record<number, number>>(`${this.API_LICH}/count`, { params });
   }
   
-  getTotalShifts(maKhoa: number, from: string, to: string) {
-    return this.http.get(`${this.API_LICH}/khoa`, {
-      params: { maKhoa, from, to }
-    });
-  }
+  getTotalShifts(
+  maKhoa: number,
+  from: string,
+  to: string
+): Observable<any[]> {
+  return this.http.get<any[]>(`${this.API_LICH}/khoa`, {
+    params: { maKhoa, from, to }
+  });
+}
+
 
   getEmployeesWithShifts(maKhoa: number, year: number, month: number) {
     return this.http.get(`${this.API_LICH}/nhanvien/thang`, {
@@ -168,6 +174,17 @@ createPhanCong(payload: any) {
     `${this.BASE}/api/phancong/create-with-lich`,
     payload,
     { responseType: 'text' }
+  );
+}
+// lịch trực tuần
+getLichTuanTheoKhoa(
+  maKhoa: number,
+  from: string,
+  to: string
+): Observable<LichTrucTuanDTO[]> {
+  return this.http.get<LichTrucTuanDTO[]>(
+    `${this.API_LICH}/tuan/khoa/${maKhoa}`,
+    { params: { from, to } }
   );
 }
 

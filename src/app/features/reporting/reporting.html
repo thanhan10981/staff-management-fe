@@ -205,7 +205,7 @@
             <span>In/Tải PDF</span>
         </div>
 
-        <button class="btn" >Xem báo cáo</button>
+        <button class="btn" (click)="openSchedulePopup()" >Xem báo cáo</button>
     </div>
 </div>
 </div> <!-- END GRID -->
@@ -216,6 +216,10 @@
 <app-dashbroad-flash *ngIf="showDashbroadPopup"
     (close)="closeDashbroadPopup()"></app-dashbroad-flash>
 <div class="summary-grid">
+<app-schedule-employee-report-popup
+  *ngIf="showSchedulePopup"
+  (close)="closeSchedulePopup()">
+</app-schedule-employee-report-popup>
 
     <!-- Tổng số báo cáo -->
     <div class="summary-box">
