@@ -1,4 +1,4 @@
-/* LỚP NỀN */
+/* ================= OVERLAY ================= */
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -6,22 +6,8 @@
     backdrop-filter: blur(4px);
     z-index: 99998;
 }
-.popup-scroll {
-    overflow-y: auto;
-    padding-right: 6px;
-    margin-top: 20px;
-}
 
-/* Hide scrollbar */
-.popup-scroll::-webkit-scrollbar {
-    width: 0;
-}
-.popup-scroll {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-/* POPUP CHÍNH */
+/* ================= POPUP ================= */
 .popup-report {
     position: fixed;
     top: 50%;
@@ -29,25 +15,20 @@
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 1100px;
-    max-height: 88vh;              /* ⭐ GIỚI HẠN CHIỀU CAO */
+    height: 88vh;
+
     background: #fff;
     border-radius: 20px;
     padding: 32px;
+
     display: flex;
     flex-direction: column;
-    overflow: hidden;               /* ⭐ KHÔNG CHO TRÀN */
+    overflow: hidden;
+
     z-index: 99999;
 }
 
-/* VÙNG CUỘN NỘI DUNG */
-.popup-scroll {
-    overflow-y: auto;               /* ⭐ CUỘN DỌC */
-    padding-right: 6px;
-    margin-top: 20px;
-}
-
-
-/* Header */
+/* ================= HEADER ================= */
 .popup-title-row {
     display: flex;
     justify-content: space-between;
@@ -68,23 +49,33 @@
     color: #6b7280;
 }
 
-.filter-section {
+/* ================= CONTENT WRAPPER ================= */
+.popup-scroll {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;          /* ⭐ BẮT BUỘC */
     margin-top: 20px;
+}
+
+/* ================= FILTER ================= */
+.filter-section {
     background: #f4f6fb;
     padding: 22px;
     border-radius: 16px;
     border: 1px solid #e5e7eb;
 }
 
-/* GRID 4 CỘT ĐÚNG GIỐNG ẢNH */
 .filter-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    align-items: end;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
     gap: 20px;
+    align-items: end;
 }
 
+
 .filter-item {
+    min-width: 0;
     display: flex;
     flex-direction: column;
 }
@@ -97,7 +88,6 @@
 
 .filter-item select,
 .filter-item input {
-    width: 90%;
     height: 44px;
     padding: 0 14px;
     border-radius: 10px;
@@ -106,100 +96,92 @@
     font-size: 14px;
 }
 
-/* BUTTON LỌC */
+/* ================= FILTER BUTTON ================= */
 .btn-search {
     height: 44px;
     padding: 0 22px;
-    background: #7c3aed;
-    color: #fff;
-    border: none;
+    background: #6d28d9;
+    color: white;
     border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* ================= TABLE INFO ================= */
+.table-info {
+    margin: 16px 0 8px;
     font-size: 14px;
-    cursor: pointer;
-    white-space: nowrap;
+    color: #475569;
 }
 
-.btn-search:hover {
-    background: #6d28d9;
+.table-info strong {
+    color: #1e293b;
 }
 
-/* Filter button */
-.btn-search {
-    align-self: end;
-    background: #6d28d9;
-    color: white;
-    padding: 10px 22px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-
-
-/* Footer actions */
-.popup-actions {
-    margin-top: 24px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.btn-download {
-    background: #0ea5e9;
-    padding: 10px 20px;
-    border: none;
-    color: white;
-    border-radius: 10px;
-}
-
-.btn-pdf {
-    background: #ef4444;
-    padding: 10px 20px;
-    border: none;
-    color: white;
-    border-radius: 10px;
-}
+/* ================= TABLE ================= */
 .employee-table {
-    margin-top: 24px;
+    flex: 1;
+    min-height: 0;              /* ⭐ BẮT BUỘC */
     border-radius: 16px;
-    overflow: hidden;
     border: 1px solid #e5e7eb;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
 }
 
-.employee-table table {
+/* ===== TABLE HEADER ===== */
+.employee-table > table {
     width: 100%;
     border-collapse: collapse;
 }
 
-/* Header */
-.employee-table thead tr {
+.employee-table thead {
     background: #f8fafc;
 }
 
 .employee-table thead th {
     padding: 16px;
-    text-align: left;
     font-size: 14px;
     font-weight: 600;
     color: #475569;
+    text-align: left;
     border-bottom: 1px solid #e5e7eb;
 }
 
-/* Rows */
-.employee-table tbody tr {
-    transition: 0.2s;
+/* ===== TABLE BODY SCROLL ===== */
+.table-body-scroll {
+    flex: 1;
+    min-height: 0;              /* ⭐ BẮT BUỘC */
+    overflow-y: auto;
 }
 
-.employee-table tbody tr:hover {
-    background: #f1f5f9;
+.table-body-scroll table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.employee-table td {
+.table-body-scroll td {
     padding: 16px;
     border-bottom: 1px solid #f1f5f9;
 }
 
-/* Employee cell */
+/* Hover row */
+.table-body-scroll tr:hover {
+    background: #f1f5f9;
+}
+
+/* Scrollbar */
+.table-body-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-body-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5f5;
+    border-radius: 4px;
+}
+
+/* ================= EMPLOYEE CELL ================= */
 .emp-cell {
     display: flex;
     align-items: center;
@@ -220,20 +202,18 @@
 
 .emp-name {
     font-weight: 600;
-    margin: 0;
     color: #1e293b;
+    margin: 0;
 }
 
 .emp-role {
     font-size: 13px;
-    margin: 2px 0 0;
     color: #6b7280;
+    margin: 2px 0 0;
 }
 
-/* Badges */
-.badge-green {
-    background: #d9fdd3;
-    color: #15803d;
+/* ================= BADGE ================= */
+.badge {
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 13px;
@@ -243,87 +223,28 @@
 .badge-blue {
     background: #dbeafe;
     color: #1d4ed8;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 13px;
 }
 
-.badge-yellow {
-    background: #fef9c3;
-    color: #b45309;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 13px;
-}
-
-.badge-gray {
-    background: #e5e7eb;
-    color: #374151;
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-}
-.statistic-grid {
-    margin-top: 26px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-}
-
-.stat-box {
-    background: white;
-    border-radius: 16px;
-    padding: 18px 20px;
-    border: 1px solid #e5e7eb;
+/* ================= FOOTER ================= */
+.popup-actions {
+    margin-top: 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
 }
 
-.stat-label {
-    font-size: 14px;
-    color: #6b7280;
-    margin: 0;
+.btn-download {
+    background: #0ea5e9;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 10px;
 }
 
-.stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    margin-top: 4px;
-    color: #111;
-}
-
-.stat-value.orange {
-    color: #f97316;
-}
-
-.stat-value.green {
-    color: #15803d;
-}
-
-/* ICON WRAPPER */
-.stat-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.stat-icon svg {
-    stroke: #111;
-}
-
-/* COLORS */
-.icon-blue {
-    background: #E8F1FF;
-}
-
-.icon-orange {
-    background: #FFE7C7;
-}
-
-.icon-green {
-    background: #E3FBE4;
+.btn-pdf {
+    background: #ef4444;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 10px;
 }

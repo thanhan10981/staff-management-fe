@@ -20,4 +20,10 @@ export class DepartmentService {
   getAllViTri() {
     return this.http.get<any[]>(this.urlvitri);
   }
+  getPhongBanTheoKhoa(maKhoa: number) {
+  return this.http.get<any[]>(
+    `${this.urlphongban}/khoa/${maKhoa}`
+  );
+}
+
 }

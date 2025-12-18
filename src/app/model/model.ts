@@ -72,3 +72,12 @@ export interface PhanCongRequest {
   danhSachNhanVien: number[];
 }
 
+export interface LichTrucTuanDTO {
+  maNhanVien: number;
+  hoTen: string;
+  tenPhong: string;
+  maKhoa: number;
+  maPhongBan: number;
+  maViTri: number;
+  lichTheoNgay: Record<string, string>; 
+}
