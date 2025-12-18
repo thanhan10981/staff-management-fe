@@ -17,8 +17,8 @@ export class DashbroadFlash implements AfterViewInit {
 
   @Output() closed = new EventEmitter<void>();   
 
-  closePopup() {
-    this.closed.emit(); 
+   closePopup() {
+    this.closed.emit();
   }
 
   @ViewChild('lineChart', { static: false }) chartRef!: ElementRef;
