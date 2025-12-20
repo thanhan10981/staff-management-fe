@@ -217,3 +217,63 @@
   width: 100%;
   height: 280px;
 }
+.chart-box {
+  height: 320px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.donut-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 100%;
+}
+
+/* VÙNG DONUT */
+.donut-canvas {
+  flex: 0 0 55%;
+  height: 260px;
+  position: relative;
+}
+
+/* LEGEND */
+.donut-legend {
+  flex: 0 0 45%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.donut-legend li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* MÀU */
+.donut-legend .color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* LABEL */
+.donut-legend .label {
+  flex: 1;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* VALUE */
+.donut-legend .value {
+  font-weight: 600;
+  color: #111827;
+ padding-right: 15px;
+}

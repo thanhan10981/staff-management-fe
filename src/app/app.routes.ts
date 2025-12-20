@@ -42,7 +42,7 @@ export const routes: Routes = [
 
   // SCHEDULE (lazy loading + guard + roles)
   {
-    path: 'schedule',title: 'thêm title trong routes',
+    path: 'schedule',title: 'Quản lý lịch trực',
     loadComponent: () =>
       import('./features/schedule/calendar/schedule-calendar.component')
         .then(m => m.ScheduleCalendarComponent),

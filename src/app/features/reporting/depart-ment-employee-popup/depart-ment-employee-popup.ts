@@ -6,8 +6,6 @@ import { DepartmentService } from '../../../service/Department.service';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
 
-
-
 @Component({
   selector: 'app-depart-ment-employee-popup',
   standalone: true,
@@ -41,8 +39,6 @@ export class DepartMentEmployeePopupComponent implements OnInit {
   filterNgayVaoLam: string = '';
   filterPhongBan: string = '';
 
-
-
   activeMenu: number | null = null;
 
   ngOnInit(): void {
@@ -61,13 +57,10 @@ export class DepartMentEmployeePopupComponent implements OnInit {
     this.close.emit();
   }
 
-  // ===== LOAD DATA =====
   dataEmployee() {
   this.employeeService.getAllEmployees().subscribe({
     next: (data) => {
       this.employees = data;
-
-      //  HIỂN THỊ TẤT CẢ
       this.paginatedEmployees = data;
 
       this.totalEmployees = data.length;
@@ -86,8 +79,6 @@ loadCategories() {
   });
 }
 
-
-  // ===== STATS =====
   calculateStats() {
     this.totalEmployees = this.employees.length;
     this.activeEmployees = this.employees.filter(

@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 
 import { LichTrucTuanDTO } from '../../../model/model';
 import { ScheduleService } from '../../../service/schedule.service';
-import html2pdf from 'html2pdf.js';
+
 @Component({
   selector: 'app-schedule-employee-report-popup',
   standalone: true,

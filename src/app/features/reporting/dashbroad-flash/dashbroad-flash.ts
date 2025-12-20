@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+  OnDestroy
+} from '@angular/core';
 import { Chart } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-// ⭐ Đăng ký plugin đúng cho Chart.js 3
-Chart.register(ChartDataLabels);
+import { DashboardService } from '../../../service/dashboard.service';
 
 @Component({
   selector: 'app-dashbroad-flash',
@@ -13,133 +18,172 @@ Chart.register(ChartDataLabels);
   templateUrl: './dashbroad-flash.html',
   styleUrl: './dashbroad-flash.scss',
 })
-export class DashbroadFlash implements AfterViewInit {
+export class DashbroadFlash implements AfterViewInit, OnDestroy {
 
-  @Output() closed = new EventEmitter<void>();   
-
-   closePopup() {
+  /* ================= OUTPUT ================= */
+  @Output() closed = new EventEmitter<void>();
+  closePopup() {
     this.closed.emit();
   }
 
-  @ViewChild('lineChart', { static: false }) chartRef!: ElementRef;
+  /* ================= VIEW CHILD ================= */
+  @ViewChild('lineChart') lineChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('salaryDonut') donutChartRef!: ElementRef<HTMLCanvasElement>;
 
+  /* ================= CHART INSTANCE ================= */
+  private lineChart!: Chart;
+  private donutChart!: Chart<'doughnut'>;
+  leaveRate = 0;
+  leaveDiff = 0;
+  /* ================= LEGEND DATA (🔥 FIX LỖI) ================= */
+  salaryLegend: { label: string; value: number }[] = [];
+
+  colors = ['#6366f1', '#22c55e', '#f97316', '#ef4444'];
+
+  constructor(private dashboardService: DashboardService) {}
+
+  /* ================= LIFECYCLE ================= */
   ngAfterViewInit() {
-    this.renderLineChart();
-    this.renderSalaryDonut();
+    this.initLineChart();
+    this.initDonutChart();
+    this.loadRealData();
+    this.loadNhanVienStat();
+  }
+  ngOnInit() {
+      this.dashboardService.getTiLeNghiPhep()
+        .subscribe(res => {
+          this.leaveRate = res.tiLe;
+          this.leaveDiff = res.chenhLech;
+        });
+    }
+  ngOnDestroy() {
+    this.lineChart?.destroy();
+    this.donutChart?.destroy();
+  }
+  tongNhanVien = 0;
+  chenhLechNhanVien = 0;
+
+  private loadNhanVienStat() {
+    this.dashboardService.getThongKeNhanVien()
+      .subscribe(res => {
+        this.tongNhanVien = res.tong;
+        this.chenhLechNhanVien = res.chenhLech;
+      });
   }
 
-  renderLineChart() {
-    const ctx = document.getElementById('lineChart') as HTMLCanvasElement;
+  /* =====================================================
+     LINE CHART – NHÂN SỰ THEO THÁNG (KHÔNG BỊ BỎ)
+     ===================================================== */
+  private initLineChart() {
+    const ctx = this.lineChartRef.nativeElement.getContext('2d')!;
+    this.lineChart?.destroy();
 
-    const gradient = ctx.getContext('2d')!.createLinearGradient(0, 0, 0, 300);
+    const gradient = ctx.createLinearGradient(0, 0, 0, 280);
     gradient.addColorStop(0, 'rgba(124, 58, 237, 0.35)');
     gradient.addColorStop(1, 'rgba(124, 58, 237, 0.05)');
 
-    new Chart(ctx, {
+    this.lineChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['T8', 'T9', 'T10', 'T11', 'T12', 'T1'],
-        datasets: [
-          {
-            label: '2020',
-            data: [110, 130, 150, 165, 180, 195],
-            borderColor: '#7c3aed',
-            backgroundColor: gradient,
-            tension: 0.4,
-            pointBackgroundColor: '#7c3aed',
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            fill: true
-          }
-        ]
+        labels: [],
+        datasets: [{
+          label: 'Nhân sự',
+          data: [],
+          borderColor: '#7c3aed',
+          backgroundColor: gradient,
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: '#7c3aed',
+          fill: true
+        }]
       },
       options: {
-        plugins: {
-          legend: {
-            display: true,
-            labels: { color: '#64748b' }
-          }
-        },
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
-          x: {
-            ticks: { color: '#475569' },
-            grid: { color: '#e2e8f0' }
-          },
-          y: {
-            ticks: { color: '#475569' },
-            grid: { color: '#e2e8f0' }
-          }
+          y: { beginAtZero: true }
         }
       }
     });
   }
 
-  renderSalaryDonut() {
-  const ctx = document.getElementById('salaryDonut') as HTMLCanvasElement;
+  /* =====================================================
+     DONUT CHART – CƠ CẤU LƯƠNG
+     ===================================================== */
+  private initDonutChart() {
+    const ctx = this.donutChartRef.nativeElement.getContext('2d')!;
+    this.donutChart?.destroy();
 
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Phòng IT', 'Phòng Marketing', 'Phòng kế toán', 'Phòng Nhân sự', 'Khác'],
-      datasets: [
-        {
-          data: [42, 46, 48, 44, 50],
-          backgroundColor: [
-            '#60a5fa',
-            '#fb7185',
-            '#34d399',
-            '#fbbf24',
-            '#a78bfa'
-          ],
-          borderWidth: 2,
-          borderColor: '#fff',
-          hoverOffset: 6,
-          cutout: '68%',
-        } as any  // ⭐⭐ ÉP KIỂU Ở ĐÂY — 100% HẾT LỖI
-      ]
+    const centerTextPlugin = {
+      id: 'centerText',
+      afterDraw(chart: any) {
+        const data = chart.data.datasets[0].data;
+        if (!data.length) return;
 
-    },
-    plugins: [ChartDataLabels],
-    options: {
-      layout: { padding: 10 },
+        const total = data.reduce((a: number, b: number) => a + b, 0);
+        const { ctx, width, height } = chart;
 
-      plugins: {
-        legend: {
-          position: 'right',
-          labels: {
-            usePointStyle: true,
-            pointStyle: 'circle',
-            font: { size: 13 },
-            padding: 14
-          }
-        },
+        ctx.save();
+        ctx.font = '700 24px Inter';
+        ctx.fillStyle = '#111827';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(
+          (total / 1_000_000).toFixed(1) + ' triệu',
+          width / 2,
+          height / 2
+        );
+      }
+    };
 
-        datalabels: {
-          color: '#475569',
-          anchor: 'end',
-          align: 'end',
-          offset: 6,
-          font: {
-            weight: 600,
-            size: 12
-          },
-          formatter: (value, ctx) => {
-            const label = ctx.chart.data.labels![ctx.dataIndex];
-            return label + '\n' + value;
-          }
+    this.donutChart = new Chart(ctx, {
+      type: 'doughnut',
+      plugins: [centerTextPlugin],
+      data: {
+        labels: [],
+        datasets: [{
+          data: [],
+          backgroundColor: this.colors,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '60%',
+        plugins: {
+          legend: { display: false } // ⛔ ẩn legend mặc định
         }
       }
-    }
-  });
+    });
+  }
 
-  // ⭐ LÀM TEXT GIỮA DONUT
-  setTimeout(() => {
-    const centerText = ctx.getContext('2d')!;
-    centerText.font = '700 32px Inter';
-    centerText.fillStyle = '#111827';
-    centerText.textAlign = 'center';
-    centerText.fillText('230', ctx.width / 2, ctx.height / 2 + 8);
-  }, 200);
-}
+  /* =====================================================
+     LOAD DATA THẬT
+     ===================================================== */
+  private loadRealData() {
 
+    /* 🔵 LINE – NHÂN SỰ */
+    this.dashboardService.getNhanVienTheoThang()
+      .subscribe(res => {
+        this.lineChart.data.labels = res.map(r => `T${r.thang}`);
+        this.lineChart.data.datasets[0].data = res.map(r => r.soLuong);
+        this.lineChart.update();
+      });
+
+    /* 🔵 DONUT – LƯƠNG */
+    this.dashboardService.getCoCauLuong()
+      .subscribe(res => {
+
+        this.salaryLegend = res.map(r => ({
+          label: r.ten,
+          value: r.soTien
+        }));
+
+        this.donutChart.data.labels = this.salaryLegend.map(i => i.label);
+        this.donutChart.data.datasets[0].data = this.salaryLegend.map(i => i.value);
+
+        this.donutChart.update();
+      });
+  }
 }

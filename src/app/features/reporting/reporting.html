@@ -213,8 +213,11 @@
     *ngIf="showDepartmentPopup"
     (close)="closeDepartmentPopup()">
 </app-depart-ment-employee-popup>
-<app-dashbroad-flash *ngIf="showDashbroadPopup"
-    (close)="closeDashbroadPopup()"></app-dashbroad-flash>
+<app-dashbroad-flash
+  *ngIf="showDashbroadPopup"
+  (closed)="closeDashbroadPopup()">
+</app-dashbroad-flash>
+
 <div class="summary-grid">
 <app-schedule-employee-report-popup
   *ngIf="showSchedulePopup"
