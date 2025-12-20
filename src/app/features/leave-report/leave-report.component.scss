@@ -1,0 +1,18 @@
+.leave-report-page {
+  max-width: 1280px;   // 🔒 width cố định
+  margin: 0 auto;      // canh giữa
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.divider {
+  margin: 12px 0 24px;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}

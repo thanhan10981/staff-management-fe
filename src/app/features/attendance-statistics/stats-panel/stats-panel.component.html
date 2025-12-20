@@ -1,0 +1,47 @@
+<div class="stats-panel">
+
+  <!-- Tổng ngày công -->
+  <div class="stat-card">
+    <div class="stat-content">
+      <div class="stat-title">Tổng ngày công</div>
+      <div class="stat-value">{{ totalWorkDays | number }}</div>
+    </div>
+    <div class="stat-icon blue">
+      📅
+    </div>
+  </div>
+
+  <!-- Số lần đi trễ -->
+  <div class="stat-card">
+    <div class="stat-content">
+      <div class="stat-title">Số lần đi trễ</div>
+      <div class="stat-value red">{{ lateCount }}</div>
+    </div>
+    <div class="stat-icon red">
+      ⏰
+    </div>
+  </div>
+
+  <!-- Nghỉ không phép -->
+  <div class="stat-card">
+    <div class="stat-content">
+      <div class="stat-title">Nghỉ không phép</div>
+      <div class="stat-value orange">{{ absentWithoutLeave }}</div>
+    </div>
+    <div class="stat-icon orange">
+      🚫
+    </div>
+  </div>
+
+  <!-- Tỷ lệ đúng giờ -->
+  <div class="stat-card">
+    <div class="stat-content">
+      <div class="stat-title">Tỷ lệ đúng giờ</div>
+      <div class="stat-value green">{{ onTimeRate }}%</div>
+    </div>
+    <div class="stat-icon green">
+      ✔
+    </div>
+  </div>
+
+</div>

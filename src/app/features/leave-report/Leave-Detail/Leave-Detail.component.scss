@@ -1,0 +1,77 @@
+.leave-detail-card {
+  margin-top: 16px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid #777070;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background: #f7f7f7;
+
+    th {
+      padding: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #777;
+      text-align: left;
+    }
+  }
+
+  tbody tr {
+    border-top: 1.5px solid #AB9797;
+  }
+
+  td {
+    padding: 14px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+}
+
+/* Nhân viên */
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .info {
+    .name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .email {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+}
+
+/* Màu số */
+.blue {
+  color: #1677ff;
+}
+
+.red {
+  color: #ff4d4f;
+}
+
+.orange {
+  color: #fa8c16;
+}
+
+.green {
+  color: #52c41a;
+}

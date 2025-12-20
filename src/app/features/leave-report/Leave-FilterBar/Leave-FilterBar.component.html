@@ -1,0 +1,40 @@
+<div class="filter-wrapper">
+  <div class="filter-title">Bộ lọc</div>
+
+  <div class="filter-row">
+
+    <div class="filter-item">
+      <label>Năm</label>
+      <select [(ngModel)]="filter.period">
+        <option *ngFor="let p of periods" [value]="p.code">
+          {{ p.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-item">
+      <label>Phòng ban</label>
+      <select [(ngModel)]="filter.phongBanId">
+        <option [ngValue]="null">Tất cả phòng ban</option>
+        <option *ngFor="let pb of phongBans" [ngValue]="pb.id">
+          {{ pb.tenPhongBan }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-item">
+      <label>Loại nghỉ phép</label>
+      <select [(ngModel)]="filter.loaiNghi">
+        <option [ngValue]="null">Tất cả loại</option>
+        <option *ngFor="let type of leaveTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn-search" (click)="applyFilter()">
+      🔍︎ Lọc dữ liệu
+    </button>
+
+  </div>
+</div>
