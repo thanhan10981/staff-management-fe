@@ -1,0 +1,57 @@
+.filter-wrapper {
+  background: #F8F8F8;
+  padding: 20px 24px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.filter-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 16px;
+  color: #111827;
+}
+
+.filter-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  select {
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background: #fff;
+  }
+}
+
+.btn-search {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 10px;
+  background: #6750A4; // tím giống ảnh
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="leave-detail-card">
+  <table>
+    <thead>
+      <tr>
+        <th>NHÂN VIÊN</th>
+        <th>PHÒNG BAN</th>
+        <th>NGHỈ NĂM</th>
+        <th>NGHỈ BỆNH</th>
+        <th>KHÔNG LƯƠNG</th>
+        <th>TỔNG CỘNG</th>
+        <th>CÒN LẠI</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of data">
+        <!-- Nhân viên -->
+        <td class="employee-cell">
+          <img
+            class="avatar"
+            [src]="getAvatarUrl(item.avatar)"
+            alt="avatar"
+          />
+          <div class="info">
+            <div class="name">{{ item.tenNhanVien }}</div>
+            <div class="email">{{ item.email }}</div>
+          </div>
+        </td>
+
+        <!-- Phòng ban -->
+        <td>{{ item.tenPhongBan }}</td>
+
+        <!-- Nghỉ năm -->
+        <td class="blue">{{ item.tongNghiPhepNam }}</td>
+
+        <!-- Nghỉ bệnh -->
+        <td class="red">{{ item.tongNghiBenh }}</td>
+
+        <!-- Không lương -->
+        <td class="orange">{{ item.nghiKhongLuongVuot }}</td>
+
+        <!-- Tổng -->
+        <td>{{ item.tongNgayNghi }}</td>
+
+        <!-- Còn lại -->
+        <td class="green">{{ item.soNgayConLai }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

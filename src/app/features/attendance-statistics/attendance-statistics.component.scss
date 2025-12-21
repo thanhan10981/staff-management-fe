@@ -1,0 +1,35 @@
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.attendance-statistics {
+  width: 1280px;          // 🔒 KHÓA SIZE
+  max-width: 1280px;
+  min-width: 1280px;      // ❗ nếu muốn KHÔNG co
+  
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  align-items: start;   // ❗ KHÔNG dùng stretch
+}
+

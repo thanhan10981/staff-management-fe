@@ -1,0 +1,20 @@
+<div class="leave-report-page">
+  <h1 class="page-title">Báo cáo nghỉ phép</h1>
+  <hr class="divider" />
+
+  <app-leave-filter-bar
+    (filterChange)="onFilterChange($event)">
+  </app-leave-filter-bar>
+
+  <app-leave-stats-panel
+    [stats]="stats">
+  </app-leave-stats-panel>
+<app-leave-export-bar
+  [totalDays]="totalDays"
+  [filter]="currentFilter">
+</app-leave-export-bar>
+<app-leave-detail
+  [data]="leaveDetails">
+</app-leave-detail>
+
+</div>

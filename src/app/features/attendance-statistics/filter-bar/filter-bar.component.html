@@ -1,0 +1,47 @@
+<div class="filter-bar">
+  <h3 class="filter-title">Bộ lọc</h3>
+
+  <div class="filter-row">
+    <!-- TIME RANGE -->
+    <div class="filter-item">
+      <label class="filter-label">Thời gian</label>
+      <select [(ngModel)]="filter.timeRange" (change)="onChange()">
+        <option *ngFor="let item of timeRanges" [value]="item.code">
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- DEPARTMENT -->
+    <div class="filter-item">
+      <label class="filter-label">Phòng ban</label>
+      <select [(ngModel)]="filter.departmentId" (change)="onChange()">
+        <option [ngValue]="null">Tất cả phòng ban</option>
+        <option *ngFor="let d of departments" [ngValue]="d.id">
+          {{ d.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- POSITION -->
+    <div class="filter-item">
+      <label class="filter-label">Chức vụ</label>
+      <select [(ngModel)]="filter.positionId" (change)="onChange()">
+        <option [ngValue]="null">Tất cả chức vụ</option>
+        <option *ngFor="let p of positions" [ngValue]="p.id">
+          {{ p.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- SPECIFIC DATE -->
+    <div class="filter-item">
+      <label class="filter-label">Ngày cụ thể</label>
+      <input
+        type="date"
+        [(ngModel)]="filter.specificDate"
+        (change)="onChange()"
+      />
+    </div>
+  </div>
+</div>
