@@ -81,3 +81,21 @@ export interface LichTrucTuanDTO {
   maViTri: number;
   lichTheoNgay: Record<string, string>; 
 }
+
+export interface UserView {
+  maNguoiDung: number;
+  tenDangNhap: string;
+  vaiTro: string;
+  permissions: number[];
+  trangThai: string;
+  maNhanVien?: number;
+}
+
+export interface SystemLog {
+  maLog: number;
+  tenDangNhap: string;
+  vaiTro: string;
+  thoiGian: string;
+  hanhDong: string;
+  trangThai: string;
+}
