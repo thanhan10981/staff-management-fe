@@ -6,6 +6,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import 'zone.js';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +19,8 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([AuthInterceptor])
     ),
-    provideAnimations()
+    provideAnimations(),
+
+    provideCharts(withDefaultRegisterables(ChartDataLabels))
   ]
 };

@@ -5,6 +5,8 @@ import { Employee } from './features/employee/employee';
 import { SalaryDashboard } from './features/salary-management/salary-dashboard/salary-dashboard';
 import { AllowanceOtManagement } from './features/salary-management/allowance-ot-management/allowance-ot-management';
 import { ExportSalary } from './features/salary-management/salary-export/salary-export';
+import { LeaveReportComponent } from './features/leave-report/leave-report.component';
+import { AttendanceStatisticsComponent } from './features/attendance-statistics/attendance-statistics.component';
 
 import { AuthGuard } from './gaurds/auth.guard';
 import { ReportingComponent } from './features/reporting/reporting';
@@ -42,19 +44,34 @@ export const routes: Routes = [
       { path: 'system', title: 'quản lý người dùng',component: SystemAdministrationComponent },
        { path: 'log', title: 'quản lý người dùng',component: SystemLogUser },
       
+      {path: 'attendance-statistics', component: AttendanceStatisticsComponent},
+      { path: 'leave-report', component: LeaveReportComponent }
     ]
   },
 
   // SCHEDULE (lazy loading + guard + roles)
   {
-    path: 'schedule',title: 'thêm title trong routes',
+    path: 'schedule',title: 'Quản lý lịch trực',
     loadComponent: () =>
       import('./features/schedule/calendar/schedule-calendar.component')
         .then(m => m.ScheduleCalendarComponent),
     canActivate: [AuthGuard],
     data: { roles: ['TaoLich'] }
   },
-
+  {
+  path: 'attendance-statistics',
+    loadComponent: () =>
+      import('./features/attendance-statistics/attendance-statistics.component')
+        .then(m => m.AttendanceStatisticsComponent),
+    canActivate: [AuthGuard]
+  },
+  {
+  path: 'leave-report',
+    loadComponent: () =>
+      import('./features/leave-report/leave-report.component')
+        .then(m => m.LeaveReportComponent),
+    canActivate: [AuthGuard]
+  },
   // 404
   { path: '**', redirectTo: 'dashboard' }
 ];
