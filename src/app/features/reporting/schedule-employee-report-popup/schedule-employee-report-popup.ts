@@ -60,10 +60,8 @@ export class ScheduleEmployeeReportPopup implements OnInit {
 
   this.buildWeek(from, to);
   this.loadCategories();
-
-  this.scheduleService
-    .getLichTuanTheoKhoa(0, from, to)
-    .subscribe({
+  debugger
+  this.scheduleService.getLichTuanTheoKhoa(0, from, to).subscribe({
       next: (res: LichTrucTuanDTO[]) => {
         this.originalData = [...res];
         this.data = [...res];

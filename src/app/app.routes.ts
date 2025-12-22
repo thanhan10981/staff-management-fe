@@ -10,6 +10,8 @@ import { AttendanceStatisticsComponent } from './features/attendance-statistics/
 
 import { AuthGuard } from './gaurds/auth.guard';
 import { ReportingComponent } from './features/reporting/reporting';
+import { SystemAdministrationComponent } from './features/systemAdministration/system-administration/system-administration';
+import { SystemLogUser } from './features/system-log-user/system-log-user';
 
 export const routes: Routes = [
 
@@ -39,6 +41,9 @@ export const routes: Routes = [
       { path: 'allowances',  title: 'Quản lý Phụ cấp và OT',component: AllowanceOtManagement },
       { path: 'salary-report', title: 'Xuất bảng lương',component: ExportSalary },
       { path: 'reports', title: 'Báo cáo',component: ReportingComponent },
+      { path: 'system', title: 'quản lý người dùng',component: SystemAdministrationComponent },
+       { path: 'log', title: 'quản lý người dùng',component: SystemLogUser },
+      
       {path: 'attendance-statistics', component: AttendanceStatisticsComponent},
       { path: 'leave-report', component: LeaveReportComponent }
     ]
