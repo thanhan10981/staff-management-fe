@@ -1,0 +1,90 @@
+<div class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <div class="profile">
+        <img src="/assets/images/avatar.jpg" class="avatar" alt="avatar">
+        <div class="info">
+          <h3>{{ employee.tenNhanVien }}</h3>
+          <div class="sub-info">
+            <span>{{ employee.maNhanVien }} · {{ employee.tenViTri }}</span>
+            <span class="status">{{ employee.trangThai }}</span>
+          </div>
+        </div>
+      </div>
+      <i class="ri-close-line" (click)="closePopup()"></i>
+    </div>
+
+    <!-- Tabs -->
+    <app-common-tabs
+      [tabs]="tabList"
+      [activeTab]="activeTab"
+      (tabChange)="onTabChange($event)">
+    </app-common-tabs>
+
+
+    <!-- Content -->
+    <div class="content">
+        <div class="section">
+            <!-- Cột trái -->
+            <div class="column">
+            <h4>Thông tin cơ bản</h4>
+            <div class="info-grid">
+                <div class="row"><span class="label">Họ & tên:</span><span class="value">{{ employee.tenNhanVien }}</span></div>
+                <div class="row"><span class="label">Ngày sinh:</span><span class="value">{{ employee.ngaySinh | date:'dd/MM/yyyy' }}</span></div>
+                <div class="row"><span class="label">Giới tính:</span><span class="value">{{ employee.gioiTinh ? 'Nam' : 'Nữ' }}</span></div>
+                <div class="row"><span class="label">CCCD / CMND:</span><span class="value">{{ employee.cccd }}</span></div>
+                <div class="row"><span class="label">Email:</span><span class="value">{{ employee.email }}</span></div>
+                <div class="row"><span class="label">Điện thoại:</span><span class="value">{{ employee.sdt }}</span></div>
+            </div>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="column">
+            <h4>Thông tin công việc</h4>
+            <div class="info-grid">
+                <div class="row"><span class="label">Mã nhân viên:</span><span class="value">{{ employee.maNhanVien }}</span></div>
+                <div class="row"><span class="label">Chuyên khoa:</span><span class="value">{{ employee.tenKhoa }}</span></div>
+                <div class="row"><span class="label">Chức vụ:</span><span class="value">{{ employee.tenViTri }}</span></div>
+                <div class="row"><span class="label">Ngày vào làm:</span><span class="value">{{ employee.ngayVaoLam }}</span></div>
+                <div class="row"><span class="label">Trạng thái:</span><span class="value">{{ employee.trangThai }}</span></div>
+                <div class="row"><span class="label">Trình độ chuyên môn:</span><span class="value">{{ employee.trinhDoChuyenMon}}</span></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="popup-footer">
+      <button class="btn update">Cập nhật</button>
+      <button class="btn save">Lưu</button>
+    </div>
+  </div>
+</div>
+<app-employee-certificate-popup
+  *ngIf="showCertificatePopup"
+  (close)="closeCertificatePopup()"
+  (closeAll)="closeAllPopup($event)">
+</app-employee-certificate-popup>
+
+<app-employee-health-popup
+  *ngIf="showHealthPopup"
+  (close)="closeHealthPopup()"
+  (closeAll)="closeAllPopup($event)">
+</app-employee-health-popup>
+
+<app-employee-schedule-popup
+  *ngIf="showSchedulePopup"
+  (closeAll)="closeAllPopup($event)">
+</app-employee-schedule-popup>
+
+<app-employee-salary-popup
+  *ngIf="showSalaryPopup"
+  (closeAll)="closeAllPopup($event)">
+</app-employee-salary-popup>
+
+<app-employee-audit-popup
+  *ngIf="showAuditPopup"
+  (closeAll)="closeAllPopup($event)">
+</app-employee-audit-popup>
+

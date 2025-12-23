@@ -1,0 +1,701 @@
+.dashboard {
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #111827;
+
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  /* --- Top Stats --- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .card {
+      position: relative;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .value {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .label {
+        color: #6b7280;
+        margin-bottom: 4px;
+      }
+
+      .change {
+        font-size: 12px;
+        color: #2155b0;
+      }
+
+       .icon {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        border-radius: 10px;
+        padding: 8px;
+        i {
+          font-size: 20px;
+        }
+      }
+
+      &.success .icon {
+        background: #dbeafe; 
+        color: #007bff;
+      }
+
+      &.info .icon {
+        background: #dcfce7; 
+        color: #15803d;
+      }
+
+      &.warning .icon {
+        background: #ffedd5;
+        color: #d97706;
+      }
+
+      &.danger .icon {
+        background: #fedbd8;
+        color: red;
+      }
+    }
+  }
+
+  /* --- Chart + Quick Actions --- */
+  .chart-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: stretch;
+  .chart-card {
+    flex: 3; 
+    min-width: 520px;
+  }
+
+    .chart-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 320px; 
+  min-height: 300px;
+}
+
+.chart-container canvas {
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0;
+  left: 0;
+}
+
+
+
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.chart-card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.chart-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.chart-card .filter {
+  display: flex;
+  gap: 8px;
+}
+
+.chart-card .filter button {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chart-card .filter button:hover {
+  color: #2563eb;
+}
+
+.chart-card .filter button.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Canvas chart */
+#attendanceChart {
+  width: 100%;
+  height: 280px;
+}
+
+.quick-actions {
+    flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff; 
+  border: 1px solid #e5e7eb; 
+  border-radius: 12px; 
+  padding: 16px; 
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); 
+  transition: all 0.25s ease;
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .btn {
+        border: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.2s ease;
+
+        .icon-quick-action {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28px;
+          height: 28px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.25);
+          transition: all 0.2s ease;
+
+          i {
+            font-size: 16px;
+          }
+        }
+
+        &.blue {
+          background:#dbeafe;
+          &:hover {
+            background: #b1d2fe;
+          }
+          color: #2563eb;
+        }
+
+        &.green {
+          background:#dcfce7 ;
+          &:hover {
+            background: #b3f4ca;
+          }
+          color: #15803d;
+        }
+
+        &.orange {
+          background: #ffedd5;
+          &:hover {
+            background: #f7dab4;
+          }
+          color: #d97706;
+        }
+
+        &.purple {
+          background:#e1d2f8 ;
+          &:hover {
+            background: #caaef9;
+          }
+          color: blueviolet;
+        }
+
+        &:hover .icon-quick-action {
+          transform: scale(1.1);
+          background: rgba(255, 255, 255, 0.4);
+        }
+      }
+    }
+  }
+
+  /* --- Info Section --- */
+  .info-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  /* --- Card chung --- */
+  .activities,
+  .schedule {
+    flex: 1 1 calc(50% - 12px);
+    min-width: 320px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 🔥 giữ phần "xem tất cả" luôn ở đáy */
+    box-sizing: border-box;
+  }
+
+  /* --- Hoạt động gần đây --- */
+  .activities {
+
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #111827;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px 0;
+
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 5px;
+        padding: 10px;
+        &:hover {
+        background: #f9fafb; /* nền xám nhạt khi hover */
+        border: 20px;
+      }
+
+        .icon {
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .content {
+          p {
+            margin: 0;
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.4;
+
+            b {
+              color: #111827;
+              font-weight: 600;
+            }
+          }
+
+          span {
+            font-size: 12px;
+            color: #9ca3af;
+          }
+        }
+
+        &.green .icon {
+          background: rgba(34, 197, 94, 0.15);
+          i { color: #22c55e; }
+        }
+        &.blue .icon {
+          background: rgba(37, 99, 235, 0.15);
+          i { color: #2563eb; }
+        }
+        &.orange .icon {
+          background: rgba(249, 115, 22, 0.15);
+          i { color: #f97316; }
+        }
+        &.purple .icon {
+          background: rgba(139, 92, 246, 0.15);
+          i { color: #8b5cf6; }
+        }
+        i { font-size: 16px; }
+      }
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: auto;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* --- Lịch trực tuần này --- */
+  .schedule {
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      span {
+        font-size: 12px;
+        color: #9ca3af;
+        font-weight: 500;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px 0;
+
+      li {
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+        position: relative;
+        font-size: 13px;
+        line-height: 1.4;
+
+        &::after {
+          content: "";
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          position: absolute;
+          right: 10px;
+          top: 14px;
+        }
+        transition: all 0.25s ease;
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+          border-color: #cbd5e1; /* khung đậm hơn khi hover */
+        }
+
+        .date {
+          font-weight: 600;
+          color: #111827;
+          margin-bottom: 2px;
+        }
+
+        .detail {
+          font-size: 12.5px;
+          color: #374151;
+        }
+
+        &.blue {
+          background: rgba(37, 99, 235, 0.08);
+          &::after { background: #2563eb; }
+          .detail { color: #2563eb; }
+        }
+        &.green {
+          background: rgba(34, 197, 94, 0.08);
+          &::after { background: #22c55e; }
+          .detail { color: #16a34a; }
+        }
+        &.red {
+          background: rgba(239, 68, 68, 0.08);
+          &::after { background: #ef4444; }
+          .detail { color: #dc2626; }
+        }
+        &.orange {
+          background: rgba(249, 115, 22, 0.08);
+          &::after { background: #f97316; }
+          .detail { color: #ea580c; }
+        }
+      }
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: auto;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+  /* --- Notification Center --- */
+  .notification-center {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    font-family: 'Inter', sans-serif;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      a {
+        font-size: 13px;
+        color: #2563eb;
+        font-weight: 500;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .alert {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      position: relative;
+      transition: all 0.25s ease;
+
+      .icon {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 18px;
+        }
+      }
+
+      .content {
+        flex: 1;
+        p {
+          margin: 2px 0 0 0;
+          color: #374151;
+          font-size: 13px;
+        }
+
+        b {
+          color: #111827;
+          font-weight: 600;
+          display: block;
+        }
+      }
+
+      .status {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      /* === màu từng loại === */
+      &.yellow {
+        background: #fefce8;
+        border: 1px solid #fef3c7;
+
+        .icon {
+          background: rgba(250, 204, 21, 0.15);
+          i { color: #eab308; }
+        }
+
+        .status { color: #ca8a04; }
+      }
+
+      &.red {
+        background: #fef2f2;
+        border: 1px solid #fee2e2;
+
+        .icon {
+          background: rgba(239, 68, 68, 0.15);
+          i { color: #dc2626; }
+        }
+
+        .status { color: #dc2626; }
+      }
+
+      &.blue {
+        background: #eff6ff;
+        border: 1px solid #dbeafe;
+
+        .icon {
+          background: rgba(37, 99, 235, 0.15);
+          i { color: #2563eb; }
+        }
+
+        .status { color: #2563eb; }
+      }
+    }
+  }
+}
+// -------------------------------------------------------------------------------------------------
+.salary-table-section {
+ width: 100%;
+  max-width: 100%;  
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+ 
+
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #111827;
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .search-box {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 13px;
+    width: 200px;
+    transition: all 0.2s ease;
+  }
+
+  .search-box:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 1px #2563eb;
+  }
+
+  .salary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .salary-table thead {
+    background: #f9fafb;
+  }
+
+  .salary-table th {
+    text-align: left;
+    padding: 10px;
+    color: #6b7280;
+    font-weight: 600;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .salary-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+  }
+
+  .salary-table tbody tr:hover {
+    background: #f9fafb;
+  }
+
+  .salary-table td.total {
+    font-weight: 700;
+    color: #2563eb;
+  }
+}
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.employee-cell .avatar {
+  width: 36px;
+  height: 36px;
+  background: rgba(139, 92, 246, 0.15); /* tím nhạt giống UI */
+  color: #8b5cf6; /* màu tím icon */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.employee-cell .avatar i {
+  font-size: 18px;
+}
+
+.employee-cell .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-cell .name {
+  font-weight: 600;
+  color: #111827;
+  font-size: 13px;
+}
+
+.employee-cell .email {
+  font-size: 12px;
+  color: #6b7280;
+}

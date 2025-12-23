@@ -1,0 +1,169 @@
+<div class="export-salary-page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span>Trang chủ</span> / <span class="current">Xuất bảng lương</span>
+  </div>
+
+  <!-- Title -->
+  <h2 class="page-title">Xuất bảng lương</h2>
+  <p class="page-desc">Xuất báo cáo lương cuối tháng - Tháng 10/2025</p>
+
+  <!-- Bộ lọc -->
+ <div class="filter-section">
+
+  <div class="filter-item">
+  <label>Phòng ban</label>
+
+  <div class="custom-select">
+    <select>
+      <option>Tất cả phòng ban</option>
+      <option>Nhân sự</option>
+      <option>Kế toán</option>
+    </select>
+  </div>
+
+</div>
+
+
+  <div class="filter-item1">
+    <label>Từ ngày</label>
+    <input type="date" value="2025-10-01" />
+  </div>
+
+  <div class="filter-item1">
+    <label>Đến ngày</label>
+    <input type="date" value="2025-10-31" />
+  </div>
+
+  <button class="btn-filter">
+    <i class="ri-filter-3-line"></i> Lọc
+  </button>
+
+</div>
+
+
+  <!-- Summary Cards -->
+  <div class="summary-box">
+    <div class="card total-emp">
+      <h4>10</h4>
+      <p>Tổng nhân viên</p>
+    </div>
+
+    <div class="card total-salary">
+      <h4>165.950.000đ</h4>
+      <p>Tổng lương</p>
+    </div>
+
+    <div class="card total-allowance">
+      <h4>18.500.000đ</h4>
+      <p>Tổng phụ cấp</p>
+    </div>
+
+    <div class="card total-ot">
+      <h4>5.400.000đ</h4>
+      <p>Tổng OT</p>
+    </div>
+  </div>
+
+  <!-- Bảng tổng lương -->
+  <div class="salary-table-section">
+
+    <div class="table-header">
+      <h3>Bảng tổng lương</h3>
+
+      <div class="search-box">
+        <i class="ri-search-line"></i>
+        <input type="text" placeholder="Tìm kiếm..." />
+      </div>
+    </div>
+
+    <table class="salary-table">
+      <thead>
+        <tr>
+          <th>Nhân viên</th>
+          <th>Phòng ban</th>
+          <th>Lương cơ bản</th>
+          <th>Phụ cấp</th>
+          <th>OT</th>
+          <th>Tổng lương</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>
+            <div class="employee-info">
+              <div class="avatar"><i class="ri-user-3-fill"></i></div>
+              <div class="info">
+                <span class="name">Nguyễn Thị Hoa</span>
+                <span class="email">hoanguyen@company.com</span>
+              </div>
+            </div>
+          </td>
+          <td>Nhân sự</td>
+          <td>14.000.000</td>
+          <td>2.000.000</td>
+          <td>400.000</td>
+          <td class="total">16.400.000</td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="employee-info">
+              <div class="avatar"><i class="ri-user-3-fill"></i></div>
+              <div class="info">
+                <span class="name">Nguyễn Văn Thành</span>
+                <span class="email">vanthanh@company.com</span>
+              </div>
+            </div>
+          </td>
+          <td>Nhân sự</td>
+          <td>15.000.000</td>
+          <td>1.500.000</td>
+          <td>600.000</td>
+          <td class="total">17.100.000</td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="employee-info">
+              <div class="avatar"><i class="ri-user-3-fill"></i></div>
+              <div class="info">
+                <span class="name">Lưu Ái Lệ</span>
+                <span class="email">aile@company.com</span>
+              </div>
+            </div>
+          </td>
+          <td>Nhân sự</td>
+          <td>14.500.000</td>
+          <td>2.000.000</td>
+          <td>500.000</td>
+          <td class="total">17.000.000</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <span>Hiển thị 1 đến 3 trong số tổng 10 nhân viên</span>
+
+      <div class="page-btns">
+        <button>Trước</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>Sau</button>
+      </div>
+    </div>
+  </div>
+
+<div class="export-row">
+    <div class="export-buttons">
+    <button class="excel"><i class="ri-file-excel-2-fill"></i> Xuất Excel</button>
+    <button class="pdf"><i class="ri-file-pdf-2-fill"></i> Xuất PDF</button>
+      </div>
+</div>
+
+</div>

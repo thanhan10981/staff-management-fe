@@ -1,0 +1,175 @@
+<div class="dashboard">
+  <h2 class="title">Tổng quan hệ thống</h2>
+
+<!-- Top -->
+<div class="stats">
+    <div class="card success">
+        <div class="value">248</div>
+        <div class="label">Tổng nhân viên</div>
+        <div class="icon"><i class="ri-team-fill"></i></div>
+        <span class="change">+2 so với tháng trước</span>
+    </div>
+    <div class="card info">
+        <div class="value">156</div>
+        <div class="label">Ca làm hôm nay</div>
+        <div class="icon"><i class="ri-calendar-schedule-fill"></i></div>
+        <span class="change">Sáng: 92 | Chiều: 64</span>
+    </div>
+    <div class="card warning">
+        <div class="value">23</div>
+        <div class="label">Yêu cầu chờ duyệt</div>
+        <div class="icon"><i class="ri-time-line"></i></div>
+        <span class="change">Nghỉ phép: 15 | Đổi ca: 8</span>
+    </div>
+    <div class="card danger">
+        <div class="value">7</div>
+        <div class="label">Chấm công bất thường</div>
+        <div class="icon"><i class="ri-alarm-warning-fill"></i></div>
+        <span class="change">Đi muộn: 4 | Về sớm: 3</span>
+    </div>
+</div>
+<!-- chart -->
+<div class="chart-section">
+  <div class="chart-card">
+    <div class="header">
+      <h3>Thống kê chấm công tuần</h3>
+      <div class="filter">
+        <button class="active">7 ngày</button>
+        <button>30 ngày</button>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="attendanceChart"></canvas>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h3>Thao tác nhanh</h3>
+    <button class="btn blue">
+      <div class="icon-quick-action"><i class="ri-user-add-fill"></i></div>
+      Thêm nhân viên
+    </button>
+    <button class="btn green">
+      <div class="icon-quick-action"><i class="ri-calendar-line"></i></div>
+      Tạo lịch trực
+    </button>
+    <button class="btn orange">
+      <div class="icon-quick-action"><i class="ri-briefcase-fill"></i></div>
+      Chấm công thủ công
+    </button>
+    <button class="btn purple">
+      <div class="icon-quick-action"><i class="ri-file-pdf-2-line"></i></div>
+      Xuất báo cáo
+    </button>
+  </div>
+</div>
+
+<!-- recent active & schedule -->
+ <div class="info-section">
+    <div class="activities">
+      <h3>Hoạt động gần đây</h3>
+      <ul>
+        <li class="green">
+          <div class="icon"><i class="ri-user-add-fill"></i></div>
+          <div class="content">
+            <p><b>Thêm nhân viên mới</b></p>
+            <p> Trần Thị Mai được thêm vào phòng Marketing</p>
+            <span>2 giờ trước</span>
+          </div>
+        </li>
+
+        <li class="blue">
+          <div class="icon"><i class="ri-calendar-line"></i></div>
+          <div class="content">
+            <p><b>Cập nhật lịch trực</b></p>
+            <p>Lịch trực tuần tới đã được phê duyệt</p>
+            <span>4 giờ trước</span>
+          </div>
+        </li>
+
+        <li class="orange">
+          <div class="icon"><i class="ri-mail-unread-line"></i></div>
+          <div class="content">
+            <p><b>Yêu cầu nghỉ phép</b> </p>
+            <p>Lê Văn Hùng xin nghỉ phép 3 ngày</p>
+            <span>6 giờ trước</span>
+          </div>
+        </li>
+
+        <li class="purple">
+          <div class="icon"><i class="ri-alarm-warning-fill"></i></div>
+          <div class="content">
+            <p><b>Gửi thông báo</b></p>
+            <p>ông báo họp toàn thể ngày mai</p>
+            <span>1 ngày trước</span>
+          </div>
+        </li>
+      </ul>
+      <a href="#">Xem tất cả hoạt động</a>
+    </div>
+
+
+    <div class="schedule">
+        <div class="header">
+          <h3>Lịch trực tuần này</h3>
+          <span>25/12 - 31/12</span>
+        </div>
+        <ul>
+          <li class="blue">
+            <div class="date"><b>Thứ 2 - 25/12</b></div>
+            <div class="detail">Ca sáng: 18 người | Ca chiều: 16 người</div>
+          </li>
+
+          <li class="green">
+            <div class="date"><b>Thứ 3 - 26/12</b></div>
+            <div class="detail">Ca sáng: 20 người | Ca tối: 14 người</div>
+          </li>
+
+          <li class="red">
+            <div class="date"><b>Thứ 4 - 27/12</b></div>
+            <div class="detail">Cảnh báo: Trùng lịch ca tối</div>
+          </li>
+
+          <li class="orange">
+            <div class="date"><b>Thứ 5 - 28/12</b></div>
+            <div class="detail">Ca sáng: 15 người | Ca chiều: 18 người</div>
+          </li>
+        </ul>
+        <a href="#">Xem lịch trực đầy đủ</a>
+      </div>
+  </div>
+  <div class="notification-center">
+    <div class="header">
+      <h3>Trung tâm thông báo</h3>
+      <a href="#">Đánh dấu đã đọc tất cả</a>
+    </div>
+
+    <div class="alert yellow">
+      <div class="icon"><i class="ri-timer-line"></i></div>
+      <div class="content">
+        <b>Nhắc nhở ca làm</b>
+        <p>Ca chiều sắp bắt đầu trong 30 phút (14:00)</p>
+      </div>
+      <span class="status">Mới</span>
+    </div>
+
+    <div class="alert red">
+      <div class="icon"><i class="ri-error-warning-fill"></i></div>
+      <div class="content">
+        <b>Cảnh báo trùng lịch ca</b>
+        <p>Phát hiện 2 nhân viên được phân công cùng ca tối thứ 4</p>
+      </div>
+      <span class="status">Khẩn cấp</span>
+    </div>
+
+    <div class="alert blue">
+      <div class="icon"><i class="ri-mail-unread-line"></i></div>
+      <div class="content">
+        <b>Yêu cầu cần duyệt</b>
+        <p>Có 5 yêu cầu nghỉ phép đang chờ phê duyệt</p>
+      </div>
+      <span class="status">Chờ xử lý</span>
+    </div>
+  </div>
+</div>

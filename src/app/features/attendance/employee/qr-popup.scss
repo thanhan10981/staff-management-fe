@@ -1,0 +1,62 @@
+.qr-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+}
+
+.qr-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  position: relative;
+  animation: pop 0.4s ease;
+
+  h2 { font-size: 26px; margin: 0 0 12px; }
+  .emp-name { font-size: 20px; font-weight: 700; margin: 8px 0; }
+  .emp-info { color: #6b7280; margin-bottom: 24px; }
+
+  .qr-container img {
+    width: 260px;
+    height: 260px;
+    border: 16px solid #f3f4f6;
+    border-radius: 20px;
+  }
+
+  .timer { margin: 24px 0; }
+  .countdown { font-size: 20px; margin-top: 8px; }
+
+  .btn-refresh {
+    margin-top: 20px;
+    padding: 14px 32px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 44px; height: 44px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

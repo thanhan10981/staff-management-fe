@@ -1,0 +1,62 @@
+    <div class="overlay">
+    <div class="popup">
+        <!-- Header -->
+        <div class="popup-header">
+        <div class="profile">
+            <img src="/assets/images/avatar.jpg" class="avatar" alt="avatar">
+            <div class="info">
+            <h3>Nguyễn Thị Lan</h3>
+            <div class="sub-info">
+                <span>EMP001 · Bác sĩ nội trú</span>
+                <span class="status">Đang làm việc</span>
+            </div>
+            </div>
+        </div>
+        <i class="ri-close-line" (click)="closeBoth()"></i>
+        </div>
+
+        <!-- Tabs -->
+        <app-common-tabs
+        [tabs]="tabList"
+        [activeTab]="activeTab"
+        (tabChange)="onTabChange($event)">
+        </app-common-tabs>
+
+        <!-- Content -->
+        <div class="content">
+        <div class="columns">
+            <!-- Cột trái -->
+            <div class="column">
+            <h4>Lịch sử tiêm chủng</h4>
+            <div class="card" *ngFor="let v of vaccinations">
+                <div class="card-info">
+                <p class="vaccine">{{ v.name }}</p>
+                <p class="date">Ngày: {{ v.date }}</p>
+                </div>
+                <div class="card-action">
+                <i class="ri-file-list-3-line"></i>
+                <span class="status done">{{ v.status }}</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="column">
+            <h4>Khám sức khỏe định kỳ</h4>
+            <div class="card" *ngFor="let h of healthChecks">
+                <div class="card-info">
+                <p class="vaccine">{{ h.name }}</p>
+                <p class="date">Ngày: {{ h.date }}</p>
+                <p class="hospital">Bệnh viện: {{ h.hospital }}</p>
+                </div>
+                <div class="card-action">
+                <i class="ri-file-list-3-line"></i>
+                <span class="status normal">{{ h.status }}</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </div>

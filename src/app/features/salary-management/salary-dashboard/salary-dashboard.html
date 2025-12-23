@@ -1,0 +1,183 @@
+
+<div class="dashboard">
+  <h2 class="title">Tổng quan lương tháng</h2>
+
+<!-- Top -->
+<div class="stats">
+    <div class="card success">
+        <div class="value">Tổng chi phí tháng lương</div>
+        <div class="label">348.000.000</div>
+        <div class="icon"><i class="ri-money-dollar-circle-fill"></i></div>
+    </div>
+    <div class="card info">
+        <div class="value">Nhân viên được trả lương</div>
+        <div class="label">156</div>
+        <div class="icon"><i class="ri-team-fill"></i></div>
+    </div>
+    <div class="card warning">
+        <div class="value">Tông giờ công</div>
+        <div class="label">23</div>
+        <div class="icon"><i class="ri-time-line"></i></div>
+    </div>
+    <div class="card danger">
+        <div class="value">Tổng phụ cấp và OT</div>
+        <div class="label">7</div>
+        <div class="icon"><i class="ri-wallet-fill"></i></div>
+    </div>
+</div>
+<!-- chart -->
+<div class="chart-section">
+  <div class="chart-card">
+    <div class="header">
+      <h3>Thống kê chí phí lương hàng tháng</h3>
+      <div class="filter">
+        <button class="active">30 ngày</button>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="attendanceChart"></canvas>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h3>Thao tác nhanh</h3>
+    <button class="btn blue">
+      <div class="icon-quick-action"><i class="ri-user-add-fill"></i></div>
+      Tính lương tháng này
+    </button>
+    <button class="btn green">
+      <div class="icon-quick-action"><i class="ri-calendar-line"></i></div>
+      Điều chỉnh hệ số ca lễ tết
+    </button>
+    <button class="btn orange">
+      <div class="icon-quick-action"><i class="ri-briefcase-fill"></i></div>
+      Xuất bảng lương
+    </button>
+   
+  </div>
+</div>
+
+<!-- recent active & schedule -->
+ <div class="info-section">
+    <div class="activities">
+      <h3>Hoạt động gần đây</h3>
+      <ul>
+        <li class="green">
+          <div class="icon"><i class="ri-user-add-fill"></i></div>
+          <div class="content">
+            <p><b>Đã hoàn tất lương tháng 9</b></p>
+            <span>2 giờ trước</span>
+          </div>
+        </li>
+
+        <li class="blue">
+          <div class="icon"><i class="ri-calendar-line"></i></div>
+          <div class="content">
+            <p><b>3 nhân viên bị thiếu hồ sơ chấm công</b></p>
+            <span>4 giờ trước</span>
+          </div>
+        </li>
+
+        <li class="orange">
+          <div class="icon"><i class="ri-mail-unread-line"></i></div>
+          <div class="content">
+            <p><b>Xuất báo cáo lương tháng trước</b> </p>
+            <span>6 giờ trước</span>
+          </div>
+        </li>
+
+        <li class="purple">
+          <div class="icon"><i class="ri-alarm-warning-fill"></i></div>
+          <div class="content">
+            <p><b>Nhân viên mới thêm vào hệ thống bảng lương</b></p>
+            <span>1 ngày trước</span>
+          </div>
+        </li>
+      </ul>
+      <a href="#">Xem tất cả hoạt động</a>
+    </div>
+
+<div class="salary-table-section">
+  <h3>Bảng chi tiết lương</h3>
+
+  <div class="table-header">
+    <input type="text" placeholder="Tìm kiếm..." class="search-box" />
+  </div>
+
+  <table class="salary-table">
+    <thead>
+      <tr>
+        <th>Nhân viên</th>
+        <th>Lương cơ bản</th>
+        <th>Giờ làm việc</th>
+        <th>Các khoản đặc biệt</th>
+        <th>Phụ cấp</th>
+        <th>Làm thêm giờ</th>
+        <th>Tổng lương</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  <tr>
+    <td>
+      <div class="employee-cell">
+        <div class="avatar"><i class="ri-user-3-fill"></i></div>
+        <div class="info">
+          <span class="name">Nguyễn Thị Hoa</span>
+          <span class="email">hoanguyen@company.com</span>
+        </div>
+      </div>
+    </td>
+    <td>50.000</td>
+    <td>160h</td>
+    <td>500.000</td>
+    <td>2.000.000</td>
+    <td>2.000.000</td>
+    <td class="total">11.460.000</td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="employee-cell">
+        <div class="avatar"><i class="ri-user-3-fill"></i></div>
+        <div class="info">
+          <span class="name">Nguyễn Văn Thành</span>
+          <span class="email">vanthanh@company.com</span>
+        </div>
+      </div>
+    </td>
+    <td>45.000</td>
+    <td>210h</td>
+    <td>400.000</td>
+    <td>1.500.000</td>
+    <td>1.800.000</td>
+    <td class="total">11.950.000</td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="employee-cell">
+        <div class="avatar"><i class="ri-user-3-fill"></i></div>
+        <div class="info">
+          <span class="name">Lưu Ái Lệ</span>
+          <span class="email">aile@company.com</span>
+        </div>
+      </div>
+    </td>
+    <td>60.000</td>
+    <td>220h</td>
+    <td>600.000</td>
+    <td>1.900.000</td>
+    <td>1.300.000</td>
+    <td class="total">14.200.000</td>
+  </tr>
+</tbody>
+
+  </table>
+</div>
+
+
+    
+  
+</div>

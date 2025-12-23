@@ -1,0 +1,65 @@
+<div class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <div class="profile">
+        <img src="/assets/images/avatar.jpg" class="avatar" alt="avatar" />
+        <div class="info">
+          <h3>Nguyễn Thị Lan</h3>
+          <div class="sub-info">
+            <span>EMP001 · Bác sĩ nội trú</span>
+            <span class="status">Đang làm việc</span>
+          </div>
+        </div>
+      </div>
+      <i class="ri-close-line" (click)="closeBoth()"></i>
+    </div>
+
+    <!-- Tabs -->
+    <app-common-tabs [tabs]="tabList" [activeTab]="activeTab" (tabChange)="onTabChange($event)">
+    </app-common-tabs>
+
+    <!-- Content -->
+    <div class="content">
+  <h4>Danh sách chứng chỉ</h4>
+
+  <div class="cert-scroll">
+    <div class="cert-list">
+      <div class="cert-card" *ngFor="let c of certificates">
+        <div class="card-header">
+          <h5>{{ c.name }}</h5>
+          <span class="tag new" *ngIf="c.type === 'new'">Mới</span>
+        </div>
+
+        <div class="card-body">
+         <div class="info-left">
+            <p><strong>Số:</strong> <span>{{ c.code }}</span></p>
+            <p><strong>Ngày cấp:</strong> <span>{{ c.date }}</span></p>
+            <p><strong>Nơi cấp:</strong> <span>{{ c.issuedBy }}</span></p>
+            <p><strong>Hết hạn:</strong> <span>{{ c.expire }}</span></p>
+        </div>
+
+
+          <div class="info-right">
+            <div class="status-group" *ngIf="c.type === 'new'">
+              <span class="status approved">Duyệt</span>
+              <span class="status rejected">Không duyệt</span>
+            </div>
+            <span class="status success" *ngIf="c.type === 'approved'">Đã duyệt</span>
+            <span class="status approved" *ngIf="c.type === 'active'">Còn hiệu lực</span>
+            <button class="btn-view" (click)="viewFile(c.file)">
+              <i class="ri-file-search-line"></i> Xem tệp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="popup-footer">
+      <button class="btn update">Cập nhật</button>
+      <button class="btn save">Lưu</button>
+    </div>
+  </div>
+</div>

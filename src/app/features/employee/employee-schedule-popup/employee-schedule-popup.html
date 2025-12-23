@@ -1,0 +1,57 @@
+<div class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <div class="profile">
+        <img src="/assets/images/avatar.jpg" class="avatar" alt="avatar">
+        <div class="info">
+          <h3>Nguyễn Thị Lan</h3>
+          <div class="sub-info">
+            <span>EMP001 · Bác sĩ nội trú</span>
+            <span class="status">Đang làm việc</span>
+          </div>
+        </div>
+      </div>
+      <i class="ri-close-line" (click)="closeBoth()"></i>
+    </div>
+
+    <!-- Tabs -->
+    <app-common-tabs
+      [tabs]="tabList"
+      [activeTab]="activeTab"
+      (tabChange)="onTabChange($event)">
+    </app-common-tabs>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="stats">
+        <div class="stat blue">
+          <p>Tổng ca trực tháng 10</p>
+          <h3>{{ summary.totalShifts }} Ca</h3>
+        </div>
+        <div class="stat green">
+          <p>Tổng giờ làm việc</p>
+          <h3>{{ summary.totalHours }} giờ</h3>
+        </div>
+        <div class="stat yellow">
+          <p>Giờ tăng ca</p>
+          <h3>{{ summary.overtime }} giờ</h3>
+        </div>
+      </div>
+
+      <div class="week-schedule">
+        <h4>Lịch trực tuần này</h4>
+        <div class="days">
+          <div class="day-card" *ngFor="let d of weekSchedule" [class.off]="d.isOff">
+            <h5>{{ d.day }}</h5>
+            <div class="shift" *ngFor="let s of d.shifts">{{ s }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-footer">
+      <button class="btn update">CẬP NHẬT</button>
+      <button class="btn save">LƯU</button>
+    </div>
+  </div>
+</div>

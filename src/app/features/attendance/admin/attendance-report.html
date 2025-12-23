@@ -1,0 +1,79 @@
+<div class="attendance-report">
+  <div class="header">
+    <h2>Báo cáo chấm công</h2>
+    <div class="actions">
+      <select [(ngModel)]="filter.month">
+        <option value="2025-11">Tháng 11/2025</option>
+        <option value="2025-10">Tháng 10/2025</option>
+        <option value="2025-09">Tháng 09/2025</option>
+      </select>
+      <button class="btn-export" (click)="exportExcel()">
+        <i class="ri-file-excel-2-fill"></i> Xuất Excel
+      </button>
+    </div>
+  </div>
+
+  <!-- Thẻ thống kê -->
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <i class="ri-team-fill"></i>
+      <div>
+        <h3>{{ stats.totalEmployees }}</h3>
+        <p>Tổng nhân viên</p>
+      </div>
+    </div>
+    <div class="stat-card success">
+      <i class="ri-check-double-line"></i>
+      <div>
+        <h3>{{ stats.onTime }}</h3>
+        <p>Đúng giờ</p>
+      </div>
+    </div>
+    <div class="stat-card warning">
+      <i class="ri-alarm-warning-fill"></i>
+      <div>
+        <h3>{{ stats.late }}</h3>
+        <p>Đi muộn</p>
+      </div>
+    </div>
+    <div class="stat-card danger">
+      <i class="ri-close-circle-fill"></i>
+      <div>
+        <h3>{{ stats.absent }}</h3>
+        <p>Vắng mặt</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bảng chi tiết -->
+  <div class="table-container">
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Mã NV</th>
+          <th>Họ tên</th>
+          <th>Phòng ban</th>
+          <th>Tổng công</th>
+          <th>Đi muộn</th>
+          <th>Về sớm</th>
+          <th>Vắng</th>
+          <th>Tỷ lệ (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of records">
+          <td>{{ r.id }}</td>
+          <td class="name">{{ r.name }}</td>
+          <td>{{ r.department }}</td>
+          <td class="center">{{ r.totalDays }}</td>
+          <td class="late">{{ r.lateDays }}</td>
+          <td class="early">{{ r.earlyDays }}</td>
+          <td class="absent">{{ r.absentDays }}</td>
+          <td class="rate" [class.good]="r.rate >= 98" [class.warn]="r.rate < 95">
+            {{ r.rate }}%
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

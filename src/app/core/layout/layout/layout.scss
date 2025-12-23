@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+.layout-container {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  flex: 1; 
+  padding: 16px 24px;
+  background: #f9fafb; 
+  min-height: calc(100vh - 114px);
+   overflow-y: auto;
+}
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+
+  app-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px;
+    background: #f9fafb;
+    overflow-y: auto;
+  }
+}
+
+app-footer {
+  flex-shrink: 0;
+}
