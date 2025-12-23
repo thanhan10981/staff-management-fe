@@ -12,6 +12,8 @@ import { AuthGuard } from './gaurds/auth.guard';
 import { ReportingComponent } from './features/reporting/reporting';
 import { SystemAdministrationComponent } from './features/systemAdministration/system-administration/system-administration';
 import { SystemLogUser } from './features/system-log-user/system-log-user';
+import { AttendanceEmployeeComponent } from './features/attendance/employee/attendance-employee.component';
+import { AttendanceReportComponent } from './features/attendance/admin/attendance-report.component';
 
 export const routes: Routes = [
 
@@ -43,8 +45,8 @@ export const routes: Routes = [
       { path: 'reports', title: 'Báo cáo',component: ReportingComponent },
       { path: 'system', title: 'quản lý người dùng',component: SystemAdministrationComponent },
        { path: 'log', title: 'quản lý người dùng',component: SystemLogUser },
-      
-      {path: 'attendance-statistics', component: AttendanceStatisticsComponent},
+      {path: 'attendance/report', component: AttendanceReportComponent},
+      {path: 'attendance', component: AttendanceEmployeeComponent},
       { path: 'leave-report', component: LeaveReportComponent }
     ]
   },
@@ -72,6 +74,6 @@ export const routes: Routes = [
         .then(m => m.LeaveReportComponent),
     canActivate: [AuthGuard]
   },
-  // 404
+ 
   { path: '**', redirectTo: 'dashboard' }
 ];

@@ -1,0 +1,24 @@
+<div class="qr-overlay" (click)="close.emit()">
+  <div class="qr-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="close.emit()">
+      <i class="ri-close-line"></i>
+    </button>
+
+    <h2>Mã QR Chấm Công</h2>
+    <p class="emp-name">{{ employee.name }}</p>
+    <p class="emp-info">{{ employee.position }} • {{ employee.department }}</p>
+
+    <div class="qr-container">
+      <img [src]="'https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=' + qrData" alt="QR">
+    </div>
+
+    <div class="timer">
+      <p>Thời gian hiệu lực: <strong>5 phút</strong></p>
+      <p class="countdown">Còn lại: <strong style="color:#dc2626">{{ formatTime(remainingTime) }}</strong></p>
+    </div>
+
+    <button class="btn-refresh" (click)="ngOnInit()">
+      <i class="ri-refresh-line"></i> Tạo mã mới
+    </button>
+  </div>
+</div>
