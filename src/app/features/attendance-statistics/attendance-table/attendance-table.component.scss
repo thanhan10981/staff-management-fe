@@ -1,0 +1,127 @@
+.attendance-detail-card {
+  --attendance-cols: 2.4fr 1.6fr 1fr 1fr 1.8fr 1fr;
+
+  background: #fff;
+  border: 1.5px solid #b6b6b8;
+  border-radius: 16px;
+  padding: 16px 0 6px;
+
+}
+
+.attendance-grid {
+  display: grid;
+  grid-template-columns: var(--attendance-cols);
+  align-items: center;
+  width: 100%;
+}
+
+.card-title
+{
+    padding-left: 20px;
+  padding-right: 20px;
+}
+/* HEADER */
+.table-header {
+  background: #e5e5e5;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  border-top: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+}
+
+/* ROW */
+.table-row {
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+/* CỘT NHÂN VIÊN CÁCH LỀ TRÁI 10PX */
+.table-header > div:first-child,
+.table-row > div:first-child {
+  padding-left: 30px; 
+}
+
+/* CÁC CỘT SỐ CĂN GIỮA */
+.table-header > div:nth-child(n + 3),
+.table-row > div:nth-child(n + 3) {
+  text-align: center;
+}
+
+/* PHÒNG BAN CÂN HƠN */
+.table-header > div:nth-child(2),
+.table-row > div:nth-child(2) {
+  padding: 14px 20px;
+}
+/* CENTER */
+.center {
+  text-align: center;
+}
+
+
+/* EMPLOYEE */
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ede9fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.name {
+  font-weight: 500;
+  color: #111827;
+}
+
+.email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* TEXT */
+.text-red {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* RATE PILL */
+.rate-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 64px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+/* COLORS */
+.rate-pill.green {
+  background: #dcfce7;
+  color: #16a34a;
+  border-color: #86efac;
+}
+
+.rate-pill.yellow {
+  background: #fef9c3;
+  color: #ca8a04;
+  border-color: #fde047;
+}
+
+.rate-pill.red {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}

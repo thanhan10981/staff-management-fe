@@ -1,0 +1,57 @@
+<div class="attendance-detail-card">
+  <h3 class="card-title">Chi tiết chấm công</h3>
+
+  <!-- HEADER -->
+  <div class="attendance-grid table-header">
+    <div>NHÂN VIÊN</div>
+    <div>PHÒNG BAN</div>
+    <div>NGÀY CÔNG</div>
+    <div>ĐI TRỄ</div>
+    <div>NGHỈ KHÔNG PHÉP</div>
+    <div>TỶ LỆ</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="attendance-body" *ngIf="!loading">
+    <div
+    class="attendance-grid table-row"
+    *ngFor="let item of data"
+    >
+    <div class="employee-cell">
+        <div class="avatar">👤</div>
+        <div>
+        <div class="name">{{ item.tenNhanVien }}</div>
+        <div class="email">{{ item.email }}</div>
+        </div>
+    </div>
+
+    <div>{{ item.tenPhongBan }}</div>
+
+    <div class="center">
+        {{ item.ngayCong | date: 'dd/MM/yyyy' }}
+    </div>
+
+    <div class="center text-red">
+        {{ getSoLanDiTre(item) }}
+    </div>
+
+    <div class="center text-red">
+        {{ item.nghiKhongPhep }}
+    </div>
+
+    <div class="center">
+        <span
+        class="rate-pill"
+        [ngClass]="{
+            green: getRate(item) >= 90,
+            yellow: getRate(item) < 90 && getRate(item) >= 70,
+            red: getRate(item) < 70
+        }"
+        >
+        {{ getRate(item) }}%
+        </span>
+    </div>
+    </div>
+
+  </div>
+</div>

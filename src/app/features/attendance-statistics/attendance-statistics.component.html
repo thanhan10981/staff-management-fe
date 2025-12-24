@@ -1,0 +1,42 @@
+<div class="page-wrapper">
+
+  <div class="attendance-statistics">
+
+    <!-- TITLE -->
+    <h1 class="page-title">
+      Thống kê chấm công và đi trễ
+    </h1>
+
+    <hr class="divider" />
+
+    <!-- FILTER -->
+    <app-filter-bar
+      (filterChange)="onFilterChange($event)">
+    </app-filter-bar>
+
+    <app-stats-panel
+      [totalWorkDays]="totalWorkDays"
+      [lateCount]="lateCount"
+      [absentWithoutLeave]="absentWithoutLeave"
+      [onTimeRate]="onTimeRate">
+    </app-stats-panel>
+
+    <div class="charts-row">
+      <app-chart-workdays
+      [data]="monthlyWorkdays">
+
+      
+      </app-chart-workdays>
+
+
+      <app-chart-late-rate [data]="lateRateData"></app-chart-late-rate>
+    </div>
+    <app-attendance-table
+      *ngIf="selectedDate"
+      [selectedDate]="selectedDate"
+      [maPhongBan]="selectedPhongBan"
+      [maViTri]="selectedViTri"
+    ></app-attendance-table>
+
+  </div>
+</div>

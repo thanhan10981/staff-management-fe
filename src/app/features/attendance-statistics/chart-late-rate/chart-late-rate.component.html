@@ -1,0 +1,21 @@
+<div class="chart-card center">
+  <h3>Tỷ lệ đi trễ theo phòng ban</h3>
+
+  <div class="chart-body" >
+    <ng-container *ngIf="hasData; else emptyState">
+      <canvas
+        baseChart
+        [type]="'doughnut'"
+        [data]="doughnutData"
+        [options]="doughnutOptions"
+        [plugins]="[centerTextPlugin, leaderLinePlugin]">
+      </canvas>
+    </ng-container>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-chart">
+      {{ emptyMessage }}
+    </div>
+  </ng-template>
+</div>

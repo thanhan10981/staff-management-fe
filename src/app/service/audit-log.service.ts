@@ -12,4 +12,7 @@ export class AuditLogService {
   getLogsByEmployee(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}/nhanvien/${id}`);
   }
+  getAllLogs(): Observable<any[]> {
+    return this.http.get<any[]>(this.api);
+  }
 }

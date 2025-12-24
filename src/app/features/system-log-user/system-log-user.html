@@ -1,0 +1,113 @@
+<div class="system-admin-page">
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>Quản trị hệ thống</h1>
+    <p class="description">Theo dõi lịch sử hoạt động của người dùng</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button
+      class="tab"
+      routerLink="/system"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Người dùng
+    </button>
+
+    <button
+      class="tab"
+      routerLink="/log"
+      routerLinkActive="active"
+    >
+      Nhật ký
+    </button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <!-- HEADER -->
+    <div class="content-header">
+      <div class="left-block">
+        <h2>Nhật ký hệ thống</h2>
+        <p class="total-user">
+          Tổng số bản ghi: <b>{{ filteredLogs.length }}</b>
+        </p>
+      </div>
+
+      <!-- FILTER -->
+      <div class="right-block">
+        <!-- FILTER ROLE -->
+        <div class="filter-item">
+          <select [(ngModel)]="filterRole" (change)="applyFilter()">
+            <option value="">Tất cả vai trò</option>
+            <option value="QuanTriVien">Quản trị viên</option>
+            <option value="Trưởng Khoa">Trưởng khoa</option>
+            <option value="KyThuatVien">Kỹ thuật viên</option>
+          </select>
+        </div>
+
+        <!-- FILTER DATE -->
+        <div class="filter-item">
+          <input
+            type="date"
+            [(ngModel)]="filterDate"
+            (change)="applyFilter()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>Mã Log</th>
+            <th>Tên đăng nhập</th>
+            <th>Vai trò</th>
+            <th>Thời gian</th>
+            <th>Hành động</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let log of filteredLogs">
+            <td>
+              <span class="emp-name">{{ log.maLog }}</span>
+            </td>
+
+            <td class="username">
+              <img [src]="'https://i.pravatar.cc/40?u=' + log.maLog" class="avatar" />
+              <p class="emp-name">{{ log.tenDangNhap }}</p>
+            </td>
+
+            <td>
+              <span class="role">{{ log.vaiTro }}</span>
+            </td>
+
+            <td>
+              {{ log.thoiGian }}
+            </td>
+
+            <td>
+              {{ log.hanhDong }}
+            </td>
+
+            <td>
+              <span
+                class="status"
+                [class.active]="log.trangThai === 'ThanhCong'"
+                [class.locked]="log.trangThai === 'ThatBai'"
+              >
+                {{ log.trangThai === 'ThanhCong' ? 'Thành công' : 'Thất bại' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

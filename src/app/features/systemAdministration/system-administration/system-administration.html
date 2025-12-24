@@ -1,0 +1,210 @@
+<div class="system-admin-page">
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>Quản trị hệ thống</h1>
+    <p class="description">Quản lý cấu hình, người dùng và giám sát hoạt động hệ thống</p>
+  </div>
+  <!-- TABS -->
+  <div class="tabs">
+  <button
+    class="tab"
+    routerLink="/system"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Người dùng
+  </button>
+
+  <button
+    class="tab"
+    routerLink="/log"
+    routerLinkActive="active"
+  >
+    Nhật ký
+  </button>
+</div>
+  <!-- CONTENT -->
+  <div class="content">
+    <div class="content-header">
+      <div class="left-block">
+        <h2>Quản lý người dùng</h2>
+        <p class="total-user">
+          Tổng số người dùng: <b>{{ filteredUsers.length }}</b>
+        </p>
+      </div>
+      <div class="right-block">
+        <div class="filter-bar">
+          <select [(ngModel)]="filterRole" (change)="applyFilter()">
+            <option value="">Tất cả vai trò</option>
+            <option value="QuanTriVien">Quản trị viên</option>
+            <option value="TruongKhoa">Trưởng Khoa</option>
+            <option value="KeToan">Kế toán</option>
+            <option value="KyThuatVien">Kỹ thuật viên</option>
+          </select>
+          <select [(ngModel)]="filterPermission" (change)="applyFilter()">
+            <option value="">Tất cả quyền</option>
+            <option *ngFor="let p of permissions" [value]="p.maQuyen">{{ p.tenQuyen }}</option>
+          </select>
+        </div>
+        <div class="actions" *ngIf="selectedIds.length > 0" (click)="confirmDeleteSelected()">
+          <span class="icon delete"
+            ><i class="ri-delete-bin-line"></i> ({{ selectedIds.length }})</span
+          >
+        </div>
+        <button class="btn-primary" (click)="openAdd()">+ Thêm người dùng</button>
+      </div>
+    </div>
+    <!-- TABLE -->
+    <div class="table-wrapper">
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>
+              <label class="table-checkbox">
+                <input type="checkbox" [checked]="isAllChecked()" (change)="toggleAll($event)" />
+                <span class="checkmark"></span>
+              </label>
+            </th>
+            <th>MND</th>
+            <th>Tên đăng nhập</th>
+            <th>Vai trò</th>
+            <th>Quyền</th>
+            <th>Trạng thái</th>
+            <th>Đăng nhập cuối</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of filteredUsers">
+            <td>
+              <label class="table-checkbox">
+                <input
+                  type="checkbox"
+                  [checked]="selectedIds.includes(u.maNguoiDung)"
+                  (change)="toggleOne(u.maNguoiDung)"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </td>
+            <td>
+              <span class="emp-name">ND.{{ u.maNguoiDung }}</span>
+            </td>
+            <td class="username">
+              <img [src]="'https://i.pravatar.cc/40?u=' + u.maNhanVien" class="avatar" />
+              <p class="emp-name">{{ u.tenDangNhap }}</p>
+            </td>
+            <td>
+              <span class="role">{{ u.vaiTro }}</span>
+            </td>
+            <td class="permission-cell">
+              <span class="permission-tag has-tooltip" *ngFor="let p of u.permissions">
+                {{ p }} <span class="tooltip"> {{ getPermissionName(p) }} </span>
+              </span>
+            </td>
+            <td>
+              <span class="status active" *ngIf="u.trangThai === 'HoatDong'"> Hoạt động </span>
+              <span class="status locked" *ngIf="u.trangThai !== 'HoatDong'"> Khóa </span>
+            </td>
+            <td><span>2 phút trước</span></td>
+            <td class="actions">
+              <span class="icon update" (click)="openEdit(u)"><i class="ri-edit-2-line"></i></span>
+              <span class="icon delete" (click)="confirmDeleteOne(u)"
+                ><i class="ri-delete-bin-line"></i
+              ></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- OVERLAY -->
+  <div class="modal-overlay" *ngIf="isShowModal" (click)="close()">
+    <!-- MODAL -->
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ isEditMode ? 'Cập nhật người dùng' : 'Thêm người dùng' }}</h3>
+      <form [formGroup]="form">
+        <!-- USERNAME -->
+        <div class="form-group">
+          <label>Tên đăng nhập</label> <input type="text" formControlName="tenDangNhap" />
+        </div>
+        <!-- PASSWORD -->
+        <div class="form-group" *ngIf="!isEditMode">
+          <label>Mật khẩu</label> <input type="password" formControlName="matKhau" />
+        </div>
+        <!-- ROLE -->
+        <div class="form-group">
+          <label>Vai trò</label>
+          <select formControlName="vaiTro" class="role-select">
+            <option value="">-- Chọn vai trò --</option>
+            <option value="QuanTriVien">Quản trị viên</option>
+            <option value="TruongKhoa">Trưởng khoa</option>
+            <option value="KyThuatVien">Kỹ thuật viên</option>
+          </select>
+        </div>
+        <!-- ADMIN SYSTEM -->
+        <div *ngIf="form.value.vaiTro === 'QuanTriVien'">
+          <label class="admin-checkbox">
+            <input type="checkbox" formControlName="isSystemAdmin" />
+            <span class="admin-checkmark"></span>
+            <span class="admin-text"> Admin không thuộc nhân viên (chủ bệnh viện) </span>
+          </label>
+        </div>
+        <!-- EMPLOYEE -->
+        <div
+          class="form-group"
+          *ngIf="form.value.vaiTro !== 'QuanTriVien' || !form.value.isSystemAdmin"
+        >
+          <label>Nhân viên</label>
+          <select formControlName="maNhanVien">
+            <option value="">-- Chọn nhân viên --</option>
+            <option *ngFor="let nv of nhanViens" [value]="nv.maNhanVien">
+              {{ nv.tenNhanVien }}
+            </option>
+          </select>
+        </div>
+        <!-- PERMISSION -->
+        <div class="form-group">
+          <label>Quyền</label>
+          <div class="permission-grid">
+            <label class="permission-item" *ngFor="let p of permissions">
+              <input
+                type="checkbox"
+                [value]="p.maQuyen"
+                (change)="onPermissionChange($event)"
+                [checked]="selectedPermissions.includes(p.maQuyen)"
+              />
+              <span class="checkmark"></span> <span class="permission-text">{{ p.tenQuyen }}</span>
+              <span class="permission-desc">{{ p.moTa }}</span>
+            </label>
+          </div>
+        </div>
+        <!-- ACTION -->
+        <div class="actions">
+          <button type="button" class="btn-cancel" (click)="close()">Hủy</button>
+          <button type="button" class="btn-primary" (click)="submit()">
+            {{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- CONFIRM DELETE OVERLAY -->
+<div class="confirm-overlay" *ngIf="showConfirm">
+  <div class="confirm-box">
+    <h4>Xác nhận xoá</h4>
+    <p>
+      Bạn có chắc muốn xoá người dùng <b>"{{ selectedUser?.tenDangNhap }}"</b> không?
+    </p>
+    <div class="confirm-actions">
+      <button class="btn-cancel" (click)="cancelDelete()">Huỷ</button>
+      <button class="btn-danger" (click)="confirmDelete()">Xoá</button>
+    </div>
+  </div>
+</div>
+<div class="toast"
+     *ngIf="showToastBox"
+     [class.success]="toastType === 'success'"
+     [class.error]="toastType === 'error'">
+  {{ toastMessage }}
+</div>

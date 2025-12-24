@@ -1,0 +1,192 @@
+<div class="attendance-employee">
+  <div class="main-grid">
+    <!-- CỘT TRÁI: Chấm công -->
+    <div class="checkin-section">
+      <h3 class="section-title">Chấm công</h3>
+
+      <div class="action-item success">
+        <i class="ri-qr-code-fill"></i>
+        <div>
+          <strong>Tạo mã QR hôm nay</strong>
+          <p>Đã tạo mã QR hôm nay</p>
+        </div>
+      </div>
+
+      <div class="action-item primary">
+        <i class="ri-qr-scan-2-line"></i>
+        <div>
+          <strong>Hiển thị mã QR</strong>
+          <p>Nhấn để hiện mã quét</p>
+        </div>
+        <button class="btn-qr" (click)="showQr = true">
+          Hiển thị mã QR
+        </button>
+      </div>
+
+      <div class="action-item" [class.success]="todayRecord?.checkInTime">
+        <i class="ri-login-box-line"></i>
+        <div>
+          <strong>Giờ vào</strong>
+          <p>{{ todayRecord?.checkInTime || 'Chưa chấm vào' }}</p>
+        </div>
+      </div>
+
+      <div class="action-item" [class.success]="todayRecord?.checkOutTime">
+        <i class="ri-logout-box-line"></i>
+        <div>
+          <strong>Giờ ra</strong>
+          <p>{{ todayRecord?.checkOutTime || 'Chưa chấm ra' }}</p>
+        </div>
+      </div>
+
+      <button type="button"
+        class="btn-checkin"
+        (click)="checkinNow()"
+        [disabled]="isProcessing || (!!todayRecord?.checkInTime && !!todayRecord?.checkOutTime)">
+  <i class="ri-fingerprint-line"></i>
+  {{ todayRecord?.checkInTime ? (todayRecord?.checkOutTime ? 'Đã hoàn tất' : 'Chấm công ra') : 'Chấm công vào' }}
+</button>
+
+    </div>
+
+    <!-- CỘT GIỮA: Thông tin ca trực -->
+    <div class="shift-section">
+      <h3 class="section-title">Thông tin ca trực</h3>
+      <div class="shift-card">
+        <i class="ri-time-line clock-icon"></i>
+        <div class="shift-detail">
+          <p class="shift-name">Ca hiện tại</p>
+          <h4>Ca sáng</h4>
+          <p class="time-range">07:00 - 15:00</p>
+        </div>
+
+        <div class="time-info">
+          <div class="time-row">
+            <span>Giờ vào:</span>
+            <span>{{ todayRecord?.checkInTime || '' }}</span>
+          </div>
+          <div class="time-row">
+            <span>Giờ ra:</span>
+            <span>{{ todayRecord?.checkOutTime || '' }}</span>
+          </div>
+          <div class="time-row">
+            <span>Tổng giờ:</span>
+            <span>--:--</span>
+          </div>
+        </div>
+
+        <div class="live-clock">
+          <div class="time">{{ currentTime }}</div>
+          <div class="date">Thứ Năm, 27 tháng 11, 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CỘT PHẢI: Thống kê tháng này -->
+    <div class="stats-section">
+      <h3 class="section-title">Thống kê tháng này</h3>
+
+      <!-- Dropdown chọn tháng/năm -->
+      <div class="month-selector">
+        <select [(ngModel)]="selectedMonth" (change)="onMonthChange(selectedMonth)">
+          <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">Tháng {{ m }}</option>
+        </select>
+        <select [(ngModel)]="selectedYear" (change)="onYearChange(selectedYear)">
+          <option *ngFor="let y of [2024,2025,2026]" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="label">Tổng ngày làm</div>
+          <div class="value">{{ monthSummary.totalDays }}</div>
+        </div>
+        <div class="stat-item success">
+          <div class="label">Có mặt</div>
+          <div class="value">{{ monthSummary.present }}</div>
+        </div>
+        <div class="stat-item warning">
+          <div class="label">Đi muộn</div>
+          <div class="value">{{ monthSummary.late }}</div>
+        </div>
+        <div class="stat-item info">
+          <div class="label">Nghỉ phép</div>
+          <div class="value">{{ monthSummary.leave }}</div>
+        </div>
+        <div class="stat-item danger">
+          <div class="label">Vắng mặt</div>
+          <div class="value">{{ monthSummary.absent }}</div>
+        </div>
+
+        <div class="large-stat">
+          <div class="label">Tổng giờ làm:</div>
+          <div class="value">{{ monthSummary.totalHours }}</div>
+          <div class="trend">Tăng ca: {{ monthSummary.overtime }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LỊCH SỬ CHẤM CÔNG -->
+  <div class="history-section">
+    <div class="header">
+      <h3>Lịch sử chấm công</h3>
+      <div class="actions">
+        <select>
+          <option>Tháng 11</option>
+          <option>Tháng 10</option>
+        </select>
+        <select>
+          <option>Năm 2025</option>
+        </select>
+        <button class="btn-export">
+          <i class="ri-download-line"></i> Xuất báo cáo
+        </button>
+      </div>
+    </div>
+
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Ngày</th>
+          <th>Giờ vào</th>
+          <th>Giờ ra</th>
+          <th>Giờ làm</th>
+          <th>Tăng ca</th>
+          <th>Trạng thái</th>
+          <th>Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of history">
+          <td>
+            <div class="date-bold">{{ item.workDate }}</div>
+            <div class="day">{{ item.dayOfWeek }}</div>
+          </td>
+         <td [class.late]="(item.lateMinutes ?? 0) > 0">{{ item.checkInTime || '-' }}</td>
+
+          <td>{{ item.checkOutTime || '-' }}</td>
+          <td>8h 30m</td>
+          <td>0h</td>
+          <td>
+            <span class="status-badge" [ngClass]="{
+              'success': item.status === 'Đúng giờ' || item.status === 'Có mặt',
+              'warning': item.status === 'Đi muộn',
+              'danger': item.status === 'Vắng',
+              'info': item.status === 'Nghỉ'
+            }">
+              {{ item.status }}
+            </span>
+          </td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-qr-popup 
+  *ngIf="showQr" 
+  [employee]="employee"
+  (close)="showQr = false">
+</app-qr-popup>

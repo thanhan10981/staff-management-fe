@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 
 import { LichTrucTuanDTO } from '../../../model/model';
 import { ScheduleService } from '../../../service/schedule.service';
-import html2pdf from 'html2pdf.js';
+
 @Component({
   selector: 'app-schedule-employee-report-popup',
   standalone: true,
@@ -60,10 +60,8 @@ export class ScheduleEmployeeReportPopup implements OnInit {
 
   this.buildWeek(from, to);
   this.loadCategories();
-
-  this.scheduleService
-    .getLichTuanTheoKhoa(0, from, to)
-    .subscribe({
+  debugger
+  this.scheduleService.getLichTuanTheoKhoa(0, from, to).subscribe({
       next: (res: LichTrucTuanDTO[]) => {
         this.originalData = [...res];
         this.data = [...res];
