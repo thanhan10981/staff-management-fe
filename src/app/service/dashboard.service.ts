@@ -7,8 +7,6 @@ export class DashboardService {
   private API = 'http://localhost:9090/api/dashboard';
 
   constructor(private http: HttpClient) {}
-
-
 getTiLeNghiPhep() {
   return this.http.get<{ tiLe: number; chenhLech: number }>(
     `${this.API}/ti-le-nghi-phep`

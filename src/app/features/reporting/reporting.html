@@ -136,7 +136,7 @@
             <span>Biểu đồ cột/tròn</span>
         </div>
 
-        <button class="btn">Xem báo cáo</button>
+        <button class="btn" (click)="showSalaryPopup = true">Xem báo cáo</button>
     </div>
 </div>
 
@@ -224,6 +224,10 @@
   (close)="closeSchedulePopup()">
 </app-schedule-employee-report-popup>
 
+<app-salary-allowance-report-popup
+  *ngIf="showSalaryPopup"
+  (close)="showSalaryPopup = false">
+</app-salary-allowance-report-popup>
     <!-- Tổng số báo cáo -->
     <div class="summary-box">
         <div class="summary-content">
