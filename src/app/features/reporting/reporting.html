@@ -44,33 +44,45 @@
 <!-- ========================================================= -->
 <div class="card">
 
-    <div class="card-header">
-        <div class="icon-wrapper green-bg">
-            <svg class="icon-stroke" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 6v6h4" stroke-linecap="round"/>
-            </svg>
-        </div>
-
-        <div class="title-group">
-            <h3>Thống kê chấm công & đi trễ</h3>
-            <p class="sub">US 7.2</p>
-        </div>
+  <div class="card-header">
+    <div class="icon-wrapper green-bg">
+      <svg class="icon-stroke" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6h4" stroke-linecap="round"/>
+      </svg>
     </div>
 
-    <p class="desc">Tổng hợp ngày công, số lần đi trễ, nghỉ không phép. Biểu đồ trực quan.</p>
-
-    <div class="card-footer">
-        <div class="footer-left">
-            <svg class="footer-icon" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="18" height="18" rx="3"/>
-            </svg>
-            <span>Biểu đồ trực quan</span>
-        </div>
-
-        <button class="btn">Xem báo cáo</button>
+    <div class="title-group">
+      <h3>Thống kê chấm công & đi trễ</h3>
+      <p class="sub">US 7.2</p>
     </div>
+  </div>
+
+  <p class="desc">
+    Tổng hợp ngày công, số lần đi trễ, nghỉ không phép. Biểu đồ trực quan.
+  </p>
+
+  <div class="card-footer">
+    <div class="footer-left">
+      <svg class="footer-icon" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="3"/>
+      </svg>
+      <span>Biểu đồ trực quan</span>
+    </div>
+
+    <!-- CHỈ CẦN CLICK -->
+    <button class="btn" (click)="openAttendancePopup()">
+      Xem báo cáo
+    </button>
+  </div>
 </div>
+
+<!-- POPUP -->
+<app-attendance-statistics
+  *ngIf="showAttendancePopup"
+  (close)="closeAttendancePopup()">
+</app-attendance-statistics>
+
 
 <!-- ========================================================= -->
 <!-- 3. BÁO CÁO NGHỈ PHÉP -->
@@ -103,9 +115,14 @@
             <span>Xuất Excel/PDF</span>
         </div>
 
-        <button class="btn">Xem báo cáo</button>
+        <button class="btn" (click)="openLeavePopup()">Xem báo cáo</button>
+
     </div>
 </div>
+<app-leave-report
+  *ngIf="showLeavePopup"
+  (close)="closeLeavePopup()">
+</app-leave-report>
 
 <!-- ========================================================= -->
 <!-- 4. BÁO CÁO LƯƠNG & PHỤ CẤP -->

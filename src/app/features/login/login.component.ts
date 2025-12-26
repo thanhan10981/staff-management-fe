@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
+import { ProfileService } from '../../service/profile.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { MatIcon } from "@angular/material/icon";
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.form.value).subscribe({
       next: (res) => {
         this.auth.saveToken(res.token, res.roles);
-
+        this.profileService.loadSummary();
         if (res.roles.includes('QuanLyHeThong')) {
           this.router.navigate(['/admin']);
         } 

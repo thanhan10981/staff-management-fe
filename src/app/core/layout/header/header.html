@@ -18,12 +18,52 @@
       <span class="badge">2</span>
     </div>
 
-    <div class="user-info">
-      <div class="avatar"><img src="/assets/images/avatar.jpg" alt=""></div>
-      <div class="details">
-        <span class="name">Nguyễn Văn Admin</span>
-        <span class="role">Quản trị viên</span>
+  <!-- header.html -->
+  <div *ngIf="summary$ | async as s" class="user-info"
+     (click)="toggleDropdown()"
+     [class.active]="dropdownOpen">
+
+  <div class="avatar">
+    <img [src]="s.anhDaiDien || '/assets/images/avatar.jpg'" alt="">
+  </div>
+
+  <div class="details">
+    <span class="name">{{ s.tenNhanVien }}</span>
+    <span class="role">{{ s.tenViTri }}</span>
+  </div>
+
+  <!-- Dropdown -->
+  <div class="dropdown" *ngIf="dropdownOpen">
+    <div class="profile">
+      <img [src]="s.anhDaiDien || '/assets/images/avatar.jpg'" alt="">
+      <div class="info">
+        <span class="name">{{ s.tenNhanVien }}</span>
+        <span class="email">{{ s.email }}</span>
       </div>
     </div>
+
+    <hr>
+
+    <ul class="menu">
+      <li (click)="openProfile()">
+        <i class="ri-user-line"></i> Trang cá nhân
+      </li>
+
+      <li><i class="ri-lock-line"></i> Đổi mật khẩu</li>
+      <li><i class="ri-settings-3-line"></i> Cài đặt hệ thống</li>
+      <li><i class="ri-question-line"></i> Trợ giúp & Hỗ trợ</li>
+      <li class="logout" (click)="logout($event)">
+        <i class="ri-logout-box-line"></i> Đăng xuất
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<app-details-profile
+  *ngIf="showProfilePopup"
+  (closePopup)="closeProfile()">
+</app-details-profile>
+
   </div>
 </header>

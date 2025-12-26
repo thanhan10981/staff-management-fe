@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -29,6 +29,7 @@ export interface LeaveFilter {
 })
 export class LeaveReportComponent implements OnInit {
 
+  @Output() close = new EventEmitter<void>();
   // ======================
   // STATE
   // ======================
