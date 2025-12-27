@@ -1,0 +1,40 @@
+.dialog-body {
+  padding: 10px 20px;
+
+  form {
+    width: 100%;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.full {
+  width: 100%;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 15px 20px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 10px;
+}
+
+.toast-success {
+  background: #4caf50 !important;
+  color: #fff !important;
+}
+
+.toast-error {
+  background: #f44336 !important;
+  color: #fff !important;
+}

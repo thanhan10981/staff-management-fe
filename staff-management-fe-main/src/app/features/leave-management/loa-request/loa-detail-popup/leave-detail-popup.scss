@@ -1,0 +1,135 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.popup-container {
+  background: #fff;
+  width: 650px;
+  padding: 20px 28px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.popup-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+}
+
+.status-section {
+  margin: 16px 0;
+}
+
+.status {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.status.pending {
+  background: #fdf5d9;
+  color: #c49a0b;
+}
+
+.status.approved {
+  background: #e1ffd9;
+  color: #3a8b1e;
+}
+
+.status.rejected {
+  background: #ffdada;
+  color: #cf2727;
+}
+
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 25px;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.section {
+  margin-bottom: 12px;
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    font-size: 14px;
+  }
+
+  textarea {
+    height: 90px;
+    resize: none;
+  }
+}
+
+.request-date span {
+  font-weight: 500;
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.approve-btn {
+  background: #44c767;
+  padding: 10px 22px;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.reject-btn {
+  background: #e14c4c;
+  padding: 10px 22px;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

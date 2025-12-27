@@ -1,0 +1,373 @@
+.export-salary-page {
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #111827;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+
+  .current {
+    font-weight: 600;
+    color: #111827;
+  }
+}
+
+/* Title */
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.page-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+.filter-section {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+/* Mỗi cột có width bằng nhau */
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  width: 230px; 
+       
+}
+
+.filter-item label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.filter-item1 {
+  display: flex;
+  flex-direction: column;
+  width: 230px; 
+       
+}
+.filter-item1 {
+  margin-right: 30px;
+}
+
+.filter-item1 label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+.filter-section select,
+.filter-section input[type="date"] {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.btn-filter {
+  height: 40px;
+  padding: 0 22px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  margin-left: auto;   /* 🔥 ĐẨY NÚT LỌC SANG BÊN PHẢI */
+}
+
+
+.btn-filter:hover {
+  background: #1d4ed8;
+}
+
+
+/* 🔵 Nút Lọc */
+.btn-filter {
+  height: 38px;             /* 🔥 bằng input */
+  padding: 0 20px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 10px;      /* 🔥 bo góc đồng bộ */
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-filter:hover {
+  background: #1d4ed8;
+}
+/* Bọc select để style mũi tên */
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 230px;
+}
+
+/* Select chính */
+.custom-select select {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 13px;
+  color: #111827;
+  appearance: none;     /* 🔥 ẩn mũi tên xấu của trình duyệt */
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Hover */
+.custom-select select:hover {
+  border-color: #9ca3af;
+}
+
+/* Focus */
+.custom-select select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb40;
+  outline: none;
+}
+
+/* Icon mũi tên */
+.custom-select::after {
+  content: "\25BC";      /* mũi tên ▼ */
+  font-size: 10px;
+  color: #6b7280;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Dropdown options */
+.custom-select select option {
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* Summary cards */
+.summary-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+
+  .card {
+    border-radius: 12px;
+    padding: 16px;
+    background: #fff;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .total-emp { background: #e0f2fe; color: #0284c7; }
+  .total-salary { background: #dcfce7; color: #15803d; }
+  .total-allowance { background: #f3e8ff; color: #8b5cf6; }
+  .total-ot { background: #fee2e2; color: #dc2626; }
+}
+
+/* Table container */
+.salary-table-section {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Table header */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 8px;
+    gap: 6px;
+
+    i { color: #6b7280; }
+
+    input {
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      color: #374151;
+    }
+
+    input:focus {
+      outline: none;
+    }
+  }
+}
+
+/* Table */
+.salary-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: 10px;
+    background: #f9fafb;
+    color: #6b7280;
+    font-size: 12.5px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 13px;
+  }
+
+  tr:hover {
+    background: #f9fafb;
+  }
+
+  .total {
+    color: #2563eb;
+    font-weight: 700;
+  }
+}
+
+/* Avatar inside table */
+.employee-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    background: rgba(139, 92, 246, 0.15);
+    color: #8b5cf6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i { font-size: 18px; }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      font-weight: 600;
+    }
+
+    .email {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  }
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 13px;
+  color: #6b7280;
+
+  .page-btns {
+    display: flex;
+    gap: 6px;
+
+    button {
+      padding: 6px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+  }
+}
+
+.export-row {
+  display: flex;     /* 🔥 quan trọng */
+  width: 100%;
+}
+/* Export buttons */
+.export-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  margin-left: auto;      /* 🔥 ĐẨY QUA BÊN PHẢI */
+
+  button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .excel {
+    background: #22c55e;
+    color: white;
+  }
+
+  .pdf {
+    background: #dc2626;
+    color: white;
+  }
+}

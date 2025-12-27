@@ -1,0 +1,340 @@
+<div class="employees">
+  <h2 class="title">Quản lý nhân viên</h2>
+
+<!-- Top -->
+  <div class="stats">
+  <div class="card success">
+      <div class="value">{{ totalEmployees }}</div>
+      <div class="label">Tổng nhân viên</div>
+      <div class="icon"><i class="ri-team-fill"></i></div>
+      <span class="change"></span>
+  </div>
+
+  <div class="card info">
+      <div class="value">{{ activeEmployees }}</div>
+      <div class="label">Đang làm việc</div>
+      <div class="icon"><i class="ri-briefcase-4-fill"></i></div>
+      <span class="change"></span>
+  </div>
+
+  <div class="card remove">
+      <div class="value">{{ resignedEmployees }}</div>
+      <div class="label">Nghỉ việc trong năm</div>
+      <div class="icon"><i class="ri-user-minus-line"></i></div>
+      <span class="change"></span>
+  </div>
+
+  <div class="card add">
+      <div class="value">{{ newEmployees }}</div>
+      <div class="label">Nhân viên mới</div>
+      <div class="icon"><i class="ri-user-add-line"></i></div>
+      <span class="change"></span>
+  </div>
+</div>
+
+<!-- filter + action -->
+ <div class="filter-wrapper">
+  <div class="filter-section">
+    <div class="filters">
+      <div class="search-box">
+        <i class="ri-search-line"></i>
+        <input type="text" placeholder="Tìm kiếm..." 
+       [(ngModel)]="filterName"
+       (input)="applyFilters()">
+
+      </div>
+
+      <select [(ngModel)]="filterKhoa" (change)="applyFilters()">
+        <option value="">Tất cả khoa</option>
+        <option *ngFor="let k of listKhoa" [value]="k.maKhoa">
+          {{ k.tenKhoa }}
+        </option>
+      </select>
+
+
+      <select [(ngModel)]="filterViTri" (change)="applyFilters()">
+        <option value="">Tất cả chức vụ</option>
+        <option *ngFor="let vt of listViTri" [value]="vt.maViTri">
+          {{ vt.tenViTri }}
+        </option>
+      </select>
+
+      <select [(ngModel)]="filterTrangThai" (change)="applyFilters()">
+        <option value="">Tất cả trạng thái</option>
+        <option>Đang làm việc</option>
+        <option>Tạm nghỉ</option>
+        <option>Nghỉ việc</option>
+      </select>
+
+
+    <div class="add-employee-wrapper">
+        <button class="btn-primary" (click)="toggleAddMenu()">
+            <i class="ri-user-add-fill"></i> Thêm nhân viên mới
+        </button>
+
+        <!-- menu chọn -->
+        <div class="add-menu" [class.show]="isAddMenuVisible">
+            <div class="add-option manual" (click)="openAddPopup('manual')">
+            Nhập thủ công
+            </div>
+            <div class="add-option excel">
+              <label for="excelInput" (click)="toggleExcelPopup()">Nhập từ Excel</label>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <app-add-employee-popup 
+      *ngIf="showAddPopup" 
+      (close)="closeAddPopup()" 
+      (saved)="onEmployeeAdded()">
+  </app-add-employee-popup>
+
+ </div>
+ </div>
+<div class="employee-table">
+  <div class="table-header">
+    <h3>Danh sách nhân viên <span>({{ employees.length }} nhân viên)</span></h3>
+    <button class="btn delete-multi" (click)="deleteSelected()" 
+            [disabled]="selectedIds.length === 0">
+      Xóa đã chọn ({{ selectedIds.length }})
+    </button>
+
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <input class="checkall" type="checkbox" [(ngModel)]="selectAll" (change)="toggleSelectAll()" />
+        </th>
+        <th>Nhân viên</th>
+        <th>Mã NV</th>
+        <th>Chức vụ</th>
+        <th>Phòng ban</th>
+        <th>Email</th>
+        <th>Số điện thoại</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+<tbody>
+  @for (emp of paginatedEmployees; track emp.maNhanVien; let i = $index) {
+  <tr >
+    <td>
+  <input 
+    type="checkbox" 
+    [(ngModel)]="selectedEmployees[emp.maNhanVien]"
+    (change)="onSelectChange()"
+  />
+</td>
+
+    <td>
+      <div class="employee-info">
+        <div class="avatar blue">
+          {{ getInitials(emp.tenNhanVien) }}
+        </div>
+        <div class="details">
+          <p class="name">{{ emp.tenNhanVien }}</p>
+          <span>Ngày vào: {{ emp.ngaySinh | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+    </td>
+
+    <td>{{ emp.maNhanVien }}</td>
+    <td>{{ emp.tenViTri }}</td>
+    <td>{{ emp.tenKhoa }}</td>
+    <td>{{ emp.email }}</td>
+    <td>{{ emp.sdt }}</td>
+
+    <td>
+      <span class="status active">{{ emp.trangThai }}</span>
+    </td>
+
+    <td class="action-cell">
+      <div class="action-wrapper">
+        <i class="ri-more-2-line action-icon" (click)="toggleMenu(i)"></i>
+
+        <div class="action-menu" [class.show]="activeMenu === i">
+          <div class="menu-item view" (click)="openDetailPopup(emp)">
+            <i class="ri-eye-fill"></i>
+            <span>Xem chi tiết</span>
+          </div>
+          <div class="menu-item edit" (click)="openEdit(emp)">
+              <i class="ri-pencil-fill"></i>
+              <span>Cập nhật</span>
+          </div>
+          <div class="menu-item delete" (click)="openDeletePopup(emp)">
+            <i class="ri-delete-bin-fill"></i>
+            <span>Xóa</span>
+          </div>
+
+
+        </div>
+      </div>
+    </td>
+  </tr> 
+}
+</tbody>
+
+
+  </table>
+   <app-employee-detail-popup
+    *ngIf="showDetailPopup"
+    [employee]="selectedEmployee!"
+    (close)="closeDetailPopup()">
+</app-employee-detail-popup>
+
+  <div class="table-footer">
+    <p>Hiển thị 1–10 trong tổng số {{ employees.length }} nhân viên</p>
+    <div class="pagination">
+
+  <!-- Prev -->
+  <button (click)="prevPage()" [disabled]="page === 1">Trước</button>
+
+  <!-- List pages -->
+  <button
+    *ngFor="let p of pages"
+    [class.active]="page === p"
+    (click)="changePage(p)">
+    {{ p }}
+  </button>
+
+  <!-- Next -->
+  <button (click)="nextPage()" [disabled]="page === totalPages">Tiếp</button>
+
+</div>
+
+  </div>
+</div>
+</div>
+
+ @if (toastVisible) {
+  <div class="toast" [ngClass]="toastType">
+    {{ toastMessage }}
+  </div>
+}
+<!-- POPUP XÁC NHẬN XÓA -->
+<div class="delete-confirm-overlay" *ngIf="showDeletePopup">
+  <div class="delete-confirm-box">
+    <h3>Xác nhận xóa</h3>
+    <p>Bạn có chắc chắn muốn xóa nhân viên <b>{{deleteTarget?.tenNhanVien}}</b>?</p>
+
+    <div class="actions">
+      <button class="cancel" (click)="closeDeletePopup()">Hủy</button>
+      <button class="delete" (click)="confirmDelete()">Xóa</button>
+    </div>
+  </div>
+</div>
+<!-- Overlay làm mờ nền -->
+<div class="edit-overlay" *ngIf="isEditing">
+  <div class="edit-popup">
+
+    <h3>Cập nhật nhân viên</h3>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Họ tên</label>
+        <input type="text" [(ngModel)]="editingEmployee!.tenNhanVien">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="editingEmployee!.email">
+      </div>
+
+      <div class="form-group">
+        <label>Số điện thoại</label>
+        <input type="text" [(ngModel)]="editingEmployee!.sdt">
+      </div>
+
+      <div class="form-group">
+        <label>Trạng thái</label>
+        <select [(ngModel)]="editingEmployee!.trangThai">
+          <option>Đang làm việc</option>
+          <option>Tạm nghỉ</option>
+          <option>Nghỉ việc</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+      <label>Vị trí</label>
+      <select [(ngModel)]="editingEmployee!.maViTri">
+        <option *ngFor="let vt of listViTri" [value]="vt.maViTri">
+          {{ vt.tenViTri }}
+        </option>
+      </select>
+    </div>
+
+
+     <div class="form-group">
+      <label>Phòng ban</label>
+      <select [(ngModel)]="editingEmployee!.maPhongBan">
+        <option *ngFor="let pb of listPhongBan" [value]="pb.maPhongBan">
+          {{ pb.tenPhongBan }}
+        </option>
+      </select>
+    </div>
+
+
+     <div class="form-group">
+      <label>Khoa</label>
+      <select [(ngModel)]="editingEmployee!.maKhoa">
+        <option *ngFor="let k of listKhoa" [value]="k.id">
+          {{ k.tenKhoa }}
+        </option>
+      </select>
+    </div>
+
+
+    </div>
+
+    <div class="edit-actions">
+      <button class="cancel" (click)="cancelEdit()">Hủy</button>
+      <button class="save" (click)="saveEdit()">Lưu thay đổi</button>
+    </div>
+
+  </div>
+</div>
+<!-- Overlay -->
+<div class="excel-overlay" *ngIf="showExcelPopup">
+  
+  <!-- Popup -->
+  <div class="excel-popup">
+
+    <div class="title">
+      <i class="ri-file-excel-2-line"></i>
+      Nhập dữ liệu từ Excel
+    </div>
+
+    <div class="sub">
+      Vui lòng sử dụng file Excel đúng định dạng bên dưới.
+    </div>
+
+    <button class="btn-download" (click)="downloadTemplate()">
+      <i class="ri-download-cloud-2-line"></i>
+      Tải file Excel mẫu
+    </button>
+
+    <div class="guide-title">Các cột yêu cầu:</div>
+
+    <div class="guide-box">
+        tenNhanVien | ngaySinh | gioiTinh | cccd | email | sdt |
+        ngayVaoLam | maViTri | maPhongBan | maKhoa |
+        lienHeKhanCap | sdtLienHeKhanCap
+    </div>
+
+    <label class="upload-area">
+      <i class="ri-upload-cloud-2-line"></i>
+
+      <p class="upload-text">Chọn file Excel để nhập</p>
+
+      <input type="file" accept=".xlsx,.xls" (change)="uploadExcel($event)">
+    </label>
+
+
+    <button class="btn-close" (click)="closeExcelPopup()">Đóng</button>
+
+  </div>
+</div>

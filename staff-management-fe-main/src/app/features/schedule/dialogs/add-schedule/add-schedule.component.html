@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Thêm lịch trực</h2>
+
+<div class="dialog-body">
+  <form [formGroup]="form">
+
+    <div class="row">
+      <!-- Nhân viên -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nhân viên</mat-label>
+        <input matInput formControlName="maNhanVien" placeholder="Nhập mã nhân viên">
+        <mat-error *ngIf="form.get('maNhanVien')?.hasError('required')">
+          Vui lòng nhập nhân viên
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Ca làm -->
+      <mat-form-field appearance="outline">
+        <mat-label>Ca trực</mat-label>
+        <input matInput formControlName="maCa" placeholder="Nhập mã ca">
+        <mat-error *ngIf="form.get('maCa')?.hasError('required')">
+          Vui lòng nhập ca trực
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <!-- Phòng -->
+      <mat-form-field appearance="outline">
+        <mat-label>Phòng</mat-label>
+        <input matInput formControlName="maPhong" placeholder="Nhập mã phòng">
+        <mat-error *ngIf="form.get('maPhong')?.hasError('required')">
+          Vui lòng nhập phòng
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Ngày trực -->
+      <mat-form-field appearance="outline">
+        <mat-label>Ngày trực</mat-label>
+        <input type="date" matInput formControlName="ngayTruc">
+        <mat-error *ngIf="form.get('ngayTruc')?.hasError('required')">
+          Vui lòng chọn ngày
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Ghi chú -->
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Ghi chú</mat-label>
+      <textarea
+        matInput
+        formControlName="ghiChu"
+        placeholder="Nhập mô tả cho lịch trực (tuỳ chọn)">
+      </textarea>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div class="dialog-footer">
+  <button mat-stroked-button color="warn" (click)="cancel()">
+    Hủy
+  </button>
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">
+    Lưu
+  </button>
+</div>

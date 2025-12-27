@@ -1,0 +1,47 @@
+<!-- HEADER -->
+<app-header></app-header>
+
+<div class="layout-wrapper">
+
+  <!-- SIDEBAR -->
+  <app-sidebar></app-sidebar>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <div class="schedule-container">
+
+      <!-- TITLE + ACTION -->
+      <div class="schedule-header">
+        <div>
+          <h2 class="title">Quản lý lịch trực</h2>
+          <p class="subtitle">Quản lý lịch làm việc và ca trực của nhân viên</p>
+        </div>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="openAssignDialog()">
+            <mat-icon>assignment</mat-icon>
+            Phân công ca
+          </button>
+
+          <button mat-raised-button color="accent" (click)="dateClick({ dateStr: today })">
+            <mat-icon>add</mat-icon>
+            Thêm lịch trực
+          </button>
+        </div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="calendar-wrapper">
+        <full-calendar #calendarRef [options]="calendarOptions"></full-calendar>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<app-footer></app-footer>

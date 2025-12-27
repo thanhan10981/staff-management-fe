@@ -1,0 +1,4 @@
+.item {
+  display: flex; justify-content: space-between; width: 100%;
+  .left { .title { font-weight: 600; } .sub { color: #666; font-size: 13px; } }
+}

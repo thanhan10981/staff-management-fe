@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-title>Lịch trực của tôi</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let s of schedules">
+        <div class="row">
+          <div>{{ s.ngayTruc }} — {{ s.tenCa || ('Ca ' + s.maCa) }}</div>
+          <div class="sub">{{ s.maPhong ? ('Phòng ' + s.maPhong) : '' }}</div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <div *ngIf="!schedules.length">Chưa có lịch trực</div>
+  </mat-card-content>
+</mat-card>

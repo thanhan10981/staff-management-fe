@@ -1,0 +1,161 @@
+<div class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <h3>Thêm nhân viên mới</h3>
+      <i class="ri-close-line" (click)="closePopup()"></i>
+    </div>
+
+    <div class="popup-body">
+      <div class="form-grid">
+
+        <!-- Họ tên -->
+        <div class="form-group">
+          <label>Họ và tên</label>
+          <input type="text" placeholder="Nhập họ và tên" [(ngModel)]="employee.tenNhanVien" />
+        </div>
+
+        <!-- Ngày sinh -->
+        <div class="form-group">
+          <label>Ngày sinh</label>
+          <input type="date" [(ngModel)]="employee.ngaySinh" />
+        </div>
+
+        <!-- Giới tính -->
+        <div class="form-group">
+          <label>Giới tính</label>
+          <select [(ngModel)]="employee.gioiTinh">
+            <option value="true">Nam</option>
+            <option value="false">Nữ</option>
+          </select>
+        </div>
+
+        <!-- CCCD -->
+        <div class="form-group">
+          <label>Số CCCD/CMND</label>
+          <input type="text" placeholder="Nhập CCCD" [(ngModel)]="employee.cccd" />
+        </div>
+
+        <!-- Chức vụ -->
+        <div class="form-group">
+          <label>Chức vụ</label>
+          <select [(ngModel)]="employee.maViTri">
+            <option value="">-- Chọn chức vụ --</option>
+            <option *ngFor="let vt of listViTri" [value]="vt.maViTri">
+              {{ vt.tenViTri }}
+            </option>
+          </select>
+        </div>
+                <!-- Phòng ban -->
+        <div class="form-group">
+          <label>Phòng ban</label>
+          <select [(ngModel)]="employee.maPhongBan">
+            <option value="">-- Chọn phòng ban --</option>
+            <option *ngFor="let pb of listPhongBan" [value]="pb.maPhongBan">
+              {{ pb.tenPhongBan }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Khoa -->
+        <div class="form-group">
+          <label>Chuyên khoa</label>
+          <select [(ngModel)]="employee.maKhoa">
+            <option value="">-- Chọn khoa --</option>
+            <option *ngFor="let k of listKhoa" [value]="k.maKhoa">
+              {{ k.tenKhoa }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="example@company.com" [(ngModel)]="employee.email" />
+        </div>
+
+        <!-- SĐT -->
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="text" placeholder="Nhập số điện thoại" [(ngModel)]="employee.sdt" />
+        </div>
+
+        <!-- Ngày vào làm -->
+        <div class="form-group">
+          <label>Ngày vào làm</label>
+          <input type="date" [(ngModel)]="employee.ngayVaoLam" />
+        </div>
+         <div class="form-group">
+          <label>Liên hệ khẩn cấp</label>
+          <input type="text" placeholder="Tên người liên hệ" [(ngModel)]="employee.lienHeKhanCap" />
+        </div>
+
+        <!-- SĐT liên hệ -->
+        <div class="form-group">
+          <label>SĐT Liên hệ khẩn cấp</label>
+          <input type="text" placeholder="SĐT người liên hệ" [(ngModel)]="employee.sdtLienHeKhanCap" />
+        </div>
+
+        <!-- Hợp đồng -->
+       <div class="form-group upload contract-upload">
+        <label>Hợp đồng lao động</label>
+
+          <div class="upload-box">
+            <i class="ri-file-upload-line"></i>
+
+            <!-- Nếu CHƯA chọn file -->
+            <p *ngIf="!selectedContractName">Chọn tệp hợp đồng (PDF, DOCX)</p>
+
+            <!-- Nếu ĐÃ chọn file -->
+            <div class="file-preview" *ngIf="selectedContractName">
+              <strong>{{ selectedContractName }}</strong>
+              <span class="file-type">{{ selectedContractType }}</span>
+            </div>
+
+            <input 
+              type="file" 
+              accept=".pdf,.doc,.docx" 
+              (change)="onFileContractSelected($event)" 
+            />
+          </div>
+        </div>
+      
+        <!-- Ảnh đại diện -->
+        <div class="form-group upload avatar-upload">
+          <label>Ảnh đại diện</label>
+
+          <div class="upload-box">
+
+            <!-- Icon mặc định -->
+            <i class="ri-image-add-line" *ngIf="!avatarPreview"></i>
+
+            <!-- Chưa chọn file -->
+            <p *ngIf="!avatarPreview">Chọn ảnh</p>
+
+            <!-- Nếu đã chọn ảnh: preview -->
+            <div class="avatar-preview" *ngIf="avatarPreview">
+              <img [src]="avatarPreview" alt="Avatar preview">
+              <div class="file-info">
+                <strong>{{ selectedAvatarName }}</strong>
+                <span>{{ selectedAvatarType }}</span>
+              </div>
+            </div>
+
+            <input type="file" accept="image/*" (change)="onAvatarSelected($event)" />
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="popup-footer">
+      <button class="btn cancel" (click)="closePopup()">Hủy</button>
+      <button class="btn save" (click)="saveEmployee()">Lưu</button>
+    </div>
+  </div>
+</div>
+@if (toastVisible) {
+  <div class="toast" [ngClass]="toastType">
+    {{ toastMessage }}
+  </div>
+}

@@ -1,0 +1,63 @@
+<div class="popup-overlay">
+  <div class="popup">
+
+    <h3>Thêm yêu cầu đổi ca</h3>
+
+    <!-- Nhân viên -->
+    <label>Nhân viên</label>
+    <select [(ngModel)]="selectedNhanVienId" (change)="onNhanVienChange()">
+      <option value="">-- Chọn nhân viên --</option>
+      <option *ngFor="let nv of nhanVienList" [value]="nv.maNhanVien">
+        {{ nv.tenNhanVien }}
+      </option>
+    </select>
+
+    <!-- Ca hiện tại + các dropdown phụ -->
+    <div *ngIf="data">
+      <label>Ca hiện tại</label>
+      <input [value]="data.tenCaHienTai" disabled />
+
+      <!-- Nhân viên muốn đổi -->
+      <label>Nhân viên muốn đổi</label>
+      <select [(ngModel)]="form.nguoiNhan">
+        <option value="">-- Chọn nhân viên --</option>
+        <option *ngFor="let nv of data.nhanVienOptions"
+                [value]="nv.maNhanVien">
+          {{ nv.tenNhanVien }}
+        </option>
+      </select>
+
+      <!-- Ca muốn đổi -->
+      <label>Ca muốn đổi</label>
+      <select [(ngModel)]="form.maCa">
+        <option value="">-- Chọn ca --</option>
+        <option *ngFor="let ca of data.caOptions"
+                [value]="ca.maCa">
+          {{ ca.tenCa }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Ngày -->
+    <label>Ngày đổi</label>
+    <input type="date" [(ngModel)]="form.ngayTruc" />
+
+    <!-- Lý do -->
+    <label>Lý do</label>
+    <textarea [(ngModel)]="form.lyDo"></textarea>
+
+    <div class="actions">
+      <button (click)="onSubmit()">Gửi</button>
+      <button (click)="close.emit()">Hủy</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div
+  class="toast"
+  *ngIf="toastVisible"
+  [ngClass]="toastType">
+  {{ toastMessage }}
+</div>

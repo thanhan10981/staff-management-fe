@@ -1,0 +1,113 @@
+/* ========== Overlay Background ========== */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* ========== Popup Container ========== */
+.popup {
+  background: #fff;
+  width: 720px; /* giống popup nhân viên */
+  padding: 32px;
+  border-radius: 12px; /* giống ảnh 2 */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Title */
+.popup h2 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* ========== Form Layout ========== */
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+/* Focus effect giống ảnh 2 */
+.form-group select:focus,
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #4e8ef7;
+  box-shadow: 0 0 0 2px rgba(78, 142, 247, 0.25);
+}
+
+/* ========== Button Group ========== */
+.button-group {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.button-group .btn {
+  padding: 8px 18px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Cancel button */
+.btn.cancel {
+  background: #e6e6e6;
+  color: #333;
+}
+
+.btn.cancel:hover {
+  background: #d9d9d9;
+}
+
+/* Submit button */
+.btn.submit {
+  background: #1a73e8; /* xanh giống popup nhân viên */
+  color: #fff;
+}
+
+.btn.submit:hover {
+  background: #1669d2;
+}
+
+/* ========== Animation ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

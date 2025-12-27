@@ -1,0 +1,31 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eef2f8;
+}
+
+.login-box {
+  width: 360px;
+  padding: 32px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.full {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.error {
+  color: #d9534f;
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,0 +1,60 @@
+.sidebar {
+  width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 24px 16px;
+  font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.03);
+  height: auto; 
+  min-height: 100%; 
+
+  .menu-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px; 
+
+    .menu-title {
+      font-size: 15px; 
+      font-weight: 700; 
+      color: #194abf; 
+      margin-bottom: 10px;
+      text-transform: capitalize; 
+    }
+
+    a {
+      font-size: 14px;
+      color: #6d6d6e;
+      text-decoration: none;
+      padding: 8px 12px; 
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      line-height: 1.6; 
+
+      &:hover {
+        background: rgba(37, 99, 235, 0.05);
+        color: #2563eb;
+      }
+
+      &.active {
+        color: #2563eb;
+        background: rgba(37, 99, 235, 0.1);
+        font-weight: 600;
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+}

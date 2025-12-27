@@ -1,0 +1,297 @@
+.salary-ot-page {
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #111827;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+
+  .current {
+    color: #111827;
+    font-weight: 600;
+  }
+}
+
+/* Title */
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.page-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* Layout */
+.content-layout {
+  display: flex;
+  gap: 20px;
+}
+
+/* Left table section */
+.main-table {
+  flex: 3;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Table Header */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .search-input {
+  padding: 8px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #374151;
+  width: 180px;
+  transition: all 0.2s ease;
+  background: #f9fafb;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-input:focus {
+  background: #fff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb30;
+  outline: none;
+}
+
+}
+
+.sub-desc {
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+/* Table */
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: #f9fafb;
+  }
+
+  th {
+    padding: 10px;
+    font-size: 12.6px;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+  }
+
+  td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 13px;
+  }
+
+  tr:hover {
+    background: #f9fafb;
+  }
+
+  .total {
+    font-weight: 700;
+    color: #2563eb;
+  }
+}
+
+/* Avatar + Info */
+.employee-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.15);
+    color: #8b5cf6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      font-size: 18px;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .email {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  }
+}
+
+/* Footer row */
+.table-footer {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Right side panel */
+.side-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+
+    h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 13px;
+      margin: 4px 0;
+    }
+  }
+
+  .highlight {
+    background: #dcfce7;
+    border-color: #bbf7d0;
+
+    .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #15803d;
+    }
+  }
+}
+/* Toast */
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  min-width: 260px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+  color: #0f172a;
+  background: #e2f3ff;
+  z-index: 1100;
+  animation: slide-up 0.3s ease-out;
+}
+
+.toast.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.toast.error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Animations */
+@keyframes popup-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Input cực tối giản – nhìn như text */
+.employee-table input {
+  width: 110px;
+  padding: 6px 10px;
+
+  border: none;              /* Không viền */
+  background: transparent;   /* Trong suốt */
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: left;
+
+  color: #333;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+/* Khi hover – chỉ sáng nhẹ nền */
+.employee-table input:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+/* Khi focus – hiện viền nhẹ + nền trắng tinh tế */
+.employee-table input:focus {
+  outline: none;
+  border: 1px solid #cfcfcf;
+  background: #ffffff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.08);
+}
+
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  right: 8px;
+  font-size: 14px;
+  color: #b5b5b5;
+  pointer-events: none;
+}
+

@@ -1,0 +1,6 @@
+# Angular FE
+node_modules/
+dist/
+.angular/
+.vscode/
+.env

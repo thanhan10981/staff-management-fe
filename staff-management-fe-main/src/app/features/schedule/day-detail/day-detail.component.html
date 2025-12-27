@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-title>Chi tiết lịch — {{ date }}</mat-card-title>
+  <mat-card-content>
+    <mat-list *ngIf="entries.length">
+      <mat-list-item *ngFor="let e of entries">
+        <div class="item">
+          <div class="left">
+            <div class="title">{{ e.tenCa || ('Ca ' + e.maCa) }}</div>
+            <div class="sub">Nhân viên: {{ e.hoTen || e.maNhanVien }}</div>
+          </div>
+          <div class="right">
+            <div>{{ e.trangThai || '' }}</div>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <div *ngIf="!entries.length">Không có ca nào cho ngày này</div>
+  </mat-card-content>
+</mat-card>

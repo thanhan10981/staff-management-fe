@@ -1,0 +1,191 @@
+<div class="dashboard">
+  <h2 class="title">Tổng quan lương tháng</h2>
+
+  <!-- Top -->
+  <div class="stats">
+    <div class="card success">
+      <div class="value">Tổng chi phí tháng lương</div>
+      <div class="label">{{ overview.totalSalary| number:'1.0-0'}}</div>
+      <div class="icon">
+        <i class="ri-money-dollar-circle-fill"></i>
+      </div>
+    </div>
+
+    <div class="card info">
+      <div class="value">Nhân viên được trả lương</div>
+      <div class="label">{{ overview.employeePaid }}</div>
+      <div class="icon"><i class="ri-team-fill"></i></div>
+    </div>
+
+    <div class="card warning">
+      <div class="value">Tổng giờ công</div>
+      <div class="label">{{ overview.totalHours }}</div>
+      <div class="icon"><i class="ri-time-line"></i></div>
+    </div>
+
+    <div class="card danger">
+      <div class="value">Tổng phụ cấp & OT</div>
+      <div class="label">{{ overview.totalAllowanceOT| number:'1.0-0'}}</div>
+      <div class="icon"><i class="ri-wallet-fill"></i></div>
+    </div>
+  </div>
+
+  <!-- chart -->
+  <div class="chart-section">
+    <div class="chart-card">
+      <div class="header">
+        <h3>Thống kê chi phí lương hàng tháng</h3>
+        <div class="filter">
+          <button class="active">30 ngày</button>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="attendanceChart"></canvas>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h3>Thao tác nhanh</h3>
+      <button class="btn blue" (click)="onClickCalculate()">
+        <div class="icon-quick-action"><i class="ri-user-add-fill"></i></div>
+        Tính lương tháng này
+      </button>
+      <button class="btn green" (click)="showHolidayCoef = true">
+       <div class="icon-quick-action"><i class="ri-calendar-line"></i></div>
+        Điều chỉnh hệ số ca lễ tết
+      </button>
+
+     <button class="btn orange" (click)="exportSalaryFile()" [disabled]="isExporting">
+    <div class="icon-quick-action">
+      <i class="ri-briefcase-fill"></i>
+    </div>
+
+    <span *ngIf="!isExporting">Xuất bảng lương</span>
+    <span *ngIf="isExporting" class="loading-spinner"></span>
+  </button>
+
+
+    </div>
+  </div>
+
+  <!-- recent active & schedule -->
+  <div class="info-section">
+  <div class="activities">
+  <h3>Hoạt động gần đây</h3>
+
+  <ul>
+    <li *ngFor="let log of recentActivities" [class.green]="log.hanhDong.includes('lương')"
+                                             [class.blue]="log.hanhDong.includes('chấm công')"
+                                             [class.orange]="log.hanhDong.includes('báo cáo')"
+                                             [class.purple]="log.hanhDong.includes('nhân viên')">
+
+      <div class="icon"><i class="ri-time-line"></i></div>
+
+      <div class="content">
+        <p><b>{{ log.hanhDong }}</b></p>
+        <span>{{ log.thoiGian | date:'HH:mm dd/MM/yyyy' }}</span>
+      </div>
+
+    </li>
+  </ul>
+
+  <a href="#">Xem tất cả hoạt động</a>
+</div>
+
+
+    <div class="salary-table-section">
+      <h3>Bảng chi tiết lương</h3>
+
+      <div class="table-header">
+        <input 
+          type="text" 
+          placeholder="Tìm kiếm..." 
+          class="search-box"
+          [(ngModel)]="searchText"
+          (input)="filterTable()"
+        />
+
+      </div>
+
+      <table class="salary-table">
+        <thead>
+          <tr>
+            <th>Nhân viên</th>
+            <th>Lương cơ bản</th>
+            <th>Giờ làm việc</th>
+            <th>Các khoản đặc biệt</th>
+            <th>Phụ cấp</th>
+            <th>Làm thêm giờ</th>
+            <th>Tổng lương</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of tableData">
+            <td>
+              <div class="employee-cell">
+                <div class="avatar">
+                  <i class="ri-user-3-fill"></i>
+                </div>
+                <div class="info">
+                  <span class="name">{{ item.tenNhanVien }}</span>
+                  <span class="email">{{ item.email }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>{{ item.luongCoBan | number:'1.0-0'}}</td>
+            <td>{{ item.gioLamViec }}h</td>
+            <td>{{ item.khoanDacBiet}}</td>
+            <td>{{ item.phuCap| number:'1.0-0'}}</td>
+            <td>{{ item.lamThemGio}}</td>
+
+            <td class="total">{{ item.tongLuong| number:'1.0-0'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- POPUP XÁC NHẬN TÍNH LƯƠNG -->
+<div class="overlay" *ngIf="showConfirm">
+  <div class="modal">
+    <h3>Xác nhận tính lương</h3>
+    <p>Bạn có chắc muốn tính lương cho tháng {{ currentMonth }}/{{ currentYear }}?</p>
+
+    <div class="modal-actions">
+      <button class="btn small" (click)="cancelCalculate()">Hủy</button>
+      <button class="btn small primary" (click)="confirmCalculate()" [disabled]="isProcessing">
+        <span *ngIf="!isProcessing">Tính lương</span>
+        <span *ngIf="isProcessing" class="loading-spinner"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+@if (toastVisible) {
+  <div class="toast" [ngClass]="toastType">
+    {{ toastMessage }}
+  </div>
+}
+<div class="overlay" *ngIf="showHolidayCoef">
+  <div class="modal">
+    <h3>Điều chỉnh hệ số lễ tết</h3>
+
+    <label>
+      Hệ số ngày lễ (%):
+      <input type="number" [(ngModel)]="holidayCoef" min="100" />
+    </label>
+
+    <label>
+      Hệ số ngày nghỉ (%):
+      <input type="number" [(ngModel)]="weekendCoef" min="100" />
+    </label>
+
+    <div class="actions">
+      <button class="btn cancel" (click)="showHolidayCoef = false">Hủy</button>
+      <button class="btn save" (click)="saveHolidayCoef()">Lưu</button>
+    </div>
+  </div>
+</div>

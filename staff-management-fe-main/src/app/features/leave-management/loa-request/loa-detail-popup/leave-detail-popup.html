@@ -1,0 +1,57 @@
+<div class="popup-overlay">
+  <div class="popup-container">
+
+    <div class="popup-header">
+      <h2>Chi tiết yêu cầu và nghỉ phép</h2>
+      <button class="close-btn" (click)="closePopup()">✕</button>
+    </div>
+
+    <div class="popup-body">
+
+      <!-- TRẠNG THÁI -->
+      <div class="status-section">
+        <span class="status" [ngClass]="getStatusClass(data.trangThai)">{{ data.trangThai }}</span>
+      </div>
+
+      <!-- THÔNG TIN NHÂN VIÊN -->
+      <div class="info-grid">
+
+        <div><strong>Nhân viên:</strong> {{ data.tenNhanVien }}</div>
+        <div><strong>Ngày bắt đầu:</strong> {{ data.ngayBatDau }}</div>
+
+        <div><strong>Phòng ban:</strong> {{ data.phongBan || 'Khoa nội' }}</div>
+        <div><strong>Ngày kết thúc:</strong> {{ data.ngayKetThuc }}</div>
+
+        <div><strong>Loại nghỉ:</strong> {{ data.loaiNghi }}</div>
+        <div><strong>Số ngày:</strong> {{ data.soNgay || '3 ngày' }}</div>
+
+      </div>
+
+      <!-- LÝ DO -->
+      <div class="section">
+        <label>Lý do</label>
+        <input type="text" [value]="data.lyDo" readonly />
+      </div>
+
+      <!-- NGÀY GỬI YÊU CẦU -->
+      <div class="section request-date">
+        <label>Ngày gửi yêu cầu</label>
+        <span>{{ data.ngayGui || '2024-01-10' }}</span>
+      </div>
+
+      <!-- GHI CHÚ -->
+      <div class="section">
+        <label>Ghi chú (lý do từ chối)</label>
+        <textarea placeholder="Vui lòng nhập lý do từ chối"></textarea>
+      </div>
+
+    </div>
+
+    <!-- FOOTER BUTTONS -->
+    <div class="popup-footer">
+      <button class="approve-btn" (click)="approve()">Duyệt yêu cầu</button>
+      <button class="reject-btn" (click)="reject()">Từ chối yêu cầu</button>
+    </div>
+
+  </div>
+</div>

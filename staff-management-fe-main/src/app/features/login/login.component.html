@@ -1,0 +1,23 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Đăng nhập hệ thống</h2>
+
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Tài khoản</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Mật khẩu</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="full" (click)="login()">
+        Đăng nhập
+      </button>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="export-salary-page">
+
+  <h2 class="page-title">Xuất bảng lương</h2>
+  <p class="page-desc">Báo cáo lương - Từ {{fromDate}} đến {{toDate}}</p>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+
+    <div class="filter-item">
+      <label>Phòng ban</label>
+       <select [(ngModel)]="selectedDept">
+      <option *ngFor="let d of departments" [value]="d.maKhoa">
+        {{ d.tenKhoa }}
+      </option>
+    </select>
+    </div>
+
+    <div class="filter-item1">
+      <label>Từ ngày</label>
+      <input type="date" [(ngModel)]="fromDate" />
+    </div>
+
+    <div class="filter-item1">
+      <label>Đến ngày</label>
+      <input type="date" [(ngModel)]="toDate" />
+    </div>
+
+    <button class="btn-filter" (click)="onFilter()">
+      <i class="ri-filter-3-line"></i> Lọc
+    </button>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-box">
+    <div class="card total-emp">
+      <h4>{{ totalEmp }}</h4>
+      <p>Tổng nhân viên</p>
+    </div>
+
+    <div class="card total-salary">
+      <h4>{{ totalSalary | number:'1.0-0' }} đ</h4>
+      <p>Tổng lương</p>
+    </div>
+
+    <div class="card total-allowance">
+      <h4>{{ totalAllowance | number:'1.0-0' }} đ</h4>
+      <p>Tổng phụ cấp</p>
+    </div>
+
+    <div class="card total-ot">
+      <h4>{{ totalOT | number:'1.0-0' }} đ</h4>
+      <p>Tổng OT</p>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="salary-table-section">
+
+    <div class="table-header">
+      <h3>Bảng tổng lương</h3>
+
+      <div class="search-box">
+        <i class="ri-search-line"></i>
+        <input type="text" [(ngModel)]="keyword" placeholder="Tìm kiếm..." (input)="onFilter()"/>
+      </div>
+    </div>
+
+    <table class="salary-table">
+      <thead>
+        <tr>
+          <th>Nhân viên</th>
+          <th>Phòng ban</th>
+          <th>Lương cơ bản</th>
+          <th>Phụ cấp</th>
+          <th>OT</th>
+          <th>Tổng lương</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td>
+            <div class="employee-info">
+              <div class="avatar"><i class="ri-user-3-fill"></i></div>
+              <div class="info">
+                <span class="name">{{ row.tenNhanVien }}</span>
+                <span class="email">{{ row.email }}</span>
+              </div>
+            </div>
+          </td>
+          <td>{{ row.phongBan }}</td>
+          <td>{{ row.luongCoBan | number:'1.0-0' }}</td>
+          <td>{{ row.phuCap | number:'1.0-0' }}</td>
+          <td>{{ row.ot | number:'1.0-0' }}</td>
+          <td class="total">{{ row.tongLuong | number:'1.0-0' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- EXPORT BUTTON -->
+  <div class="export-row">
+    <div class="export-buttons">
+      <button class="excel" (click)="exportExcel()">
+        <i class="ri-file-excel-2-fill"></i> Xuất Excel
+      </button>
+
+      <button class="pdf" disabled style="opacity:0.6;">
+        <i class="ri-file-pdf-2-fill"></i> Xuất PDF (Chưa hỗ trợ)
+      </button>
+    </div>
+  </div>
+</div>
