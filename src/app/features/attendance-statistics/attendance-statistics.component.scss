@@ -1,18 +1,53 @@
+/* ===== POPUP LAYER ===== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.popup-container {
+  margin-top: 4vh;
+  max-height: 92vh;
+  overflow: auto;
+}
+
+/* ===== GIỮ STYLE CŨ ===== */
 .page-wrapper {
   display: flex;
   justify-content: center;
 }
 
 .attendance-statistics {
-  width: 1280px;          // 🔒 KHÓA SIZE
+  width: 1280px;
   max-width: 1280px;
-  min-width: 1280px;      // ❗ nếu muốn KHÔNG co
-  
+  min-width: 1280px;
+
   padding: 24px;
   box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
 }
 
+/* ===== HEADER ===== */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.close-btn {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ===== CŨ ===== */
 .page-title {
   font-size: 24px;
   font-weight: 600;
@@ -29,7 +64,5 @@
   gap: 24px;
   padding-top: 20px;
   padding-bottom: 20px;
-
-  align-items: start;   // ❗ KHÔNG dùng stretch
+  align-items: start;
 }
-

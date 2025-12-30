@@ -3,12 +3,22 @@ import { DepartMentEmployeePopupComponent } from './depart-ment-employee-popup/d
 import { CommonModule } from '@angular/common';
 import { DashbroadFlash } from './dashbroad-flash/dashbroad-flash';
 import { ScheduleEmployeeReportPopup } from './schedule-employee-report-popup/schedule-employee-report-popup';
+import { AttendanceStatisticsComponent } from '../attendance-statistics/attendance-statistics.component';
+import { LeaveReportComponent } from '../leave-report/leave-report.component';
 import {  SalaryAllowanceReportPopupComponent } from './salary-allowance-report/salary-allowance-report';
 
 
 @Component({
   selector: 'app-reporting',
   standalone: true,
+    imports: [
+    CommonModule,
+    DepartMentEmployeePopupComponent,
+    DashbroadFlash,
+    ScheduleEmployeeReportPopup,
+    AttendanceStatisticsComponent,
+    LeaveReportComponent
+  ],
   imports: [DepartMentEmployeePopupComponent, CommonModule, DashbroadFlash, ScheduleEmployeeReportPopup,SalaryAllowanceReportPopupComponent ],
   templateUrl: './reporting.html',
   styleUrls: ['./reporting.scss'],
@@ -44,6 +54,29 @@ export class ReportingComponent {
   closeSchedulePopup(){
     this.showSchedulePopup = false;
   }
+  
+  // báo cáo thống kê chấm công
+  showAttendancePopup = false;
+
+  openAttendancePopup() {
+    this.showAttendancePopup = true;
+  }
+
+  closeAttendancePopup() {
+    this.showAttendancePopup = false;
+  }
+
+  // báo cáo nghỉ phép
+  showLeavePopup = false;
+
+openLeavePopup() {
+  this.showLeavePopup = true;
+}
+
+closeLeavePopup() {
+  this.showLeavePopup = false;
+}
+
   closePopup(){
     this.showSalaryPopup =false;
   }

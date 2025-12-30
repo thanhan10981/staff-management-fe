@@ -1,18 +1,66 @@
-.leave-report-page {
-  max-width: 1280px;   // 🔒 width cố định
-  margin: 0 auto;      // canh giữa
-  padding: 24px;
-  background-color: #ffffff;
+/* ================= POPUP OVERLAY ================= */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 999;
 }
 
-.page-title {
+/* ================= POPUP CONTAINER ================= */
+.popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 90vw;
+  max-width: 1320px;
+  max-height: 90vh;
+
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+/* ================= HEADER ================= */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 24px;
+  border-bottom: 1px solid #e5e7eb;
+
+}
+
+.popup-header h2 {
+  margin: 0;
   font-size: 20px;
-  font-weight: 700;
-  color: #111827;
+  font-weight: 600;
 }
 
-.divider {
-  margin: 12px 0 24px;
+.btn-close {
+  background: none;
   border: none;
-  border-top: 1px solid #e5e7eb;
+  font-size: 20px;
+  cursor: pointer;
+  color: #475569;
+}
+
+/* ================= BODY ================= */
+.popup-body {
+  overflow-y: auto;
+  padding: 0;
+}
+
+/* ================= OVERRIDE PAGE WIDTH ================= */
+/* ⚠️ QUAN TRỌNG: vì page cũ là fixed 1280px */
+.leave-report-page {
+  max-width: unset;
+  width: 100%;
+  padding: 24px;
 }

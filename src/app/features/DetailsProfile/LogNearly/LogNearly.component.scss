@@ -1,0 +1,49 @@
+
+h5 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  &.green { background: #22c55e; }
+  &.blue { background: #3b82f6; }
+}
+
+small {
+  margin-left: auto;
+  color: #999;
+}
+
+/* ===== DOT ===== */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.success {
+  background-color: #22c55e; // xanh lá
+}
+
+.dot.fail {
+  background-color: #f97316; // cam
+}

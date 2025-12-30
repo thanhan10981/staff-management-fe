@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
@@ -24,6 +24,11 @@ import { AttendanceTableComponent } from './attendance-table/attendance-table.co
 })
 export class AttendanceStatisticsComponent {
 
+    @Output() close = new EventEmitter<void>();
+
+  closePopup() {
+    this.close.emit();
+  }
     /** ===== FILTER STATE ===== */
     selectedDate?: string;
     selectedPhongBan?: number;

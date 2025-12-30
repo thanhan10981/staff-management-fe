@@ -1,0 +1,13 @@
+<div *ngIf="summary$ | async as s" class="head-summary">
+  <div class="avatar">
+    <img [src]="s.anhDaiDien || '/assets/images/avatar.jpg'" alt="Avatar">
+  </div>
+
+  <div class="details">
+    <span class="name">{{ s.hoTen }}</span>
+    <span class="role">{{ s.tenViTri }}</span>
+    <span class="last-login">
+      Lần đăng nhập cuối: {{ s.dangNhapCuoi | date:'HH:mm dd/MM/yyyy' }}
+    </span>
+  </div>
+</div>
