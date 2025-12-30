@@ -1,0 +1,228 @@
+<div class="leave-requests">
+  <h2 class="title">Quản lý yêu cầu nghỉ phép</h2>
+
+  <!-- TOP: Thống kê -->
+  <div class="stats">
+  <div class="card success">
+    <div class="value">{{ totalRequests }}</div>
+    <div class="label">Tổng số yêu cầu</div>
+    <div class="icon"><i class="ri-team-fill"></i></div>
+  </div>
+
+  <div class="card info">
+    <div class="value">{{ approvedRequests }}</div>
+    <div class="label">Đã duyệt</div>
+    <div class="icon"><i class="ri-checkbox-circle-fill"></i></div>
+  </div>
+
+  <div class="card remove">
+    <div class="value">{{ pendingRequests }}</div>
+    <div class="label">Chờ duyệt</div>
+    <div class="icon"><i class="ri-time-fill"></i></div>
+  </div>
+
+  <div class="card add">
+    <div class="value">{{ rejectedRequests }}</div>
+    <div class="label">Từ chối</div>
+    <div class="icon"><i class="ri-close-circle-fill"></i></div>
+  </div>
+</div>
+
+
+ <!-- Bộ lọc -->
+<div class="filter-wrapper">
+  <div class="filter-section">
+    <div class="filters">
+
+      <div class="search-box">
+        <i class="ri-search-line"></i>
+        <input 
+          type="text" 
+          placeholder="Tìm kiếm theo tên, mã nhân viên, loại nghỉ..."
+          [(ngModel)]="searchText"
+          (input)="applyFilter()">
+      </div>
+        <select [(ngModel)]="filterKhoa" (change)="applyFilter()">
+          <option value="">Tất cả chuyên khoa</option>
+          <option value="Nội tổng hợp">Nội tổng hợp</option>
+          <option value="Hồi sức cấp cứu">Hồi sức cấp cứu</option>
+          <option value="Khoa dược">Khoa dược</option>
+          <option value="Ngoại khoa">Ngoại khoa</option>
+        </select>
+
+        <select [(ngModel)]="filterTime" (change)="applyFilter()">
+          <option value="">Tất cả thời gian</option>
+          <option value="today">Hôm nay</option>
+          <option value="week">Tuần này</option>
+          <option value="month">Tháng này</option>
+        </select>
+
+        <select [(ngModel)]="filterStatus" (change)="applyFilter()">
+          <option value="">Tất cả trạng thái</option>
+          <option value="Cho duyet">Chờ duyệt</option>
+          <option value="Da duyet">Đã duyệt</option>
+          <option value="Tu choi">Từ chối</option>
+        </select>
+
+      <div class="add-employee-wrapper">
+        <button class="btn-primary" (click)="openAddPopup()">
+          <i class="ri-add-fill"></i> Thêm yêu cầu
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="employee-table">
+  <div class="table-header">
+    <h3>
+      Danh sách yêu cầu nghỉ phép 
+      <span>({{ filteredLeaveRequests.length }} yêu cầu)</span>
+    </h3>
+    
+    <button class="btn delete-multi" *ngIf="selectedIds.length > 0" (click)="deleteSelected()">
+      Xóa đã chọn ({{ selectedIds.length }})
+    </button>
+
+
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+  <input type="checkbox"[checked]="selectAll"(change)="toggleSelectAll($event)"/></th>
+        <th>Nhân viên</th>
+        <th>Mã NV</th>
+        <th>Ngày nghỉ</th>
+        <th>Loại nghỉ</th>
+        <th>Lý do</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of pagedLeaveRequests; let i = index">
+
+        <td>
+  <input type="checkbox"
+  [checked]="selectedRequests[item.maDon]"
+  (change)="toggleOne(item.maDon, $event)"/>
+</td>
+
+        <!-- Tên nhân viên -->
+        <td>
+          <div class="employee-info">
+            <div class="avatar">{{ getInitials(item.tenNhanVien) }}</div>
+            <div class="details">
+              <p class="name">{{ item.tenNhanVien }}</p>
+            </div>
+          </div>
+        </td>
+
+        <td>{{ item.maNhanVien }}</td>
+        
+
+        <td>{{ item.ngayBatDau }} → {{ item.ngayKetThuc }}</td>
+
+        <td>{{ item.loaiNghi }}</td>
+
+        <td>{{ item.lyDo }}</td>
+
+        <td>
+          <span [ngClass]="getStatusClass(item.trangThai)">
+  {{ getStatusLabel(item.trangThai) }}
+</span>
+
+        </td>
+
+        <!-- ACTION MENU -->
+        <td class="action-cell">
+          <div class="action-wrapper">
+            <i class="ri-more-2-line action-icon" (click)="toggleMenu(i)"></i>
+
+            <div class="action-menu" [class.show]="activeMenu === i">
+
+              <div class="menu-item view" (click)="openDetailPopup(item)">
+                <i class="ri-eye-fill"></i> Xem chi tiết
+              </div>
+
+              <div class="menu-item delete"
+     (click)="deleteRequest(item)">
+  <i class="ri-delete-bin-fill"></i> Xóa
+</div>
+
+
+            </div>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+  
+
+  <!-- Popup chi tiết -->
+  <app-leave-detail-popup
+  *ngIf="showDetailPopup"
+  [data]="selectedRequest"
+  (close)="closeDetailPopup()"
+  (updated)="loadLeaveRequests()">
+  </app-leave-detail-popup>
+
+
+  <!-- Popup thêm yêu cầu -->
+  <app-add-leave-request-popup
+    *ngIf="showAddPopup"
+    (close)="closeAddPopup()"
+    (submit)="submitLeaveRequest($event)">
+  </app-add-leave-request-popup>
+
+  <div class="table-footer">
+  <p>Hiển thị {{ pagedLeaveRequests.length }} / {{ totalRequests }} yêu cầu</p>
+  <div class="pagination">
+
+  <!-- Prev -->
+  <button (click)="prevPage()" [disabled]="page === 1">Trước</button>
+
+  <!-- List pages -->
+  <button
+    *ngFor="let p of pages"
+    [class.active]="page === p"
+    (click)="changePage(p)">
+    {{ p }}
+  </button>
+
+  <!-- Next -->
+  <button (click)="nextPage()" [disabled]="page === totalPages">Tiếp</button>
+
+</div> 
+  </div>
+
+<div
+  class="toast"
+  *ngIf="toastVisible"
+  [ngClass]="toastType">
+  {{ toastMessage }}
+</div>
+<!-- CONFIRM TOAST -->
+<div class="confirm-toast" *ngIf="confirmToastVisible">
+  <p *ngIf="confirmMode === 'single'">
+    Bạn có chắc muốn xóa yêu cầu này không?
+  </p>
+
+  <p *ngIf="confirmMode === 'multi'">
+    Bạn có chắc muốn xóa {{ selectedIds.length }} yêu cầu đã chọn không?
+  </p>
+
+  <div class="actions">
+    <button class="btn-cancel" (click)="cancelDelete()">Hủy</button>
+    <button class="btn-danger" (click)="confirmDelete()">Xóa</button>
+  </div>
+</div>
+
+
+</div>

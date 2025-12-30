@@ -1,0 +1,273 @@
+<div class="shift-swap">
+  <h2 class="title">Quản lý yêu cầu đổi ca</h2>
+
+  <!-- TOP: Thống kê -->
+  <div class="stats">
+    <div class="card success">
+      <div class="value">{{ totalRequests }}</div>
+      <div class="label">Tổng số yêu cầu</div>
+      <div class="icon"><i class="ri-exchange-fill"></i></div>
+    </div>
+
+    <div class="card info">
+      <div class="value">{{ approvedRequests }}</div>
+      <div class="label">Đã duyệt</div>
+      <div class="icon"><i class="ri-checkbox-circle-fill"></i></div>
+    </div>
+
+    <div class="card remove">
+      <div class="value">{{ pendingRequests }}</div>
+      <div class="label">Chờ duyệt</div>
+      <div class="icon"><i class="ri-time-fill"></i></div>
+    </div>
+
+    <div class="card add">
+      <div class="value">{{ rejectedRequests }}</div>
+      <div class="label">Bị từ chối</div>
+      <div class="icon"><i class="ri-close-circle-fill"></i></div>
+    </div>
+  </div>
+
+  <!-- BỘ LỌC (GIỮ NGUYÊN FORM) -->
+  <div class="filter-wrapper">
+    <div class="filter-section">
+      <div class="filters">
+
+        <!-- SEARCH -->
+        <div class="search-box">
+          <i class="ri-search-line"></i>
+          <input
+            type="text"
+            placeholder="Tìm kiếm theo tên nhân viên, mã NV, phòng ban"
+            [(ngModel)]="searchText"
+            (ngModelChange)="applyFilter()">
+        </div>
+
+        <!-- PHÒNG BAN -->
+        <select [(ngModel)]="filterPhongBan" (change)="applyFilter()">
+          <option value="">Tất cả chuyên khoa</option>
+          <option>Nội tổng hợp</option>
+          <option>Hồi sức cấp cứu</option>
+          <option>Khoa dược</option>
+          <option>Ngoại khoa</option>
+          <option>Ngoại A</option>
+          <option>Nội A</option>
+          <option>TMH A</option>
+          <option>Da liễu A</option>
+        </select>
+
+        <!-- CA -->
+        <select [(ngModel)]="filterCa" (change)="applyFilter()">
+          <option value="">Tất cả ca</option>
+          <option>Ca sáng</option>
+          <option>Ca chiều</option>
+          <option>Ca đêm</option>
+        </select>
+
+        <!-- TRẠNG THÁI -->
+        <select [(ngModel)]="filterTrangThai" (change)="applyFilter()">
+          <option value="">Tất cả trạng thái</option>
+          <option value="Da duyet">Đã duyệt</option>
+          <option value="Cho duyet">Chờ duyệt</option>
+          <option value="Tu choi">Bị từ chối</option>
+        </select>
+
+        <!-- ADD -->
+        <div class="add-employee-wrapper">
+          <button class="btn-primary" (click)="toggleAddMenu()">
+            <i class="ri-add-fill"></i> Thêm yêu cầu đổi ca
+          </button>
+
+          <div class="add-menu" [class.show]="isAddMenuVisible">
+            <div class="add-option manual" (click)="openAddPopup('manual')">
+              Nhập thủ công
+            </div>
+
+            <div class="add-option excel">
+              <label for="excelInput">Nhập từ Excel</label>
+              <input id="excelInput" type="file" accept=".xlsx,.xls,.csv">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="employee-table">
+    <div class="table-header">
+      <h3>
+        Danh sách yêu cầu đổi ca
+        <span>({{ filteredList.length }} yêu cầu)</span>
+      </h3>
+       <button
+    class="btn delete-multi"
+    *ngIf="selectedIds.length > 0"
+    (click)="deleteSelected()">
+    Xóa đã chọn ({{ selectedIds.length }})
+  </button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox"[checked]="selectAll"(change)="toggleSelectAll($event)" /></th>
+          <th>Nhân viên yêu cầu</th>
+          <th>Nhân viên đổi</th>
+          <th>Ca đổi</th>
+          <th>Ngày đổi</th>
+          <th>Phòng ban</th>
+          <th>Lý do</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of pagedList; let i = index">
+
+
+          <td><input type="checkbox"[checked]="selectedRequests[item.maYeuCau]"(change)="toggleOne(item.maYeuCau, $event)" /></td>
+
+          <!-- NGƯỜI GỬI -->
+          <td>
+            <div class="employee-info">
+              <div class="avatar blue">
+                {{ item.tenNguoiGui.charAt(0) }}
+              </div>
+              <div class="details">
+                <p class="name">{{ item.tenNguoiGui }}</p>
+                <span>Mã NV: {{ item.nguoiGui }}</span>
+              </div>
+            </div>
+          </td>
+
+          <!-- NGƯỜI NHẬN -->
+          <td>
+            {{ item.tenNguoiNhan }}<br>
+            <span>Mã NV: {{ item.nguoiNhan }}</span>
+          </td>
+
+          <!-- CA -->
+          <td>{{ item.tenCa }}</td>
+
+          <!-- NGÀY -->
+          <td>{{ item.ngayTruc }}</td>
+
+          <!-- PHÒNG BAN -->
+          <td>{{ item.tenPhongBan || '—' }}</td>
+
+          <!-- LÝ DO -->
+          <td>{{ item.lyDo }}</td>
+
+          <!-- TRẠNG THÁI -->
+          <td>
+            <span
+              class="status"
+              [ngClass]="{
+                pending: item.trangThai === 'Cho duyet',
+                approved: item.trangThai === 'Da duyet',
+                rejected: item.trangThai === 'Tu choi'
+              }">
+              {{ item.trangThai }}
+            </span>
+          </td>
+
+          <!-- ACTION -->
+          <td class="action-cell">
+  <div class="action-wrapper">
+    <i
+      class="ri-more-2-line action-icon"
+      (click)="toggleMenu(i)">
+    </i>
+
+    <div
+      class="action-menu"
+      [class.show]="activeMenu === i">
+
+      <div class="menu-item view"
+           (click)="openDetailPopup(item)">
+        <i class="ri-eye-fill"></i> Xem chi tiết
+      </div>
+
+      <div class="menu-item delete"
+           (click)="deleteRequest(item)">
+        <i class="ri-delete-bin-fill"></i> Xóa
+      </div>
+
+    </div>
+  </div>
+</td>
+
+
+        </tr>
+      </tbody>
+    </table>
+    
+    <app-add-request-popup
+  *ngIf="showAddPopup"
+  [data]="createFormData"
+  [nhanVienList]="nhanVienOptions"
+  (selectNhanVien)="onSelectNhanVien($event)"
+  (submit)="handleCreateRequest($event)"
+  (close)="showAddPopup = false">
+    </app-add-request-popup>
+
+    <app-shift-swap-detail-popup
+  *ngIf="showDetailPopup"
+  [data]="selectedDetail!"
+  (approve)="approveRequest()"
+  (reject)="rejectRequest()"
+  (close)="closeDetailPopup()">
+</app-shift-swap-detail-popup>
+
+
+
+
+<div
+  class="toast"
+  *ngIf="toastVisible"
+  [ngClass]="toastType">
+  {{ toastMessage }}
+</div>
+
+<div class="confirm-toast" *ngIf="confirmToastVisible">
+  <p *ngIf="confirmMode === 'single'">
+    Bạn có chắc muốn xóa yêu cầu đổi ca này không?
+  </p>
+
+  <p *ngIf="confirmMode === 'multi'">
+    Bạn có chắc muốn xóa {{ selectedIds.length }} yêu cầu đã chọn không?
+  </p>
+
+  <div class="actions">
+    <button class="btn-cancel" (click)="cancelDelete()">Hủy</button>
+    <button class="btn-danger" (click)="confirmDelete()">Xóa</button>
+  </div>
+</div>
+
+
+    <!-- FOOTER + PAGINATION -->
+    <div class="table-footer">
+      <p>
+        Hiển thị {{ pagedList.length }} /
+        {{ filteredList.length }} yêu cầu
+      </p>
+
+      <div class="pagination">
+        <button (click)="prevPage()" [disabled]="page === 1">Trước</button>
+
+        <button
+          *ngFor="let p of pages"
+          [class.active]="page === p"
+          (click)="changePage(p)">
+          {{ p }}
+        </button>
+
+        <button (click)="nextPage()" [disabled]="page === totalPages">Tiếp</button>
+      </div>
+    </div>
+
+  </div>
+</div>
