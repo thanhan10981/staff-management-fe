@@ -15,6 +15,9 @@ import { SystemLogUser } from './features/system-log-user/system-log-user';
 import { AttendanceEmployeeComponent } from './features/attendance/employee/attendance-employee.component';
 import { AttendanceReportComponent } from './features/attendance/admin/attendance-report.component';
 import { LiveChatPopupComponent } from './features/live-chat/live-chat';
+import { LoaRequest } from './features/leave-management/loa-request/loa-request';
+import { Approval } from './features/leave-management/approval/approval';
+import { ShiftSwapRequest } from './features/leave-management/shift-swap-request/shift-swap-request';
 
 export const routes: Routes = [
 
@@ -50,6 +53,10 @@ export const routes: Routes = [
       {path: 'attendance', component: AttendanceEmployeeComponent},
       // {path: 'chat', component: LiveChatPopupComponent},
       { path: 'leave-report', component: LeaveReportComponent }
+      { path: 'leave-report', component: LeaveReportComponent },
+      { path: 'leave-request', component: LoaRequest},
+      { path: 'approval', component: Approval},
+      { path: 'shift-swap-request', component: ShiftSwapRequest}
     ]
   },
 

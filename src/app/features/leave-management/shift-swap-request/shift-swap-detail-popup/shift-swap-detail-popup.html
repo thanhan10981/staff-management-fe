@@ -1,0 +1,60 @@
+<div class="popup-overlay">
+  <div class="popup">
+
+    <div class="popup-header">
+      <h3>Chi tiết yêu cầu đổi ca</h3>
+      <i class="ri-close-line close-icon" (click)="close.emit()"></i>
+    </div>
+
+    <!-- TRẠNG THÁI -->
+    <span
+      class="status-badge"
+      [ngClass]="{
+        pending: data.trangThai === 'Cho duyet',
+        approved: data.trangThai === 'Da duyet',
+        rejected: data.trangThai === 'Tu choi'
+      }">
+      {{ data.trangThai }}
+    </span>
+
+    <!-- GRID INFO -->
+    <div class="info-grid">
+
+      <div>
+        <label>Nhân viên yêu cầu</label>
+        <p>{{ data.tenNguoiGui }} (Mã NV: {{ data.nguoiGui }})</p>
+      </div>
+
+      <div>
+        <label>Nhân viên đổi</label>
+        <p>{{ data.tenNguoiNhan }} (Mã NV: {{ data.nguoiNhan }})</p>
+      </div>
+
+      <div>
+        <label>Ca hiện tại</label>
+        <p>{{ data.tenCaHienTai || '—' }}</p>
+      </div>
+
+      <div>
+        <label>Ca muốn đổi</label>
+        <p>{{ data.tenCaMuonDoi }}</p>
+      </div>
+
+      <div>
+        <label>Ngày đổi</label>
+        <p>{{ data.ngayTruc }}</p>
+      </div>
+
+    </div>
+
+    <!-- LÝ DO -->
+    <label>Lý do</label>
+    <textarea readonly>{{ data.lyDo }}</textarea>
+
+    <!-- FOOTER -->
+    <div class="actions">
+      <button class="btn-close" (click)="close.emit()">Đóng</button>
+    </div>
+
+  </div>
+</div>
