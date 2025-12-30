@@ -1,0 +1,155 @@
+<!-- BACKDROP -->
+<div class="popup-backdrop" (click)="closePopup()"></div>
+
+<!-- POPUP -->
+<div class="popup-container">
+
+  <!-- HEADER -->
+  <div class="popup-header">
+    <h2>Báo cáo lương & phụ cấp</h2>
+    <button class="close-btn" (click)="closePopup()">✕</button>
+  </div>
+
+  <!-- BODY -->
+  <div class="popup-body">
+
+    <!-- 🔽 NỘI DUNG BẠN GỬI (GIỮ NGUYÊN) -->
+    <div class="salary-report">
+
+      <!-- FILTER -->
+      <div class="filter-box">
+      <div class="filter-item">
+        <label>Thời gian</label>
+        <select [(ngModel)]="period">
+      <option value="month">Tháng này</option>
+      <option value="quarter">Quý này</option>
+      <option value="year">Năm nay</option>
+    </select>
+
+  </div>
+
+  <div class="filter-item">
+    <label>Phòng ban</label>
+    <select [(ngModel)]="department">
+      <option [ngValue]="undefined">Tất cả phòng ban</option>
+      <option [ngValue]="1">Nhân sự</option>
+      <option [ngValue]="2">IT</option>
+      <option [ngValue]="3">Kế toán</option>
+    </select>
+  </div>
+
+  <div class="filter-item">
+    <label>Chức vụ</label>
+    <select [(ngModel)]="role">
+      <option [ngValue]="undefined">Tất cả các chức vụ</option>
+      <option value="STAFF">Nhân viên</option>
+      <option value="MANAGER">Quản lý</option>
+    </select>
+  </div>
+
+  <button class="btn-filter" (click)="onFilter()">
+    🔍 Lọc dữ liệu
+  </button>
+</div>
+
+
+      <!-- SUMMARY -->
+      <div class="summary">
+
+        <!-- Tổng quỹ lương -->
+        <div class="summary-card">
+          <span class="icon">$</span>
+          <div>
+            <p>Tổng quỹ lương</p>
+            <h3>{{ formatMoney(kpi?.tongQuyLuong) }}</h3>
+          </div>
+        </div>
+
+        <!-- Lương cơ bản -->
+        <div class="summary-card green">
+          <span class="icon">💳</span>
+          <div>
+            <p>Lương cơ bản</p>
+            <h3>{{ formatMoney(kpi?.luongCoBan) }}</h3>
+          </div>
+        </div>
+
+        <!-- Tổng phụ cấp -->
+        <div class="summary-card orange">
+          <span class="icon">🎁</span>
+          <div>
+            <p>Tổng phụ cấp</p>
+            <h3>{{ formatMoney(kpi?.phuCap) }}</h3>
+          </div>
+        </div>
+
+        <!-- Thưởng -->
+        <div class="summary-card pink">
+          <span class="icon">🏆</span>
+          <div>
+            <p>Thưởng</p>
+            <h3>{{ formatMoney(kpi?.thuong) }}</h3>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- CHART -->
+   <div class="chart-row">
+
+        <!-- BAR CHART -->
+        <div class="chart-box">
+            <h4>Quỹ lương theo phòng ban</h4>
+            <canvas #barChart ></canvas>
+        </div>
+
+        <!-- DONUT CHART -->
+        <div class="chart-box">
+            <h4>Cơ cấu lương</h4>
+            <canvas #donutChart></canvas>
+        </div>
+
+        </div>
+
+
+      <!-- TABLE -->
+      <h3 class="section-title">Chi tiết lương theo nhân viên</h3>
+
+<table class="salary-table">
+  <thead>
+    <tr>
+      <th>Nhân viên</th>
+      <th>Phòng ban</th>
+      <th>Lương cơ bản</th>
+      <th>Phụ cấp</th>
+      <th>Thưởng</th>
+      <th>Tổng thu nhập</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let emp of employeeSalaries">
+      <td>
+        <strong>{{ emp.tenNhanVien }}</strong>
+      </td>
+      <td>{{ emp.phongBan }}</td>
+      <td>{{ formatNumber(emp.luongCoBan) }}</td>
+      <td>{{ formatNumber(emp.phuCap) }}</td>
+      <td>{{ formatNumber(emp.thuong) }}</td>
+      <td class="bold">{{ formatNumber(emp.tong) }}</td>
+    </tr>
+
+    <!-- Không có dữ liệu -->
+    <tr *ngIf="employeeSalaries.length === 0">
+      <td colspan="6" style="text-align:center; color:#9ca3af">
+        Không có dữ liệu phù hợp
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<!-- Floating button -->
+<button class="z-fab" (click)="toggleChat()" aria-label="Chat">
+    💬
+</button>
+
+<!-- Popup -->
+<div class="z-chat" *ngIf="isOpen">
+    <!-- Header -->
+    <div class="z-header">
+        <div class="z-title">
+            <div class="z-dot"></div>
+            <div>
+                <div class="z-title-main">Live Chat</div>
+                <div class="z-title-sub">Hỗ trợ trực tuyến</div>
+            </div>
+        </div>
+
+        <button class="z-close" (click)="closeChat()">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div class="z-body">
+        <!-- Left: user list -->
+        <div class="z-left">
+            <!-- <div class="z-search">
+        <input placeholder="Tìm kiếm..." />
+      </div> -->
+
+            <div class="z-users">
+                <button
+                    class="z-user"
+                    *ngFor="let u of users"
+                    (click)="openChat(u)"
+                    [class.active]="selectedUser?.maNhanVien === u.maNhanVien">
+                    <div class="z-avatar">
+                        {{ (u.tenDangNhap || '?').slice(0,1).toUpperCase() }}
+                    </div>
+
+                    <div class="z-user-info">
+                        <div class="z-user-name">{{ u.tenHienThi ||
+                            u.tenDangNhap }}</div>
+
+                        <div class="z-user-sub">{{ u.vaiTro }}</div>
+                    </div>
+
+                    <div class="z-user-meta">
+                        <span class="z-chat-ico">💬</span>
+                    </div>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Right: messages -->
+        <div class="z-right">
+            <div class="z-topbar">
+                <div class="z-peer">
+                    <div class="z-peer-avatar">
+                        {{ selectedUser ? (selectedUser.tenHienThi ||
+                        selectedUser.tenDangNhap).slice(0,1).toUpperCase() :
+                        '💬' }}
+                    </div>
+
+                    <div class="z-peer-info">
+                        <div class="z-peer-name">
+                            {{ selectedUser ? (selectedUser.tenHienThi ||
+                            selectedUser.tenDangNhap) : 'Chọn người để chat' }}
+                        </div>
+
+                        <div class="z-peer-sub">
+                            {{ selectedUser ? selectedUser.vaiTro :
+                            'Danh sách bên trái' }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="z-messages">
+                <div
+                    class="z-msg"
+                    *ngFor="let m of messages"
+                    [class.me]="m.nguoiGui === myId">
+                    <div class="z-bubble">{{ m.noiDung }}</div>
+                    <div class="z-time">{{ m.thoiGianGui | date:'HH:mm' }}</div>
+                </div>
+            </div>
+
+            <div class="z-input">
+                <input
+                    [(ngModel)]="message"
+                    placeholder="Nhập tin nhắn..."
+                    (keydown.enter)="send()" />
+                <button class="z-send"
+                    (click)="send()"
+                    [disabled]="!selectedUser || !message.trim()">
+                    ➤
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

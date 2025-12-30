@@ -3,17 +3,18 @@ import { DepartMentEmployeePopupComponent } from './depart-ment-employee-popup/d
 import { CommonModule } from '@angular/common';
 import { DashbroadFlash } from './dashbroad-flash/dashbroad-flash';
 import { ScheduleEmployeeReportPopup } from './schedule-employee-report-popup/schedule-employee-report-popup';
+import {  SalaryAllowanceReportPopupComponent } from './salary-allowance-report/salary-allowance-report';
 
 
 @Component({
   selector: 'app-reporting',
   standalone: true,
-  imports: [DepartMentEmployeePopupComponent, CommonModule, DashbroadFlash, ScheduleEmployeeReportPopup],
+  imports: [DepartMentEmployeePopupComponent, CommonModule, DashbroadFlash, ScheduleEmployeeReportPopup,SalaryAllowanceReportPopupComponent ],
   templateUrl: './reporting.html',
   styleUrls: ['./reporting.scss'],
 })
 export class ReportingComponent {
-
+  showSalaryPopup =false;
   showDepartmentPopup = false;
 
   openDepartmentPopup() {
@@ -29,19 +30,21 @@ export class ReportingComponent {
     this.showDashbroadPopup = true;
   }
 
-  closeDashbroadPopup() {
+  closeDashbroadPopup(){
     this.showDashbroadPopup = false;
   }
 
   // báo cáo lịch trực
  showSchedulePopup = false;
 
-  openSchedulePopup() {
+  openSchedulePopup(){
     this.showSchedulePopup = true;
   }
 
-  closeSchedulePopup() {
+  closeSchedulePopup(){
     this.showSchedulePopup = false;
   }
-  
+  closePopup(){
+    this.showSalaryPopup =false;
+  }
 }
