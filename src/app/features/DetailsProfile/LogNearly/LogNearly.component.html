@@ -1,0 +1,18 @@
+<div class="card">
+  <h5>Hoạt động gần đây</h5>
+
+  <ul *ngIf="logs$ | async as logs">
+    <li *ngFor="let log of logs">
+      <div class="left">
+        <span [class]="getDotClass(log)"></span>
+        <span class="text">
+          {{ log.moTa || log.hanhDong }}
+        </span>
+      </div>
+
+      <small class="time">
+        {{ log.thoiGian | date:'dd/MM/yyyy HH:mm' }}
+      </small>
+    </li>
+  </ul>
+</div>

@@ -1,42 +1,56 @@
-<div class="page-wrapper">
+<!-- POPUP OVERLAY -->
+<div class="popup-overlay">
 
-  <div class="attendance-statistics">
+  <!-- POPUP CONTAINER -->
+  <div class="popup-container">
 
-    <!-- TITLE -->
-    <h1 class="page-title">
-      Thống kê chấm công và đi trễ
-    </h1>
+    <!-- giữ nguyên div cũ -->
+    <div class="page-wrapper">
 
-    <hr class="divider" />
+      <div class="attendance-statistics">
 
-    <!-- FILTER -->
-    <app-filter-bar
-      (filterChange)="onFilterChange($event)">
-    </app-filter-bar>
+        <!-- TITLE + CLOSE -->
+        <div class="popup-header">
+          <h1 class="page-title">
+            Thống kê chấm công và đi trễ
+          </h1>
 
-    <app-stats-panel
-      [totalWorkDays]="totalWorkDays"
-      [lateCount]="lateCount"
-      [absentWithoutLeave]="absentWithoutLeave"
-      [onTimeRate]="onTimeRate">
-    </app-stats-panel>
+          <button class="close-btn" (click)="closePopup()">✕</button>
+        </div>
 
-    <div class="charts-row">
-      <app-chart-workdays
-      [data]="monthlyWorkdays">
+        <hr class="divider" />
 
-      
-      </app-chart-workdays>
+        <!-- FILTER -->
+        <app-filter-bar
+          (filterChange)="onFilterChange($event)">
+        </app-filter-bar>
 
+        <app-stats-panel
+          [totalWorkDays]="totalWorkDays"
+          [lateCount]="lateCount"
+          [absentWithoutLeave]="absentWithoutLeave"
+          [onTimeRate]="onTimeRate">
+        </app-stats-panel>
 
-      <app-chart-late-rate [data]="lateRateData"></app-chart-late-rate>
+        <div class="charts-row">
+          <app-chart-workdays
+            [data]="monthlyWorkdays">
+          </app-chart-workdays>
+
+          <app-chart-late-rate
+            [data]="lateRateData">
+          </app-chart-late-rate>
+        </div>
+
+        <app-attendance-table
+          *ngIf="selectedDate"
+          [selectedDate]="selectedDate"
+          [maPhongBan]="selectedPhongBan"
+          [maViTri]="selectedViTri">
+        </app-attendance-table>
+
+      </div>
     </div>
-    <app-attendance-table
-      *ngIf="selectedDate"
-      [selectedDate]="selectedDate"
-      [maPhongBan]="selectedPhongBan"
-      [maViTri]="selectedViTri"
-    ></app-attendance-table>
 
   </div>
 </div>

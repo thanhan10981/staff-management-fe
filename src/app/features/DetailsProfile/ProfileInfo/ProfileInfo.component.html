@@ -1,0 +1,23 @@
+<div class="card" *ngIf="info$ | async as info">
+  <h5>Thông tin cá nhân</h5>
+
+  <div class="row">
+    <label>Họ và tên</label>
+    <span>{{ info.hoTen }}</span>
+  </div>
+
+  <div class="row">
+    <label>Ngày sinh</label>
+    <span>{{ info.ngaySinh | date:'dd/MM/yyyy' }}</span>
+  </div>
+
+  <div class="row">
+    <label>Giới tính</label>
+    <span>{{ genderText(info.gioiTinh) }}</span>
+  </div>
+
+  <div class="row">
+    <label>Trình độ chuyên môn</label>
+    <span>{{ info.trinhDoChuyenMon }}</span>
+  </div>
+</div>
