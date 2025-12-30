@@ -27,10 +27,10 @@ type ChatMsg = {
   styleUrls: ['./live-chat.scss']
 })
 export class LiveChatPopupComponent implements OnInit, OnDestroy {
-  myId = 2; // TODO: lấy từ token
+  myId = 1; // Phải thay khi lấy được mã nhân viên
   users: ChatUser[] = [];
 
-  selectedUser: ChatUser | null = null;   // ✅ chỉ cần cái này
+  selectedUser: ChatUser | null = null;   
   messages: ChatMsg[] = [];
   message = '';
 
