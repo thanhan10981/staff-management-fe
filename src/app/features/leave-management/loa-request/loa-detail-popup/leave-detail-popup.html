@@ -1,0 +1,52 @@
+<div class="popup-overlay">
+  <div class="popup-container">
+
+    <div class="popup-header">
+      <h2>Chi tiết yêu cầu và nghỉ phép</h2>
+      <button class="close-btn" (click)="closePopup()">✕</button>
+    </div>
+
+    <div class="popup-body">
+
+      <!-- TRẠNG THÁI -->
+      <div class="status-section">
+        <span
+          class="status"
+          [ngClass]="getStatusClass(data.trangThai)">
+          {{ data.trangThai }}
+        </span>
+      </div>
+
+      <!-- THÔNG TIN -->
+      <div class="info-grid">
+        <div><strong>Nhân viên:</strong> {{ data.tenNhanVien }}</div>
+        <div><strong>Ngày bắt đầu:</strong> {{ data.ngayBatDau }}</div>
+
+        <div><strong>Phòng ban:</strong> {{ data.phongBan || 'Khoa nội' }}</div>
+        <div><strong>Ngày kết thúc:</strong> {{ data.ngayKetThuc }}</div>
+
+        <div><strong>Loại nghỉ:</strong> {{ data.loaiNghi }}</div>
+        <div><strong>Số ngày:</strong> {{ data.soNgay || '3 ngày' }}</div>
+      </div>
+
+      <!-- LÝ DO -->
+      <div class="section">
+        <label>Lý do</label>
+        <input type="text" [value]="data.lyDo" readonly />
+      </div>
+
+      <!-- NGÀY GỬI -->
+      <div class="section request-date">
+        <label>Ngày gửi yêu cầu</label>
+        <span>{{ data.ngayGui || '2024-01-10' }}</span>
+      </div>
+
+    </div>
+
+    <!-- ✅ FOOTER -->
+    <div class="popup-footer">
+      <button class="close-footer-btn" (click)="closePopup()">Đóng</button>
+    </div>
+
+  </div>
+</div>
