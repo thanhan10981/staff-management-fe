@@ -6,18 +6,15 @@ import { SalaryDashboard } from './features/salary-management/salary-dashboard/s
 import { AllowanceOtManagement } from './features/salary-management/allowance-ot-management/allowance-ot-management';
 import { ExportSalary } from './features/salary-management/salary-export/salary-export';
 import { LeaveReportComponent } from './features/leave-report/leave-report.component';
-import { AttendanceStatisticsComponent } from './features/attendance-statistics/attendance-statistics.component';
-
 import { AuthGuard } from './gaurds/auth.guard';
 import { ReportingComponent } from './features/reporting/reporting';
 import { SystemAdministrationComponent } from './features/systemAdministration/system-administration/system-administration';
 import { SystemLogUser } from './features/system-log-user/system-log-user';
 import { AttendanceEmployeeComponent } from './features/attendance/employee/attendance-employee.component';
 import { AttendanceReportComponent } from './features/attendance/admin/attendance-report.component';
-import { LiveChatPopupComponent } from './features/live-chat/live-chat';
-import { LoaRequest } from './features/leave-management/loa-request/loa-request';
 import { Approval } from './features/leave-management/approval/approval';
 import { ShiftSwapRequest } from './features/leave-management/shift-swap-request/shift-swap-request';
+import { AddLeaveRequestPopup } from './features/leave-management/loa-request/add-leave-request-popup';
 
 export const routes: Routes = [
 
@@ -48,12 +45,13 @@ export const routes: Routes = [
       { path: 'salary-report', title: 'Xuất bảng lương',component: ExportSalary },
       { path: 'reports', title: 'Báo cáo',component: ReportingComponent },
       { path: 'system', title: 'quản lý người dùng',component: SystemAdministrationComponent },
-       { path: 'log', title: 'quản lý người dùng',component: SystemLogUser },
-      {path: 'attendance/report', component: AttendanceReportComponent},
-      {path: 'attendance', component: AttendanceEmployeeComponent},
+      { path: 'log', title: 'quản lý người dùng',component: SystemLogUser },
+      { path: 'attendance/report', component: AttendanceReportComponent},
+      { path: 'attendance', component: AttendanceEmployeeComponent},
       { path: 'leave-report', component: LeaveReportComponent },
       { path: 'approval', component: Approval},
-      { path: 'shift-swap-request', component: ShiftSwapRequest}
+      { path: 'shift-swap-request', component: ShiftSwapRequest},
+      { path: 'leave-request', component: AddLeaveRequestPopup}
     ]
   },
 
