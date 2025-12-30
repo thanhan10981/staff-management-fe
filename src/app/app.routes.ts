@@ -51,10 +51,7 @@ export const routes: Routes = [
        { path: 'log', title: 'quản lý người dùng',component: SystemLogUser },
       {path: 'attendance/report', component: AttendanceReportComponent},
       {path: 'attendance', component: AttendanceEmployeeComponent},
-      // {path: 'chat', component: LiveChatPopupComponent},
-      { path: 'leave-report', component: LeaveReportComponent }
       { path: 'leave-report', component: LeaveReportComponent },
-      { path: 'leave-request', component: LoaRequest},
       { path: 'approval', component: Approval},
       { path: 'shift-swap-request', component: ShiftSwapRequest}
     ]
