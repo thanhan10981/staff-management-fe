@@ -1,0 +1,249 @@
+.approval-page {
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #111827;
+}
+
+/* ================= TITLE ================= */
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* ================= FILTER ================= */
+.filter-wrapper {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+}
+
+.search-box i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.search-box input {
+  width: 80%;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+select {
+  min-width: 190px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+/* ================= TABLE ================= */
+.approval-table {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+}
+
+.approval-table .table-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f9fafb;
+}
+
+th {
+  font-weight: 600;
+  color: #374151;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+/* ================= ALIGN FIX ================= */
+/* Căn giữa toàn bộ cột trừ Nhân viên */
+.approval-table th:not(:first-child),
+.approval-table td:not(:first-child) {
+  text-align: center;
+}
+
+/* Riêng cột Nhân viên căn trái */
+.approval-table th:first-child,
+.approval-table td:first-child {
+  text-align: left;
+}
+
+/* ================= EMPLOYEE ================= */
+.employee-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.employee-info .details .name {
+  font-weight: 500;
+  margin: 0;
+}
+
+.employee-info .details span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* ================= STATUS ================= */
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* ================= ACTION ================= */
+.action-cell {
+  text-align: center;
+  position: relative;
+}
+
+.action-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #6b7280;
+}
+
+.action-icon:hover {
+  color: #111827;
+}
+
+.action-menu {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: none;
+  min-width: 160px;
+  z-index: 100;
+}
+
+.action-menu.show {
+  display: block;
+}
+
+.action-menu .menu-item {
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-menu .menu-item:hover {
+  background: #f9fafb;
+}
+
+.action-menu .menu-item.view {
+  color: #2563eb;
+}
+
+.action-menu .menu-item.approve {
+  color: #16a34a;
+}
+
+.action-menu .menu-item.reject {
+  color: #dc2626;
+}
+
+/* ===== ĐẨY RIÊNG CỘT NHÂN VIÊN QUA PHẢI ===== */
+.approval-table th:first-child,
+.approval-table td:first-child {
+  padding-left: 32px; /* tăng từ ~10px lên 32px */
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  min-width: 260px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: toastSlide 0.3s ease;
+  z-index: 2000;
+}
+
+.toast.success {
+  background: #22c55e;
+}
+
+.toast.error {
+  background: #ef4444;
+}
+
+@keyframes toastSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

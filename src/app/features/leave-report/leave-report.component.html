@@ -1,20 +1,42 @@
-<div class="leave-report-page">
-  <h1 class="page-title">Báo cáo nghỉ phép</h1>
-  <hr class="divider" />
+<!-- OVERLAY -->
+<div class="popup-overlay" (click)="close.emit()"
+></div>
 
-  <app-leave-filter-bar
-    (filterChange)="onFilterChange($event)">
-  </app-leave-filter-bar>
+<!-- POPUP CONTAINER -->
+<div class="popup-container">
 
-  <app-leave-stats-panel
-    [stats]="stats">
-  </app-leave-stats-panel>
-<app-leave-export-bar
-  [totalDays]="totalDays"
-  [filter]="currentFilter">
-</app-leave-export-bar>
-<app-leave-detail
-  [data]="leaveDetails">
-</app-leave-detail>
+  <!-- HEADER -->
+  <div class="popup-header">
+    <h2>Báo cáo nghỉ phép</h2>
 
+    <button class="btn-close" (click)="close.emit()"
+>✕</button>
+  </div>
+
+  <!-- BODY (GIỮ NGUYÊN STRUCTURE CŨ) -->
+  <div class="popup-body">
+
+    <div class="leave-report-page">
+      <h1 class="page-title">Báo cáo nghỉ phép</h1>
+      <hr class="divider" />
+
+      <app-leave-filter-bar
+        (filterChange)="onFilterChange($event)">
+      </app-leave-filter-bar>
+
+      <app-leave-stats-panel
+        [stats]="stats">
+      </app-leave-stats-panel>
+
+      <app-leave-export-bar
+        [totalDays]="totalDays"
+        [filter]="currentFilter">
+      </app-leave-export-bar>
+
+      <app-leave-detail
+        [data]="leaveDetails">
+      </app-leave-detail>
+    </div>
+
+  </div>
 </div>

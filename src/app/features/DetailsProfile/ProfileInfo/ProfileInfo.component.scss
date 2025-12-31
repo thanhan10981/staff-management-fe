@@ -1,0 +1,26 @@
+.card {
+  h5 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1.5px solid #e5e7eb;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: column; // ⭐ xếp dọc
+  gap: 4px;
+  margin-bottom: 12px;
+
+  label {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+  }
+}

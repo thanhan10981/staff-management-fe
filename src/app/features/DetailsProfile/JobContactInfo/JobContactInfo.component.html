@@ -1,0 +1,29 @@
+<div class="card" *ngIf="jobContact$ | async as job">
+  <h5>Thông tin liên hệ & công việc</h5>
+
+  <div class="row">
+    <label>Email</label>
+    <span>{{ job.email }}</span>
+  </div>
+
+  <div class="row">
+    <label>Số điện thoại</label>
+    <span>{{ job.sdt }}</span>
+  </div>
+
+  <div class="row">
+    <label>Mã nhân viên</label>
+    <span>{{ job.maNhanVien }}</span>
+  </div>
+
+  <div class="row">
+    <label>Phòng ban</label>
+    <span>{{ job.tenPhongBan }}</span>
+  </div>
+</div>
+
+<!-- fallback -->
+<div class="card" *ngIf="!(jobContact$ | async)">
+  <h5>Thông tin liên hệ & công việc</h5>
+  <p class="empty">Không có dữ liệu</p>
+</div>

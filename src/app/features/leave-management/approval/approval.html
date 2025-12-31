@@ -1,0 +1,116 @@
+<div class="approval-page">
+
+  <h2 class="title">Danh sách chờ duyệt</h2>
+
+  <!-- BỘ LỌC -->
+  <div class="filter-wrapper">
+    <div class="filter-section">
+      <div class="filters">
+
+        <!-- SEARCH -->
+        <div class="search-box">
+          <i class="ri-search-line"></i>
+          <input
+            type="text"
+            placeholder="Tìm theo tên nhân viên, mã NV"
+            [(ngModel)]="searchText"
+            (input)="applyFilter()">
+        </div>
+
+        <!-- LOẠI -->
+        <select [(ngModel)]="filterLoai" (change)="applyFilter()">
+          <option value="">Tất cả loại</option>
+          <option value="NghiPhep">Nghỉ phép</option>
+          <option value="DoiCa">Đổi ca</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="approval-table">
+
+    <div class="table-header">
+      <h3>
+        Danh sách đơn chờ duyệt
+        <span>({{ filteredList.length }} đơn)</span>
+      </h3>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nhân viên</th>
+          <th>Loại yêu cầu</th>
+          <th>Thời gian</th>
+          <th>Chi tiết</th>
+          <th>Lý do</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of pagedList; let i = index">
+
+          <td>
+            <div class="employee-info">
+              <div class="avatar blue">
+                {{ item.tenNhanVien.charAt(0) }}
+              </div>
+              <div class="details">
+                <p class="name">{{ item.tenNhanVien }}</p>
+                <span>Mã NV: {{ item.maNhanVien }}</span>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <span class="status pending">
+              {{ item.loaiYeuCau === 'NghiPhep' ? 'Nghỉ phép' : 'Đổi ca' }}
+            </span>
+          </td>
+
+          <td>{{ item.thoiGian }}</td>
+          <td>{{ item.chiTiet }}</td>
+          <td>{{ item.lyDo }}</td>
+
+          <td class="action-cell">
+            <div class="action-wrapper">
+              <i class="ri-more-2-line action-icon"
+                 (click)="toggleMenu(i)">
+              </i>
+
+              <div class="action-menu"
+                   [class.show]="activeMenu === i">
+
+                
+
+                <div class="menu-item approve"
+                     (click)="approve(item)">
+                  <i class="ri-check-line"></i> Duyệt
+                </div>
+
+                <div class="menu-item reject"
+                     (click)="reject(item)">
+                  <i class="ri-close-line"></i> Từ chối
+                </div>
+
+              </div>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    
+
+  </div>
+</div>
+
+<div
+  class="toast"
+  *ngIf="toastVisible"
+  [ngClass]="toastType">
+  {{ toastMessage }}
+</div>

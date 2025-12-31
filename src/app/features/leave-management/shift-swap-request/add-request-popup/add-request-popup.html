@@ -1,0 +1,68 @@
+<div class="popup-overlay">
+  <div class="popup-container">
+
+    <h3 class="popup-title">Thêm yêu cầu đổi ca</h3>
+
+    <div class="form-grid">
+
+      <!-- Nhân viên -->
+      <div class="form-group full">
+        <label>Nhân viên</label>
+        <select [(ngModel)]="selectedNhanVienId" (change)="onNhanVienChange()">
+          <option value="">-- Chọn nhân viên --</option>
+          <option *ngFor="let nv of nhanVienList" [value]="nv.maNhanVien">
+            {{ nv.tenNhanVien }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Ca hiện tại -->
+      <div class="form-group">
+        <label>Ca hiện tại</label>
+        <input [value]="data?.tenCaHienTai" disabled />
+      </div>
+
+      <!-- Ngày đổi -->
+      <div class="form-group">
+        <label>Ngày đổi</label>
+        <input type="date" [(ngModel)]="form.ngayTruc" />
+      </div>
+
+      <!-- Nhân viên muốn đổi -->
+      <div class="form-group">
+        <label>Nhân viên muốn đổi</label>
+        <select [(ngModel)]="form.nguoiNhan">
+          <option value="">-- Chọn nhân viên --</option>
+          <option *ngFor="let nv of data?.nhanVienOptions" [value]="nv.maNhanVien">
+            {{ nv.tenNhanVien }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Ca muốn đổi -->
+      <div class="form-group">
+        <label>Ca muốn đổi</label>
+        <select [(ngModel)]="form.maCa">
+          <option value="">-- Chọn ca --</option>
+          <option *ngFor="let ca of data?.caOptions" [value]="ca.maCa">
+            {{ ca.tenCa }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Lý do -->
+      <div class="form-group full">
+        <label>Lý do</label>
+        <textarea [(ngModel)]="form.lyDo"></textarea>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="popup-footer">
+      <button class="btn-cancel" (click)="close.emit()">Hủy</button>
+      <button class="btn-submit" (click)="onSubmit()">Gửi</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <h2>Thêm yêu cầu nghỉ phép</h2>
+
+    <!-- Nhân viên -->
+    <div class="form-group">
+      <label>Nhân viên</label>
+      <select [(ngModel)]="leaveRequest.maNhanVien">
+        <option value="">-- Chọn nhân viên --</option>
+        <option *ngFor="let nv of employees" [value]="nv.maNhanVien">
+          {{ nv.tenNhanVien }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Từ ngày -->
+    <div class="form-group">
+      <label>Từ ngày</label>
+      <input type="date" [(ngModel)]="leaveRequest.ngayBatDau">
+    </div>
+
+    <!-- Đến ngày -->
+    <div class="form-group">
+      <label>Đến ngày</label>
+      <input type="date" [(ngModel)]="leaveRequest.ngayKetThuc">
+    </div>
+
+    <!-- Loại nghỉ -->
+    <div class="form-group">
+      <label>Loại nghỉ</label>
+      <select [(ngModel)]="leaveRequest.loaiNghi">
+        <option value="">-- Chọn loại nghỉ --</option>
+        <option>Phép năm</option>
+        <option>Nghỉ ốm</option>
+        <option>Nghỉ không lương</option>
+        <option>Thai sản</option>
+      </select>
+    </div>
+
+    <!-- Lý do -->
+    <div class="form-group">
+      <label>Lý do</label>
+      <textarea [(ngModel)]="leaveRequest.lyDo"></textarea>
+    </div>
+
+    <!-- Button -->
+    <div class="button-group">
+      <button class="btn cancel" (click)="closePopup()">Hủy</button>
+      <button class="btn submit" (click)="submitForm()">Gửi yêu cầu</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div
+  class="toast"
+  *ngIf="toastVisible"
+  [ngClass]="toastType">
+  {{ toastMessage }}
+</div>
+
