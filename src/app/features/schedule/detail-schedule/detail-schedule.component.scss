@@ -1,0 +1,277 @@
+/* =========================
+   DIALOG CONTAINER
+========================= */
+.dialog-container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+.dialog-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eef1f5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .date {
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  .btn-close {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
+    color: #6b7280;
+
+    &:hover {
+      color: #111;
+    }
+  }
+}
+
+/* =========================
+   BODY
+========================= */
+.dialog-body {
+  padding: 20px;
+  overflow: auto;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+
+  .box {
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+
+    small {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #4b5563;
+    }
+  }
+
+  .blue   { background: #eef4ff; color: #2563eb; }
+  .green  { background: #ecfdf5; color: #059669; }
+  .yellow { background: #fffbeb; color: #d97706; }
+  .red    { background: #fef2f2; color: #dc2626; }
+}
+
+/* =========================
+   TABLE
+========================= */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  thead {
+    background: #f9fafb;
+
+    th {
+      text-align: left;
+      padding: 10px;
+      font-weight: 600;
+      color: #374151;
+      border-bottom: 1px solid #e5e7eb;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+
+      &:hover {
+        background: #f9fafb;
+      }
+    }
+
+    td {
+      padding: 10px;
+      color: #374151;
+      vertical-align: middle;
+    }
+  }
+}
+
+/* =========================
+   STATUS
+========================= */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.wait {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.dialog-footer {
+  padding: 14px 20px;
+  border-top: 1px solid #eef1f5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-outline {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background: #f9fafb;
+  }
+}
+
+.btn-primary {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: #1d4ed8;
+  }
+}
+
+/* =========================
+   EMPLOYEE CELL
+========================= */
+.col-employee {
+  min-width: 220px;
+}
+
+.employee {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.employee .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee .name {
+  font-weight: 500;
+}
+
+.employee .role {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* =========================
+   BADGES
+========================= */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* =========================
+   ACTION COLUMN
+========================= */
+.col-action {
+  width: 60px;
+  text-align: center;
+}
+
+.btn-more {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: #6b7280;
+
+  &:hover {
+    color: #111827;
+  }
+}
+.avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge.info {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.badge.warning {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.badge.success {
+  background: #ecfdf5;
+  color: #059669;
+}

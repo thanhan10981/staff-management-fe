@@ -1,0 +1,123 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+    <h3>Chi tiết lịch làm việc</h3>
+    <span class="date">{{ data.date }}</span>
+
+    <button class="btn-close" (click)="close()">✕</button>
+  </div>
+
+  <div class="dialog-body">
+    <!-- summary -->
+<div class="summary">
+  <div class="box blue">
+    {{ totalNhanVien }}
+    <small>Nhân viên</small>
+  </div>
+
+  <div class="box green">
+    {{ totalGioLam | number:'1.0-1' }}
+    <small>Giờ làm</small>
+  </div>
+
+  <div class="box yellow">
+    {{ totalChuaLam }}
+    <small>Chưa làm</small>
+  </div>
+
+  <div class="box red">
+    {{ totalDangLam }}
+    <small>Đang làm</small>
+  </div>
+</div>
+
+
+    <!-- table -->
+    <table class="table">
+        <thead>
+            <tr>
+            <th>STT</th>
+            <th>Nhân viên</th>
+            <th>Phòng</th>
+            <th>Khoa</th>
+            <th>Ca</th>
+            <th>Tổng giờ làm</th>
+            <th>Xung đột</th>
+            <th>Trạng thái</th>
+            <th class="col-action">Thao tác</th>
+            </tr>
+        </thead>
+
+<tbody>
+  <tr *ngFor="let item of list; index as i">
+    <td>{{ i + 1 }}</td>
+
+    <!-- Nhân viên -->
+    <td class="col-employee">
+      <div class="employee">
+        <img
+          *ngIf="item.anhDaiDien; else avatarText"
+          [src]="item.anhDaiDien"
+          class="avatar-img"
+        />
+
+        <ng-template #avatarText>
+          <div class="avatar">
+            {{ item.hoTen.charAt(0) }}
+          </div>
+        </ng-template>
+
+        <div class="info">
+          <div class="name">{{ item.hoTen }}</div>
+          <div class="role">{{ item.tenViTri }}</div>
+        </div>
+      </div>
+    </td>
+
+    <td>{{ item.tenPhong }}</td>
+    <td>{{ item.tenKhoa }}</td>
+    <td>{{ item.tenCa }}</td>
+
+    <td>{{ item.tongGioLam }} giờ</td>
+
+    <!-- Xung đột -->
+    <td>
+      <span class="badge success">Không</span>
+    </td>
+
+    <!-- Trạng thái -->
+    <td>
+      <span
+        class="badge"
+        [class.info]="item.trangThai === 'Chưa làm'"
+        [class.warning]="item.trangThai === 'Đang làm'"
+        [class.success]="item.trangThai === 'Đã kết thúc ca'"
+      >
+        {{ item.trangThai }}
+      </span>
+    </td>
+
+    <!-- Thao tác -->
+    <td class="col-action">
+      <button class="btn-more">⋮</button>
+    </td>
+  </tr>
+
+  <tr *ngIf="!loading && list.length === 0">
+    <td colspan="9" class="text-empty">
+      Không có dữ liệu
+    </td>
+  </tr>
+</tbody>
+
+
+        </table>
+
+  </div>
+
+  <div class="dialog-footer">
+    <button class="btn-outline" (click)="close()">Đóng</button>
+    <button class="btn-primary" (click)="refreshAndClose()">Cập nhật</button>
+  </div>
+
+</div>

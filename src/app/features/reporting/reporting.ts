@@ -11,15 +11,7 @@ import {  SalaryAllowanceReportPopupComponent } from './salary-allowance-report/
 @Component({
   selector: 'app-reporting',
   standalone: true,
-    imports: [
-    CommonModule,
-    DepartMentEmployeePopupComponent,
-    DashbroadFlash,
-    ScheduleEmployeeReportPopup,
-    AttendanceStatisticsComponent,
-    LeaveReportComponent
-  ],
-  imports: [DepartMentEmployeePopupComponent, CommonModule, DashbroadFlash, ScheduleEmployeeReportPopup,SalaryAllowanceReportPopupComponent ],
+  imports: [AttendanceStatisticsComponent,LeaveReportComponent,DepartMentEmployeePopupComponent, CommonModule, DashbroadFlash, ScheduleEmployeeReportPopup,SalaryAllowanceReportPopupComponent ],
   templateUrl: './reporting.html',
   styleUrls: ['./reporting.scss'],
 })

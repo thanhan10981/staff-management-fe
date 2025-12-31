@@ -16,6 +16,7 @@ import { AssignShiftComponent } from '../dialogs/assign-shift/assign-shift.compo
 import { Header } from '../../../core/layout/header/header';
 import { Footer } from '../../../core/layout/footer/footer';
 import { Sidebar } from '../../../core/layout/sidebar/sidebar';
+import { DetailScheduleComponent } from '../detail-schedule/detail-schedule.component';
 
 import { ScheduleService, KhoaDTO } from '../../../service/schedule.service';
 import { StatsPanelComponent } from '../stats-panel/stats-panel.component';
@@ -62,6 +63,7 @@ export class ScheduleCalendarComponent implements OnInit {
     dateClick: (info: any) => this.dateClick(info),
     eventClick: (info: any) => this.eventClick(info),
     firstDay: 1,
+      timeZone: 'Asia/Ho_Chi_Minh',
     locale: 'vi',
     events: [] // start empty
   };
@@ -221,23 +223,36 @@ export class ScheduleCalendarComponent implements OnInit {
   // =============================
   // EVENTS
   // =============================
-  dateClick(info: any) {
-    const dlg = this.dialog.open(AddScheduleComponent, {
-      width: '720px',
-      data: { date: info.dateStr, maKhoa: this.selectedKhoaId }
-    });
+dateClick(info: any) {
+  const dlg = this.dialog.open(DetailScheduleComponent, {
+    width: '1100px',
+    maxWidth: '95vw',
+    disableClose: true,
+    data: {
+      date: info.dateStr,
+      maKhoa: this.selectedKhoaId
+    }
+  });
 
-    dlg.afterClosed().subscribe(r => {
-      if (r === 'refresh') {
-        const d = new Date(info.dateStr);
-        this.loadMonth(d.getFullYear(), d.getMonth() + 1);
-      }
-    });
-  }
+  dlg.afterClosed().subscribe(result => {
+    if (result === 'refresh') {
+      const d = new Date(info.dateStr);
+      this.loadMonth(d.getFullYear(), d.getMonth() + 1);
+    }
+  });
+}
 
-  eventClick(info: any) {
-    this.router.navigate(['/schedule/day', info.event.startStr]);
-  }
+eventClick(info: any) {
+  this.dialog.open(DetailScheduleComponent, {
+    width: '1100px',
+    maxWidth: '95vw',
+    data: {
+      date: info.event.startStr,
+      maKhoa: this.selectedKhoaId
+    }
+  });
+}
+
 
   openAssignDialog() {
     const dlg = this.dialog.open(AssignShiftComponent, {
@@ -299,4 +314,28 @@ export class ScheduleCalendarComponent implements OnInit {
          : maCa === 3 ? 'ca-toi'
          : 'ca-dem';
   }
+
+  openAddDialog() {
+    const dlg = this.dialog.open(AddScheduleComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      disableClose: true,
+      data: {
+        // mặc định là ngày hiện tại của calendar
+        date: format(this.currentDate, 'yyyy-MM-dd'),
+        maKhoa: this.selectedKhoaId
+      }
+    });
+
+    dlg.afterClosed().subscribe(result => {
+      if (result === 'refresh') {
+        // reload lại tháng hiện tại sau khi thêm lịch
+        this.loadMonth(
+          this.currentDate.getFullYear(),
+          this.currentDate.getMonth() + 1
+        );
+      }
+    });
+  }
+
 }
