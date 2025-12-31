@@ -26,6 +26,20 @@ export interface DayEntryDTO {
   caName: string;
 }
 
+export interface DayDetailScheduleDTO {
+  maLichTruc: number;
+
+  anhDaiDien?: string;
+  hoTen: string;
+  tenViTri: string;
+  tenPhong: string;
+  tenKhoa: string;
+  tenCa: string;
+
+  tongGioLam: number;
+  trangThai: 'Chưa làm' | 'Đang làm' | 'Đã kết thúc ca' | string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -188,6 +202,26 @@ getLichTuanTheoKhoa(
   );
 }
 
+// ==========================
+// ⭐ DAY DETAIL – POPUP
+// ==========================
+// ==========================
+// ⭐ DAY DETAIL – POPUP
+// ==========================
+getDayDetail(
+  ngayTruc: string,
+  maKhoa: number
+): Observable<DayDetailScheduleDTO[]> {
+
+  const params = new HttpParams()
+    .set('ngayTruc', ngayTruc)
+    .set('maKhoa', String(maKhoa));
+
+  return this.http.get<DayDetailScheduleDTO[]>(
+    `${this.BASE}/api/schedules/chi-tiet`,
+    { params }
+  );
+}
 
 
 }
