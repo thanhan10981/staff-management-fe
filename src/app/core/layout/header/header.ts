@@ -6,16 +6,19 @@ import { NhanVienTomTat } from '../../../service/profile.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../service/auth.service';
 import { DetailsProfileComponent } from '../../../features/DetailsProfile/DetailsProfile.component';
+import { ChangePasswordComponent } from '../../../features/DetailsProfile/Setting/change-password.component';
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, DetailsProfileComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, DetailsProfileComponent, ChangePasswordComponent],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header {
   dropdownOpen = false;
   showProfilePopup = false;
+  showChangePassword = false;
 
   summary$!: Observable<NhanVienTomTat | null>;
     constructor(private profileService: ProfileService,
@@ -36,7 +39,10 @@ export class Header {
   closeProfile() {
     this.showProfilePopup = false;
   }
-  
+    openChangePassword() {
+    this.showChangePassword = true;
+    this.dropdownOpen = false;
+  }
   logout(event: Event) {
   event.stopPropagation(); // ⭐ tránh toggle dropdown
   this.profileService.clear(); // xóa data header

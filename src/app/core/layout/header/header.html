@@ -49,7 +49,11 @@
         <i class="ri-user-line"></i> Trang cá nhân
       </li>
 
-      <li><i class="ri-lock-line"></i> Đổi mật khẩu</li>
+      <li (click)="openChangePassword()">
+        <i class="ri-lock-line"></i> Đổi mật khẩu
+      </li>
+
+
       <li><i class="ri-settings-3-line"></i> Cài đặt hệ thống</li>
       <li><i class="ri-question-line"></i> Trợ giúp & Hỗ trợ</li>
       <li class="logout" (click)="logout($event)">
@@ -65,5 +69,9 @@
   (closePopup)="closeProfile()">
 </app-details-profile>
 
+<app-change-password
+  [isOpen]="showChangePassword"
+  (closePopup)="showChangePassword = false">
+</app-change-password>
   </div>
 </header>

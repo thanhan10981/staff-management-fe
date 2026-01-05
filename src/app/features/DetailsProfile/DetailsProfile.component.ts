@@ -79,7 +79,12 @@ loadThongTinCaNhan() {
   }
 
   saveProfile() {
-    this.profileService.capNhatThongTinCaNhan(this.formData).subscribe({
+  if (!this.isValidEmail(this.formData.email)) {
+    alert('Email không hợp lệ');
+    return;
+  }
+
+  this.profileService.capNhatThongTinCaNhan(this.formData).subscribe({
       next: () => {
         alert('Cập nhật thông tin thành công');
         this.isEditProfileOpen = false;
@@ -89,6 +94,12 @@ loadThongTinCaNhan() {
       }
     });
   }
+
+  private isValidEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
   loadKhoa() {
     this.scheduleService.getKhoaList().subscribe({
       next: (data) => {

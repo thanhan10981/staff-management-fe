@@ -1,6 +1,10 @@
 <h2 class="title">Phân công ca làm việc</h2>
 
 <form [formGroup]="form">
+  <div class="form-error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
 
   <!-- ===== BỐ CỤC 2 CỘT ===== -->
   <div class="top-grid">

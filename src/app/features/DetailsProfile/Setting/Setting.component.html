@@ -13,116 +13,13 @@
     <label>Đổi mật khẩu lần cuối</label>
     <span>01/03/2024</span>
   </div>
-<button class="btn-outline" (click)="isOpen = true">
+<button class="btn-outline" (click)="showChangePassword = true">
+
   Đổi mật khẩu
 </button>
+<app-change-password
+  [isOpen]="showChangePassword"
+  (closePopup)="showChangePassword = false">
+</app-change-password>
 
-
-</div>
-
-<div class="overlay" *ngIf="isOpen" (click)="close()">
-  <div class="popup" (click)="$event.stopPropagation()">
-
-    <!-- Header -->
-    <div class="popup-header">
-      <h3>Đổi mật khẩu</h3>
-      <button type="button" class="close-btn" (click)="close()">✕</button>
-    </div>
-
-    <!-- Body -->
-    <div class="popup-body">
-
-      <div class="form-group">
-        <label>Mật khẩu hiện tại <span>*</span></label>
-        <div class="input-wrap">
-<input
-  [type]="showCurrent ? 'text' : 'password'"
-  [(ngModel)]="matKhauHienTai"
-  (keydown.space)="$event.preventDefault()"
-/>
-
-
-
-          <i
-            class="eye"
-            [class.active]="showCurrent"
-            (click)="showCurrent = !showCurrent">
-          </i>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Mật khẩu mới <span>*</span></label>
-        <div class="input-wrap">
-          <input
-            [type]="showNew ? 'text' : 'password'"
-            [(ngModel)]="matKhauMoi"
-            (input)="validatePassword()"
-          />
-
-          <i class="eye" [class.active]="showNew" (click)="showNew = !showNew"></i>
-
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Xác nhận mật khẩu mới <span>*</span></label>
-        <div class="input-wrap">
-          <input
-            [type]="showConfirm ? 'text' : 'password'"
-            [(ngModel)]="xacNhanMatKhau"
-            (input)="checkConfirmMatch()"
-          />
-
-          <i class="eye" [class.active]="showConfirm" (click)="showConfirm = !showConfirm"></i>
-
-        </div>
-      </div>
-
-      <!-- Password rule -->
-      <div class="password-rule">
-        <strong>Yêu cầu mật khẩu:</strong>
-        <ul>
-          <li [class.ok]="passwordRules.length">
-            Ít nhất 8 ký tự
-          </li>
-          <li [class.ok]="passwordRules.upperLower">
-            Bao gồm chữ hoa và chữ thường
-          </li>
-          <li [class.ok]="passwordRules.numberSpecial">
-            Có ít nhất 1 số và 1 ký tự đặc biệt
-          </li>
-        </ul>
-      </div>
-
-      <p class="error" *ngIf="!confirmMatch">
-        Mật khẩu xác nhận không khớp
-      </p>
-      <p class="error" *ngIf="errorMsg">
-        {{ errorMsg }}
-      </p>
-
-    </div>
-
-    <!-- Footer -->
-    <div class="popup-footer">
-      <button
-        type="button"
-        class="btn-cancel"
-        (click)="close()"
-      >
-        Hủy
-      </button>
-<button
-  type="button"
-  class="btn-primary"
-  (click)="doiMatKhau()"
-  [disabled]="loading || !isFormValid()"
->
-  {{ loading ? 'Đang xử lý...' : 'Đổi mật khẩu' }}
-</button>
-
-    </div>
-
-  </div>
 </div>

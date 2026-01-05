@@ -337,5 +337,43 @@ eventClick(info: any) {
       }
     });
   }
+  exportPdf() {
+  if (!this.selectedKhoaId) {
+    alert('Vui lòng chọn khoa');
+    return;
+  }
+
+  const year = this.currentDate.getFullYear();
+  const month = this.currentDate.getMonth() + 1;
+
+  const url =
+    `http://localhost:9090/api/schedules/export-pdf`
+    + `?maKhoa=${this.selectedKhoaId}`
+    + `&year=${year}`
+    + `&month=${month}`;
+
+  // ⭐ ĐỂ BROWSER TỰ DOWNLOAD
+  window.location.href = url;
+}
+
+
+  printPdf() {
+    if (!this.selectedKhoaId) {
+      alert('Vui lòng chọn khoa');
+      return;
+    }
+
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth() + 1;
+
+    const url =
+      `http://localhost:9090/api/schedules/print-pdf`
+      + `?maKhoa=${this.selectedKhoaId}`
+      + `&year=${year}`
+      + `&month=${month}`;
+
+    // 👉 mở tab mới để xem + Ctrl+P
+    window.open(url, '_blank');
+}
 
 }

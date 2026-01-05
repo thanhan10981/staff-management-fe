@@ -3,6 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ScheduleService, KhoaDTO } from '../../../service/schedule.service';
 import { Subscription } from 'rxjs';
+import { ViTriCongViecDTO } from '../../../model/profile.model';
+
+export interface PhongVatLyDTO {
+  maPhong: number;
+  soPhong: string;
+  tenPhong: string;
+  loaiPhong: string;
+  maKhoa: number;
+  tenKhoa: string;
+}
 
 @Component({
   selector: 'app-filter-panel',
@@ -17,53 +27,64 @@ export class FilterPanelComponent implements OnInit, OnChanges {
 
   @Output() filterApply = new EventEmitter<{
     khoaId?: number;
-    phongId?: number;
-    chucVu?: string;
+    phongId?: number;   // ✅ ĐÚNG
+    chucVu?: number;
     nhanVien?: string;
   }>();
 
+
   khoaControl = new FormControl<number | null>(null);
-  phongControl = new FormControl<string | null>(null);
+  phongControl = new FormControl<number | null>(null);
   chucVuControl = new FormControl<string | null>(null);
   nhanVienControl = new FormControl<string | null>(null);
+  phongs: PhongVatLyDTO[] = [];
+  viTris: ViTriCongViecDTO[] = [];
+
+  viTriControl = new FormControl<number | null>(null);
 
   private subs: Subscription = new Subscription();
 
   constructor(private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
-    // if parent didn't pass khoas, load them here
-    if (!this.khoas || this.khoas.length === 0) {
-      this.loadKhoas();
-    }
+  this.subs.add(
+    this.khoaControl.valueChanges.subscribe(maKhoa => {
+      console.log('🔥 maKhoa change:', maKhoa);
 
-    // set initial value from parent if provided
-    if (this.selectedKhoaId != null) {
-      this.khoaControl.setValue(this.selectedKhoaId);
-    }
+      this.phongControl.setValue(null);
+      this.viTriControl.setValue(null);
+      this.phongs = [];
+      this.viTris = [];
 
-    // subscribe to instant changes: when user picks a new khoa -> emit immediately
-    this.subs.add(
-      this.khoaControl.valueChanges.subscribe(val => {
-        // emit immediately so parent can reload
-        this.filterApply.emit({
-          khoaId: val ?? undefined,
-          phongId: undefined,
-          chucVu: this.chucVuControl.value ?? undefined,
-          nhanVien: this.nhanVienControl.value ?? undefined
+      if (maKhoa != null) {
+        this.scheduleService.getPhongVLTheoKhoa(maKhoa).subscribe(res => {
+          console.log('🏥 phongs:', res);
+          this.phongs = res;
         });
-      })
-    );
+
+        this.scheduleService.getViTriTheoPhongBan(maKhoa).subscribe(res => {
+          this.viTris = res;
+        });
+      }
+    })
+  );
+
+  // 👉 set SAU khi đã subscribe
+  if (this.selectedKhoaId != null) {
+    this.khoaControl.setValue(this.selectedKhoaId);
   }
+}
+
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedKhoaId'] && !changes['selectedKhoaId'].firstChange) {
-      this.khoaControl.setValue(this.selectedKhoaId ?? null, { emitEvent: false });
+      this.khoaControl.setValue(this.selectedKhoaId ?? null);
     }
 
     if (changes['khoas'] && this.khoas.length > 0) {
       if (this.khoaControl.value == null && this.selectedKhoaId) {
-        this.khoaControl.setValue(this.selectedKhoaId, { emitEvent: false });
+        this.khoaControl.setValue(this.selectedKhoaId);
       }
     }
   }
@@ -79,11 +100,12 @@ export class FilterPanelComponent implements OnInit, OnChanges {
   onApply() {
     this.filterApply.emit({
       khoaId: this.khoaControl.value ?? undefined,
-      phongId: undefined,
-      chucVu: this.chucVuControl.value ?? undefined,
+      phongId: this.phongControl.value ?? undefined,
+      chucVu: this.viTriControl.value ?? undefined,
       nhanVien: this.nhanVienControl.value ?? undefined
     });
   }
+  
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

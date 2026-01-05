@@ -56,8 +56,14 @@
                 Phân công ca
               </button>
 
-              <button class="btn-outline">Xuất lịch</button>
-              <button class="btn-outline">In lịch</button>
+              <button class="btn-outline" (click)="exportPdf()">
+                Xuất lịch
+              </button>
+
+              <button class="btn-outline" (click)="printPdf()">
+                In lịch
+              </button>
+
             </div>
 
           </div>

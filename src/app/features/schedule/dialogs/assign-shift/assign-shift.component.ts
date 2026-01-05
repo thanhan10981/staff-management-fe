@@ -12,10 +12,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { ScheduleService } from '../../../../service/schedule.service';
+import { DatePipe } from '@angular/common';
+import { Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-assign-shift',
   standalone: true,
+  providers: [DatePipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -43,21 +47,23 @@ export class AssignShiftComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AssignShiftComponent>,
     private scheduleService: ScheduleService,
+    private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: { maKhoa: number }
   ) {}
 
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      maCa: [1],
-      ngayBatDau: [''],
-      ngayKetThuc: [''],
+      maCa: [1, Validators.required],
+      ngayBatDau: [null, Validators.required],
+      ngayKetThuc: [null, Validators.required],
       lapLaiHangTuan: [false],
       maPhongBan: [null],
-      maPhongVL: [null],
-      danhSachNhanVien: [[]],
+      maPhongVL: [null, Validators.required],
+      danhSachNhanVien: [[], Validators.required],
       ghiChu: ['']
     });
+
 
     // Load dropdown
     this.loadPhongBan();
@@ -110,25 +116,39 @@ export class AssignShiftComponent implements OnInit {
     this.form.patchValue({ danhSachNhanVien: [...arr] });
   }
 
+  errorMessage: string | null = null;
+
   assign() {
-    const raw = this.form.value;
-
-    const payload = {
-      maKhoa: this.data.maKhoa,
-      maPhong: raw.maPhongVL, // BE dùng maPhong
-      maCa: raw.maCa,
-      ngayBatDau: raw.ngayBatDau,
-      ngayKetThuc: raw.ngayKetThuc,
-      lapLaiHangTuan: raw.lapLaiHangTuan,
-      ghiChu: raw.ghiChu || '',
-      danhSachNhanVien: raw.danhSachNhanVien
-    };
-
-    this.scheduleService.createPhanCong(payload).subscribe({
-      next: () => this.dialogRef.close('refresh'),
-      error: err => console.error(err)
-    });
+      if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.errorMessage = null;
+  
+  const raw = this.form.value;
+
+  const payload = {
+    maKhoa: this.data.maKhoa,
+    maPhong: raw.maPhongVL,
+    maCa: raw.maCa,
+
+    // ✅ FIX TIMEZONE Ở ĐÂY
+    ngayBatDau: this.datePipe.transform(raw.ngayBatDau, 'yyyy-MM-dd'),
+    ngayKetThuc: this.datePipe.transform(raw.ngayKetThuc, 'yyyy-MM-dd'),
+
+    lapLaiHangTuan: raw.lapLaiHangTuan,
+    ghiChu: raw.ghiChu || '',
+    danhSachNhanVien: raw.danhSachNhanVien
+  };
+
+  this.scheduleService.createPhanCong(payload).subscribe({
+    next: () => this.dialogRef.close('refresh'),
+    error: err => alert(err.error)
+  });
+}
+
+
 
   cancel() {
     this.dialogRef.close();

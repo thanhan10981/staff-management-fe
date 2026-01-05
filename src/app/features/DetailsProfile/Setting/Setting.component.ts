@@ -3,11 +3,11 @@ import {Output, EventEmitter} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../service/profile.service';
 import { FormsModule } from '@angular/forms';
-
+import { ChangePasswordComponent } from './change-password.component';
 @Component({
     selector: 'app-setting',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ChangePasswordComponent],
     templateUrl: './Setting.component.html',
     styleUrls: ['./Setting.component.scss']
 })
@@ -27,10 +27,12 @@ export class SettingComponent {
   loading = false;
   errorMsg = '';
 
+  showChangePassword = false;
   passwordRules = {
   length: false,
   upperLower: false,
   numberSpecial: false
+  
 };
 
 confirmMatch = true;
@@ -131,5 +133,9 @@ isFormValid(): boolean {
     this.confirmMatch
   );
 }
+
+  openChangePassword() {
+    this.showChangePassword = false;
+  }
 
 }

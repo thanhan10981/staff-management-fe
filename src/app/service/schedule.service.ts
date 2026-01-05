@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { LichTrucTuanDTO } from '../model/model';
+import { ViTriCongViecDTO } from '../model/profile.model';
 
 export interface KhoaDTO {
   id: number;
@@ -50,12 +51,32 @@ export class ScheduleService {
   private API_SHIFTS = `${this.BASE}/api/shifts`;
   private API_CONFIG = `${this.BASE}/api/shifts/ca`;
   private API_KHOA = `${this.BASE}/api/khoa`;
+  private baseUrl = '/api/schedules';
 
   constructor(
     private http: HttpClient,
     private auth: AuthService
   ) {}
 
+  exportMonthlyPdf(
+    maKhoa: number,
+    year: number,
+    month: number
+  ): Observable<Blob> {
+
+    const params = new HttpParams()
+      .set('maKhoa', maKhoa)
+      .set('year', year)
+      .set('month', month);
+
+    return this.http.get(
+      `${this.baseUrl}/export-pdf`,
+      {
+        params,
+        responseType: 'blob'   // ⭐ QUAN TRỌNG
+      }
+    );
+  }
   // === DANH SÁCH KHOA ===
   getKhoaList(): Observable<KhoaDTO[]> {
     return this.http.get<KhoaDTO[]>(this.API_KHOA);
@@ -222,7 +243,11 @@ getDayDetail(
     { params }
   );
 }
-
+    getViTriTheoPhongBan(maPhongBan: number) {
+      return this.http.get<ViTriCongViecDTO[]>(
+        `${this.BASE}/api/vi-tri-cong-viec/phongban/${maPhongBan}`
+      );
+    }
 
 }
 

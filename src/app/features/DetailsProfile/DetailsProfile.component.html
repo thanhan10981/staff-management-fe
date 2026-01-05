@@ -54,8 +54,9 @@
     </div>
 
     <!-- BODY -->
-    <div class="popup-body">
 
+    <div class="popup-body">
+      <form #profileForm="ngForm" novalidate>
       <!-- Avatar -->
       <div class="avatar-section">
         <div class="avatar">
@@ -81,17 +82,33 @@
 
         <div class="form-group">
           <label>Email <span>*</span></label>
+
           <input
             type="email"
+            name="email"
+            required
+            email
             [(ngModel)]="formData.email"
+            #emailCtrl="ngModel"
           />
 
+          <!-- lỗi -->
+          <p class="error" *ngIf="emailCtrl.touched && emailCtrl.invalid">
+            <span *ngIf="emailCtrl.errors?.['required']">
+              Email không được để trống
+            </span>
+            <span *ngIf="emailCtrl.errors?.['email']">
+              Email không đúng định dạng
+            </span>
+          </p>
         </div>
+
 
         <div class="form-group">
           <label>Ngày sinh</label>
           <input
             type="date"
+            name="ngaySinh"
             [(ngModel)]="formData.ngaySinh"
           />
 
@@ -101,6 +118,7 @@
           <label>Số điện thoại <span>*</span></label>
           <input
             type="text"
+            name="sdt"
             [(ngModel)]="formData.sdt"
           />
 
@@ -108,7 +126,7 @@
 
         <div class="form-group">
           <label>Giới tính</label>
-          <select [(ngModel)]="formData.gioiTinh">
+          <select [(ngModel)]="formData.gioiTinh"   name="gioiTinh">
             <option [ngValue]="null">-- Chọn giới tính --</option>
             <option [ngValue]="true">Nam</option>
             <option [ngValue]="false">Nữ</option>
@@ -130,6 +148,7 @@
       <div class="form-group">
         <label>Khoa</label>
         <select [(ngModel)]="selectedMaKhoa"
+          name="khoa"
           (ngModelChange)="onKhoaChange($event)">
           <option [ngValue]="null">-- Chọn khoa --</option>
 
@@ -151,7 +170,7 @@
             name="phongBan"
             [(ngModel)]="selectedPhongBanId"
             (ngModelChange)="onPhongBanChange($event)"
-            [disabled]="!phongBanList.length"
+            
           >
             <option [ngValue]="null">-- Chọn phòng ban --</option>
 
@@ -189,17 +208,19 @@
         </div>
 
       </div>
+      </form>
     </div>
 
     <!-- FOOTER -->
     <div class="popup-footer">
       <button class="btn btn-outline" (click)="close()">Hủy</button>
       <button
-          class="btn btn-primary"
-          (click)="saveProfile()"
-        >
-          Lưu thay đổi
-        </button>
+        class="btn btn-primary"
+        (click)="saveProfile()"
+        [disabled]="profileForm.invalid"
+      >
+        Lưu thay đổi
+      </button>
 
     </div>
 

@@ -1,3 +1,11 @@
+<div *ngIf="checkinResult" class="success-box">
+  <p>✔ Hoàn thành chấm công</p>
+  <p>🕒 {{ checkinResult.thoiGian }}</p>
+  <p>📍 {{ currentLocation }}</p>
+  <p>📱 {{ checkinResult.thietBi }}</p>
+</div>
+
+
 <div class="qr-overlay" (click)="close.emit()">
   <div class="qr-modal" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="close.emit()">

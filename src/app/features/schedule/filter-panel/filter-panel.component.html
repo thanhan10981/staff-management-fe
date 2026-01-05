@@ -1,29 +1,48 @@
 <div class="filter-card">
   <h4>Bộ lọc</h4>
+
+  <!-- KHOA -->
   <div class="field">
     <label>Khoa</label>
     <select [formControl]="khoaControl">
       <option [ngValue]="null">Tất cả</option>
       <option *ngFor="let k of khoas" [ngValue]="k.id">
         {{ k.tenKhoa }}
-        </option>
+      </option>
+    </select>
+  </div>
+
+  <!-- PHÒNG VẬT LÝ -->
+  <div class="field">
+    <label>Phòng</label>
+    <select [formControl]="phongControl" [disabled]="!phongs.length">
+      <option [ngValue]="null">Tất cả</option>
+      <option *ngFor="let p of phongs" [ngValue]="p.maPhong">
+        {{ p.tenPhong }}
+      </option>
 
     </select>
   </div>
 
+  <!-- VỊ TRÍ -->
   <div class="field">
-    <label>Phòng</label>
-    <input type="text" [formControl]="phongControl" placeholder="Phòng..." />
+    <label>Vị trí</label>
+    <select [formControl]="viTriControl" [disabled]="!viTris.length">
+      <option [ngValue]="null">Tất cả</option>
+      <option *ngFor="let v of viTris" [ngValue]="v.id">
+        {{ v.tenViTri }}
+      </option>
+    </select>
   </div>
 
-  <div class="field">
-    <label>Chức vụ</label>
-    <input type="text" [formControl]="chucVuControl" placeholder="chức vụ..." />
-  </div>
-
+  <!-- NHÂN VIÊN -->
   <div class="field">
     <label>Nhân viên</label>
-    <input type="text" [formControl]="nhanVienControl" placeholder="Tên nhân viên" />
+    <input
+      type="text"
+      [formControl]="nhanVienControl"
+      placeholder="Tên nhân viên"
+    />
   </div>
 
   <button class="apply-btn" (click)="onApply()">Áp dụng bộ lọc</button>

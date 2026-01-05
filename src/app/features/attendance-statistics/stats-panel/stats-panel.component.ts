@@ -14,4 +14,11 @@ export class StatsPanelComponent {
   @Input() lateCount = 0;
   @Input() absentWithoutLeave = 0;
   @Input() onTimeRate = 0; // %
+
+  get onTimeRateDisplay(): number {
+    if (this.totalWorkDays > 0 && this.lateCount === 0) {
+      return 100;
+    }
+    return this.onTimeRate;
+  }
 }
